@@ -17,7 +17,9 @@ public class card_Sample : card_class{
     }
 
     public override void use(Collision other){
-        if(other.gameObject.tag != "ball"){
+        Debug.Log("use Shoot Card!");
+        if(other.gameObject.tag != "Ball"){
+            Debug.Log("NOT Ball...");
             return;
         }
         // 接触時，上方向にボール射出

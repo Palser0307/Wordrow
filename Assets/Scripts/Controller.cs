@@ -9,6 +9,7 @@ public class Controller : MonoBehaviour{
     GameObject leftController;
 
     void Update(){
+        /*
         // 掴む処理
         if(OVRInput.GetDown(OVRInput.RawButton.RHandTrigger)){
             RaycastHit[] hits;
@@ -28,8 +29,6 @@ public class Controller : MonoBehaviour{
             foreach(var hit in hits){
                 if(hit.collider.tag == "Card"){
                     hit.collider.transform.parent = rightController.transform;
-                    hit.collider.transform.position = rightController.transform.position;
-                    hit.collider.transform.rotation = rightController.transform.rotation;
                     break;
                 }
             }
@@ -44,5 +43,6 @@ public class Controller : MonoBehaviour{
                 }
             }
         }
+        */
     }
 }
