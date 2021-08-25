@@ -21,7 +21,7 @@ public class card_class : MonoBehaviour{
     // 接触使用
     // 衝突時自動呼出し関数(unity固有)
     public void OnCollisionEnter(Collision other){
-        Debug.Log(this.cardName + ": Hit to" + other.gameObject.tag);
+        Debug.Log(this.cardName + ": Hit to" + other.gameObject.name);
         this.use(other);
     }
 

@@ -22,12 +22,13 @@ public class card_Sample : card_class{
             Debug.Log("NOT Ball...");
             return;
         }
+        Debug.Log("IT IS BALL!!!! YEAAAAAAHHHHHHH!!!!!");
         // 接触時，上方向にボール射出
         // 具体的にはLocal上方向に運動量付加
 
         // 上方向指定
         Vector3 direction = Vector3.up;
 
-        other.gameObject.GetComponent<Rigidbody>().AddForce(direction*1f, ForceMode.Impulse);
+        other.gameObject.GetComponent<Rigidbody>().AddForce(direction*10f, ForceMode.Impulse);
     }
 }

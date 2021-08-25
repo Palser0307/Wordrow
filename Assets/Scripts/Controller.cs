@@ -9,21 +9,8 @@ public class Controller : MonoBehaviour{
     GameObject leftController;
 
     void Update(){
-        /*
         // 掴む処理
         if(OVRInput.GetDown(OVRInput.RawButton.RHandTrigger)){
-            RaycastHit[] hits;
-            hits = Physics.SphereCastAll(rightController.transform.position, 0.01f, Vector3.forward);
-            foreach(var hit in hits){
-                if(hit.collider.tag == "Card"){
-                    hit.collider.transform.parent = rightController.transform;
-                    break;
-                }
-            }
-        }
-
-        // 掴む処理
-        if(OVRInput.GetDown(OVRInput.RawButton.B)){
             RaycastHit[] hits;
             hits = Physics.SphereCastAll(rightController.transform.position, 0.01f, Vector3.forward);
             foreach(var hit in hits){
@@ -43,6 +30,5 @@ public class Controller : MonoBehaviour{
                 }
             }
         }
-        */
     }
 }
