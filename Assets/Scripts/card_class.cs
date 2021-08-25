@@ -1,51 +1,66 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// class "カード" の継承元
-// 名前，タイプ(?)，実行関数use()を持つ
-// 名前，タイプのR/WにはGetter/setterを用いること
 public class card_class : MonoBehaviour{
     private string cardName;
-    private string cardType;
 
-    void Start(){
+    // Target Tag List
+    // :Ball
+    private List<string> targetList;
+
+    // Trigger condition
+    // :DC = Direct contact
+    private string triggerType;
+
+    protected void Start(){
+        // 以下のコードを実行してから他のコードを実行すること
+        Debug.Log("card_class.Start");
         this.cardName = "";
-        this.cardType = "";
+        this.targetList = new List<string>{};
+        this.triggerType = "";
     }
 
-    void Update(){
-
-    }
-
-    // 接触使用
-    // 衝突時自動呼出し関数(unity固有)
-    public void OnCollisionEnter(Collision other){
-        Debug.Log(this.cardName + ": Hit to" + other.gameObject.name);
-        this.use(other);
+    // 接触反応式用
+    // Trigger condition = DC
+    public virtual void OnCollisionEnter(Collision other){
+        if(this.triggerType == "DC"){
+            this.use(other);
+        }
     }
 
     // 実行する関数
     public virtual void use(Collision other){
-        // 継承元のuse()
-        // 継承元関数にはvirtualを
-        // 継承先関数にはoverrideをつける
+        Debug.Log("use " + this.cardName + "!");
+        /*
+            継承元のuse()
+            継承元関数にはvirtualを
+            継承先関数にはoverrideをつける
+        */
     }
 
     // GETTER
-    public string getName(){
+    public string getCardName(){
         return this.cardName;
     }
-    public string getType(){
-        return this.cardType;
+    public List<string> getTargetList(){
+        return this.targetList;
+    }
+    public bool haveTargetTag(string tag){
+        return this.targetList.Contains(tag);
+    }
+    public string getTriggerType(){
+        return this.triggerType;
     }
 
     // SETTER
-    // 使う予定無いが…
-    public void setName(string newName){
-        this.cardName = newName;
+    public void setCardName(string newCardName){
+        this.cardName = newCardName;
     }
-    public void setType(string newType){
-        this.cardType = newType;
+    public void addTargetList(string newTag){
+        this.targetList.Add(newTag);
+    }
+    public void setTriggerType(string newTriggerType){
+        this.triggerType = newTriggerType;
     }
 }

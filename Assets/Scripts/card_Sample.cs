@@ -3,22 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // カードサンプル
-// "Shoot" : 射出
+// "Fly" : 上空に射出
 // tag:"ball" と接触時，鉛直方向に力学的エネルギーを付加する
 // 鉛直投げ上げ運動 みたいな？
 public class card_Sample : card_class{
-    void Start(){
-        setName("Shoot");
-        setType("Hit");
+    [SerializeField]
+    GameObject cardObject;
+
+    // 親コンストラクタと違う処理書いてるから
+    // 頭にnewをつけておく
+    new protected void Start(){
+        // 親のコンストラクタ呼出し
+        base.Start();
+        Debug.Log("card_Sample.Start");
+        setCardName("Fly");
+        addTargetList("Ball");
+        setTriggerType("DC");
     }
 
     void Update(){
 
     }
 
+    // 接触反応式
+    // Trigger condition = DC
+    /*
+    public override void OnCollisionEnter(Collision other){
+        if(triggerType == "DC"){
+            this.use(other);
+        }
+    }
+    */
+
+
+    // 実行関数
     public override void use(Collision other){
-        Debug.Log("use Shoot Card!");
-        if(other.gameObject.tag != "Ball"){
+        string tag = other.gameObject.tag;
+        // target tag : Ball
+        if(!haveTargetTag(tag)){
             Debug.Log("NOT Ball...");
             return;
         }
