@@ -7,6 +7,14 @@ public class Controller : MonoBehaviour{
     GameObject leftController;
     [SerializeField]
     GameObject rightController;
+    [SerializeField]
+    GameObject Deck_Prefab;
+
+    protected GameObject Deck_Object;
+
+    void Start(){
+        Deck_Object = null;
+    }
 
     void Update(){
         // 掴む処理
@@ -19,6 +27,15 @@ public class Controller : MonoBehaviour{
                     hit.collider.transform.parent = rightController.transform;
                     break;
                 }
+                /*
+                if(hit.collider.tag == "Deck"){
+                    Debug.Log("Grip Deck");
+                    GameObject go = CreateCard();
+                    go.transform.position = rightController.transform.position;
+                    go.transform.parent = rightController.transform;
+                    break;
+                }
+                */
             }
         }
 
@@ -33,13 +50,37 @@ public class Controller : MonoBehaviour{
         }
 
         // カード出現処理
-        // まだブランクカード
+        // ランダムでカード出現
         if(OVRInput.GetDown(OVRInput.RawButton.B)){
             Debug.Log("Push B Button");
             // CardAppear(rightController.transform.position, rightController.transform.forward, CreateCard());
             GameObject go = CreateCard();
             go.transform.parent = rightController.transform;
             go.transform.position = rightController.transform.position;
+        }
+
+        // 山札出現・消滅
+        if(OVRInput.GetDown(OVRInput.RawButton.X)){
+            Debug.Log("Push X Button");
+            if(Deck_Object == null){
+                Debug.Log("Deck appear");
+                Deck_Object = Instantiate(Deck_Prefab);
+                Deck_Object.transform.position = leftController.transform.position + leftController.transform.forward * 0.1f;
+            }else{
+                Debug.Log("Deck disappear");
+                Destroy(Deck_Object);
+                Deck_Object = null;
+            }
+        }
+
+        // 山札の上にカード出現
+        if(OVRInput.GetDown(OVRInput.RawButton.Y)){
+            Debug.Log("Push Y Button.");
+            if(Deck_Object != null){
+                Debug.Log("Card appear");
+                GameObject go = CreateCard();
+                go.transform.position = Deck_Object.transform.position + Deck_Object.transform.up * 0.5f;
+            }
         }
     }
 
