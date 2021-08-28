@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// コンポーネントが足りない場合，自動追加
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(OVRGrabbable))]
+[RequireComponent(typeof(BoxCollider))]
+
 // カードサンプル
 // "Fly" : 上空に射出
 // tag:"ball" と接触時，鉛直方向に力学的エネルギーを付加する

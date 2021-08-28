@@ -56,6 +56,7 @@ public class card_class : MonoBehaviour{
     // SETTER
     public void setCardName(string newCardName){
         this.cardName = newCardName;
+        this.name = newCardName;
     }
     public void addTargetList(string newTag){
         this.targetList.Add(newTag);
