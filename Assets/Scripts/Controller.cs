@@ -87,7 +87,7 @@ public class Controller : MonoBehaviour{
     // カード出現
     void CardAppear(Vector3 basePos, Vector3 direction, GameObject newCard){
         // カード出現位置指定
-        newCard.transform.position = basePos + direction * 0.5f;
+        newCard.transform.position = basePos + direction * 0.2f;
     }
 
     // カード生成
@@ -98,8 +98,10 @@ public class Controller : MonoBehaviour{
         return newCard;
     }
 
+    // カード追加の度にリスト追加
     protected List<string> card_list = new List<string>{
         "Fly",
+        "Rain",
     };
     // カードランダム選択
     GameObject RandomCard(){

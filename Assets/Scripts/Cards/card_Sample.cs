@@ -26,8 +26,8 @@ public class card_Sample : card_class{
         setTriggerType("DC");
     }
 
-    void Update(){
-
+    new protected void Update(){
+        return;
     }
 
     // 接触反応式
