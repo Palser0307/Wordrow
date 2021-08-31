@@ -102,6 +102,7 @@ public class Controller : MonoBehaviour{
     protected List<string> card_list = new List<string>{
         "Fly",
         "Rain",
+        "Smoke",
     };
     // カードランダム選択
     GameObject RandomCard(){

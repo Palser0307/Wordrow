@@ -16,6 +16,7 @@ public class card_class : MonoBehaviour{
     // 発動条件
     // :DC = Direct contact 直接接触
     // :TO = Triggered Operation 把持時トリガー発動
+    // :TC = Throw contact 投擲着発
     private string triggerType;
 
     // 把持されているかどうか
@@ -24,7 +25,7 @@ public class card_class : MonoBehaviour{
 
     protected void Start(){
         // 以下のコードを実行してから他のコードを実行すること
-        Debug.Log("card_class.Start");
+        // Debug.Log("card_class.Start");
         this.cardName = "";
         this.targetList = new List<string>{};
         this.triggerType = "";
