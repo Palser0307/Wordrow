@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// add to OVRPlayerController
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,10 +19,10 @@ public class Move : MonoBehaviour{
         if(characterController.isGrounded){
             if(OVRInput.GetDown(OVRInput.RawButton.A)){
                 moveDirection.y = JumpPower;
-                Debug.Log("Jump");
+                // Debug.Log("Jump");
             }
         }
-        Debug.Log(moveDirection.y);
+        // Debug.Log(moveDirection.y);
         if(moveDirection.y < 0){
             moveDirection.y = 0;
         }else{
