@@ -13,6 +13,9 @@ public class Door : MonoBehaviour{
 
     protected Vector3 handleStartPos;
 
+    protected int angleMax = 90;
+    protected int angleMin = -90;
+
     private void Start() {
         handleStartPos = Handler.transform.localPosition;
     }
@@ -25,11 +28,22 @@ public class Door : MonoBehaviour{
             setIsHold(false);
         }
         if(!this.getIsHold()){
+            Debug.Log("isHold");
             return;
         }
         Vector3 handlePos = Handler.transform.localPosition - handleStartPos;
         float angle = Mathf.Atan2((-1)*handlePos.z, handlePos.x) * Mathf.Rad2Deg;
+        if(Mathf.Abs(angle) < 1){
+            return;
+        }
         transform.Rotate(0, angle, 0);
+        float angleY = transform.rotation.y;
+        if(angle > angleMax){
+            angle = angleMax;
+        }
+        if(angle < angleMin){
+            angle = angleMin;
+        }
     }
 
     public bool getIsHold(){

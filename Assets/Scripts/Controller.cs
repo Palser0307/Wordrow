@@ -22,20 +22,11 @@ public class Controller : MonoBehaviour{
             RaycastHit[] hits;
             hits = Physics.SphereCastAll(rightController.transform.position, 0.01f, Vector3.forward);
             foreach(var hit in hits){
-                if(hit.collider.tag == "Card"){
+                if(hit.collider.tag == "Card" || hit.collider.tag == "Grabbable"){
                     // Debug.Log("Grip");
                     hit.collider.transform.parent = rightController.transform;
                     break;
                 }
-                /*
-                if(hit.collider.tag == "Deck"){
-                    Debug.Log("Grip Deck");
-                    GameObject go = CreateCard();
-                    go.transform.position = rightController.transform.position;
-                    go.transform.parent = rightController.transform;
-                    break;
-                }
-                */
             }
         }
 
@@ -43,7 +34,7 @@ public class Controller : MonoBehaviour{
         if(OVRInput.GetUp(OVRInput.RawButton.RHandTrigger)){
             for(int i = 0; i < rightController.transform.childCount; i++){
                 var child = rightController.transform.GetChild(i);
-                if(child.tag == "Card"){
+                if(child.tag == "Card" || child.tag == "Grabbable"){
                     child.parent = null;
                 }
             }
