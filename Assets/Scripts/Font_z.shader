@@ -9,12 +9,12 @@ Shader "Font_z" {
     SubShader {
 
         Tags {
-            "Queue"="Geometry"
+            "Queue"="Transparent"
             "IgnoreProjector"="True"
-            "RenderType"="Geometry"
+            "RenderType"="Transparent"
             "PreviewType"="Plane"
         }
-        Lighting Off Cull off ZTest LEqual ZWrite On
+        Lighting Off Cull Back ZTest LEqual ZWrite On
         Blend SrcAlpha OneMinusSrcAlpha
 
         Pass {
