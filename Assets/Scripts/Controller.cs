@@ -9,11 +9,17 @@ public class Controller : MonoBehaviour{
     GameObject rightController;
     [SerializeField]
     GameObject Deck_Prefab;
+    [SerializeField]
+    GameObject HUD_Menu;
+    [SerializeField]
+    GameObject HUD_Tip;
 
     protected GameObject Deck_Object;
 
     void Start(){
         Deck_Object = null;
+        HUD_Menu.SetActive(false);
+        HUD_Tip.SetActive(false);
     }
 
     void Update(){
@@ -40,14 +46,13 @@ public class Controller : MonoBehaviour{
             }
         }
 
-        // カード出現処理
-        // ランダムでカード出現
+        // HUD Menu表示/非表示
         if(OVRInput.GetDown(OVRInput.RawButton.B)){
             Debug.Log("Push B Button");
-            // CardAppear(rightController.transform.position, rightController.transform.forward, CreateCard());
-            GameObject go = CreateCard();
-            go.transform.parent = rightController.transform;
-            go.transform.position = rightController.transform.position;
+            bool menuActive = HUD_Menu.activeSelf;
+            bool tipActive = HUD_Tip.activeSelf;
+            HUD_Menu.SetActive(!menuActive);
+            HUD_Tip.SetActive(!tipActive);
         }
 
         // 山札出現・消滅
