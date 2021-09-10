@@ -2539,6 +2539,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1863950152}
   - component: {fileID: 1863950151}
+  - component: {fileID: 1863950150}
   m_Layer: 0
   m_Name: System_Scripts
   m_TagString: Untagged
@@ -2546,6 +2547,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1863950150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863950149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe03b5eac17a39a41a36244985a94167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Alpha_HUD: {fileID: 1639844951}
 --- !u!114 &1863950151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2564,6 +2578,7 @@ MonoBehaviour:
     type: 3}
   HUD_Menu: {fileID: 375654771}
   HUD_Tip: {fileID: 320707609}
+  HUD_Alpha: {fileID: 1639844951}
 --- !u!4 &1863950152
 Transform:
   m_ObjectHideFlags: 0
