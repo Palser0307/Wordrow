@@ -139,3 +139,10 @@ public class Controller : MonoBehaviour{
         return RisHold;
     }
 }
+
+public static class ResourcesFilesPath{
+    public const string JSON_tutorial = "tutorial.json";
+}
+public static class ResourcesDirectoryPath{
+    public const string CHILD = "Child";
+}
