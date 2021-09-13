@@ -9,6 +9,7 @@ TagManager:
   - Deck
   - Door
   - Grabbable
+  - ALPHA
   layers:
   - Default
   - TransparentFX
