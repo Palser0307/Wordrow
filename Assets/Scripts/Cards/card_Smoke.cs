@@ -24,7 +24,9 @@ public class card_Smoke : card_class{
     [SerializeField][Header ("Not Ready texture")]
     Material NotReadyMat;
 
-    protected GameObject Smoke_Object;
+    protected GameObject Smoke_Object = null;
+
+    protected bool isUsed = false;
 
     protected bool isReady = false;
 
@@ -62,18 +64,29 @@ public class card_Smoke : card_class{
     // 実行関数
     public override void use(Collision other){
         string tag = other.gameObject.tag;
+        OVRGrabbable ovrGrab = this.GetComponent<OVRGrabbable>();
         if(!this.isReady){
             return;
         }
+        //既に発動してるなら，何もしない
+        /*if(Smoke_Object == null){
+            return;
+        }*/
         // target tag : !Untagged
-        if(tag == "Untagged"){
+        /*if(tag == "Untagged"){
+            return;
+        }*/
+        if(isUsed){
             return;
         }
+        isUsed = true;
         Debug.Log("Smoke discharge!");
         Vector3 startPos = this.transform.position;
         Smoke_Object = Instantiate(Smoke_Prefab);
         Smoke_Object.transform.position = startPos;
         Invoke(nameof(DelayMethod), 5.0f);
+        //Destroy(this.GetComponent<OVRGrabbable>);
+        ovrGrab.enabled = false;
     }
 
     new public void OnCollisionEnter(Collision other){
