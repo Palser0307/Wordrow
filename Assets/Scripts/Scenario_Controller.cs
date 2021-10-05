@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// シナリオ管理スクリプト
+// Object:System_Scripts にadd Componentされる
+
 public class Scenario_Controller : MonoBehaviour{
     // シナリオ status
     // alpha : あーちゃんセリフ待ち
     // wait : プレイヤー動作待ち
     public static string status;
-    // Start is called before the first frame update
+
+    // フラグ管理スクリプト
+    // 中のフラグは全てstaticの予定
+    // 各シナリオごとに参照先が異なる
+    // tutorial_flags t_flags = GetComponent<tutorial_flags>();
+
     void Start(){
         status = "alpha";
     }

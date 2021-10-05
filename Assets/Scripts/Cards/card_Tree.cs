@@ -65,7 +65,6 @@ public class card_Tree : card_class{
         // Invoke(nameof(DelayMethod), 10.0f);
         // Destroy(Tree_Object);
         // CancelInvoke();
-
     }
 
     // 一定時間後発動
