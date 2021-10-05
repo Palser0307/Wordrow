@@ -62,6 +62,7 @@ public class card_Smoke : card_class{
     }
 
     // 実行関数
+    // モクを出すだけの処理
     public override void use(Collision other){
         string tag = other.gameObject.tag;
         OVRGrabbable ovrGrab = this.GetComponent<OVRGrabbable>();
