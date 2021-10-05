@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// in "System_Scripts" Object
 public class Controller : MonoBehaviour{
     [SerializeField]
     GameObject leftController;
@@ -9,12 +10,21 @@ public class Controller : MonoBehaviour{
     GameObject rightController;
     [SerializeField]
     GameObject Deck_Prefab;
+
+    // HUDはプレイヤのGameObjectの子に入れておく
+    // 以下3つはHUDsの子オブジェクトになってる…はず
     [SerializeField]
     GameObject HUD_Menu;
     [SerializeField]
     GameObject HUD_Tip;
+    [SerializeField]
+    GameObject HUD_Alpha;
 
     protected GameObject Deck_Object;
+
+    // Is L/R Hand hold?
+    protected bool LisHold = false;
+    protected bool RisHold = false;
 
     void Start(){
         Deck_Object = null;
@@ -31,6 +41,7 @@ public class Controller : MonoBehaviour{
                 if(hit.collider.tag == "Card" || hit.collider.tag == "Grabbable"){
                     // Debug.Log("Grip");
                     hit.collider.transform.parent = rightController.transform;
+                    SetRHold(true);
                     break;
                 }
             }
@@ -42,6 +53,7 @@ public class Controller : MonoBehaviour{
                 var child = rightController.transform.GetChild(i);
                 if(child.tag == "Card" || child.tag == "Grabbable"){
                     child.parent = null;
+                    SetRHold(false);
                 }
             }
         }
@@ -112,4 +124,25 @@ public class Controller : MonoBehaviour{
         GameObject newCard = (GameObject)Resources.Load(path);
         return newCard;
     }
+
+    public void SetLHold(bool newStatus){
+        LisHold = newStatus;
+    }
+    public void SetRHold(bool newStatus){
+        RisHold = newStatus;
+    }
+
+    public bool GetLHold(){
+        return LisHold;
+    }
+    public bool GetRHold(){
+        return RisHold;
+    }
+}
+
+public static class ResourcesFilesPath{
+    public const string JSON_tutorial = "tutorial.json";
+}
+public static class ResourcesDirectoryPath{
+    public const string CHILD = "Child";
 }

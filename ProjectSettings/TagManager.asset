@@ -9,6 +9,7 @@ TagManager:
   - Deck
   - Door
   - Grabbable
+  - ALPHA
   layers:
   - Default
   - TransparentFX
@@ -43,6 +44,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: HUD
+    uniqueID: 1303857613
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
