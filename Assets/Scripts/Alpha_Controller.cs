@@ -25,6 +25,11 @@ public class Alpha_Controller : MonoBehaviour{
 
     protected static int cnt = 0;
 
+    // あーちゃんのシナリオ同期，管理用
+    // active: あーちゃんのセリフ送り可能
+    // inactive: あーちゃんのセリフ送り停止
+    protected static string status = "active";
+
     void Start(){
         Sys_Scripts = GameObject.Find("System_Scripts");
         alpha_Scinario = new Alpha_Words();
@@ -51,6 +56,9 @@ public class Alpha_Controller : MonoBehaviour{
             text_string.text = nxt_str;
         }*/
         // Debug.Log("cnt:"+cnt);
+        if(status == "inactive"){
+            return;
+        }
         if(OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger)){
             Debug.Log(Sys_Scripts.GetComponent<Controller>().GetLHold());
             // next();
@@ -94,6 +102,18 @@ public class Alpha_Controller : MonoBehaviour{
         return Alpha_HUD.activeSelf;
     }
 
+    // あーちゃんstatusのセット
+    public static void setStatus(string newStatus){
+        if(
+            newStatus == "active"
+            || newStatus == "inactive"
+        ){
+            status = newStatus;
+        }else{
+            Debug.Log(newStatus + "is not STATUS name.");
+        }
+    }
+
     /*
     +----------------------+
     | あーちゃん用セリフ関連 |
@@ -133,25 +153,33 @@ public class Alpha_Controller : MonoBehaviour{
     public static string wakeUpMessage = "毎日はEveryday";
 
     // 現在のセリフの位置
-    public static uint str_pos = 0;
+    public static uint strPos = 0;
     // 今のセリフを返す
     public string now_str(){
-        if(str_pos >= words.Length){
+        if(strPos >= words.Length){
             return (string)"セリフは以上です";
         }
-        return words[str_pos];
+        return words[strPos];
     }
     // 次のセリフを返す
     public string next_str(){
-        str_pos++;
-        if(str_pos >= words.Length){
-            str_pos = 0;
+        strPos++;
+        if(strPos >= words.Length){
+            strPos = 0;
             return (string)"セリフは以上です．\nこれ以上は更新できません．";
         }
-        return words[str_pos];
+        return words[strPos];
     }
 
+    //シナリオ用
+    public uint getStrPos(){
+        return strPos;
+    }
+
+//
 // 以下JSON読込機能
+//
+
     // JSONファイルの読み込み，オブジェクト化
     private string _dataPath;
     // protected Alpha_Words alpha_words;
