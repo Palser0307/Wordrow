@@ -12,7 +12,7 @@ using UnityEngine;
 // トリガータイプはTO(=Trigger Operation) 把持トリガー発動
 // 焚火の位置探しが面倒だが，ワールドから焚火オブジェクト(名前:Bonfire?)を探して，その上にtreeを出現させる
 // 焚火は1つだけの予定カッコカリ
-// 焚火探索のタイミングは要修正
+// 焚火探索は要修正
 public class card_Tree : card_class{
     [SerializeField][Header ("Tree Prefab")]
     GameObject Tree_Prefab;
@@ -50,28 +50,24 @@ public class card_Tree : card_class{
     public override void use(Collision other = null){
         Debug.Log("card_tree : use()");
 
+        /*
         // 焚火の探索
         GameObject Bonfire = GameObject.Find("Bonfire");
         // 焚火が見つからなかったら何もしない
         if(Bonfire == null){
+            Debug.Log("card_tree.use() : Bonfire is not found.");
             return;
         }
         // 焚火の上0.5ぐらいに出現ポイント指定
-        Vector3 AppearPos = Bonfire.transform.position + new Vector3(0.0f, 0.5f, 0.0f);
+        Vector3 AppearPos = Bonfire.transform.position + Bonfire.transform.up * 0.1f;
+        */
 
-        // 焚火の上に出現させる
+        Vector3 AppearPos = new Vector3(12.7f, 1.8f, 3.8f);
+        // 焚火の上に出現させる予定だった
         GameObject Tree_Object = Instantiate(Tree_Prefab);
         Tree_Object.transform.position = AppearPos;
         // Invoke(nameof(DelayMethod), 10.0f);
         // Destroy(Tree_Object);
         // CancelInvoke();
     }
-
-    // 一定時間後発動
-    /*
-    protected void DelayMethod(){
-        Debug.Log("a few seconds later : Destroy");
-        Destroy(Rain_Object);
-    }
-    */
 }

@@ -26,15 +26,16 @@ public class Bonfire : MonoBehaviour{
         // 初期ステータス代入
         status = nextStatus = "small";
 
-        // 初期のSmallFireを出現
-        FireObject = Instantiate(SmallFire_Prefab);
-        FireObject.transform.position = FirePos;
-
         // 焚火と火のオブジェクトの相対位置
         // 火の位置調整はここを弄る
         Vector3 localPos = new Vector3(0.0f, 0.0f, 0.0f);
         // 焚火の位置座標と火の相対位置から，火の絶対座標を計算，代入する
         FirePos = this.transform.position + localPos;
+
+        // 初期のSmallFireを出現
+        FireObject = Instantiate(SmallFire_Prefab);
+        FireObject.transform.position = FirePos;
+
     }
 
     void Update(){
@@ -46,13 +47,19 @@ public class Bonfire : MonoBehaviour{
         switch(nextStatus){
             case "small":
                 // 火を小さくする処理
+                Destroy(FireObject);
                 FireObject = Instantiate(SmallFire_Prefab);
                 FireObject.transform.position = FirePos;
+                Debug.Log("Bonfire : -> small");
                 break;
             case "big":
                 // 火を大きくする処理
+                Destroy(FireObject);
                 FireObject = Instantiate(BigFire_Prefab);
                 FireObject.transform.position = FirePos;
+                Debug.Log("Bonfire : -> big");
+                // 時間経過で火を小さくする処理
+                Invoke(nameof(ToSmall), 10.0f);
                 break;
             case "extinguished":
                 // 火を消す処理
@@ -62,6 +69,8 @@ public class Bonfire : MonoBehaviour{
                 // とりあえず例外処理用
                 break;
         }
+        // 現在のステータスを上書き
+        status = nextStatus;
     }
 
     // 何かが接触したときに発動
@@ -81,5 +90,10 @@ public class Bonfire : MonoBehaviour{
             default:
                 break;
         }
+    }
+
+    protected void ToSmall(){
+        Debug.Log("Bonfire : -> 時間経過により焚火小さくなるよー");
+        nextStatus = "small";
     }
 }
