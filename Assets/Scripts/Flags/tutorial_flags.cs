@@ -24,4 +24,11 @@ public class tutorial_flags : MonoBehaviour{
 
     void Update(){
     }
+
+    public bool getDoorAppear(){
+        return Door_appear;
+    }
+    public void setDoorAppear(bool temp){
+        Door_appear = temp;
+    }
 }
