@@ -11,12 +11,15 @@ public class tutorial_flags : MonoBehaviour{
     // publicかどうかは要相談？
 
     // 焚火の火が大きくなったフラグ
+    // 未使用
     public static bool Bonfire_is_big = false;
 
     // 焚火が消えたフラグ
+    // 未使用
     public static bool Bonfire_is_out = false;
 
     // ドアが置かれたフラグ
+    // 未使用
     public static bool Door_appear = false;
 
     void Start(){

@@ -42,6 +42,12 @@ public class card_Door_tutorial : card_class{
     }
 
     new protected void Update(){
+        // GameObjectの更新
+        if(Fake_Wall == null){
+            Fake_Wall = GameObject.Find("Fake_Wall");
+        }
+
+        // 把持フラグの更新
         if(this.transform.parent != null && !this.getIsHold()){
             setIsHold(true);
         }
