@@ -60,7 +60,7 @@ public class Alpha_Controller_tutorial : MonoBehaviour{
             return;
         }
         if(OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger)){
-            Debug.Log(Sys_Scripts.GetComponent<Controller_tutorial>().GetLHold());
+            // Debug.Log(Sys_Scripts.GetComponent<Controller_tutorial>().GetLHold());
             // next();
             // Debug.Log(next_str());
             nxt_str = next_str();
