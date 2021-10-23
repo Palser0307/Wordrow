@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TC_card_class : MonoBehaviour
-{
+public class TC_card_class : MonoBehaviour{
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start(){
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update(){
+
     }
 }
