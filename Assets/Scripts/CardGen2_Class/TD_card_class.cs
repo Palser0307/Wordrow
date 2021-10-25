@@ -52,17 +52,20 @@ public class TD_card_class : MonoBehaviour{
     }
 
     // 接触時
-    public void OnCollisionEnter(Collision other){
+    // ここはvirtualがないと，継承先のuseを呼んでくれない
+    public virtual void OnCollisionEnter(Collision other){
+        Debug.Log("Touch Directly: OnCollisionEnter() start");
         if(haveTargetTag(other.gameObject.tag)){
-            this.use(other);
+            use(other);
         }
     }
 
     // 効果発動
     /* 継承先で
-    new protected void use(Collision other){}
+    protected override void use(Collision other){}
     でオーバーライドしておく */
     protected virtual void use(Collision other){
+        Debug.Log("Touch Directly: virtual use() start.");
         return;
     }
 
