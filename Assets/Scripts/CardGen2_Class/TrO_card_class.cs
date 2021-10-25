@@ -52,14 +52,17 @@ public class TrO_card_class : MonoBehaviour{
     protected void Update(){
         // 把持情報の更新
         updateIsHold();
+
+        // use()を呼び出す関数を叩く
         callUse();
     }
 
     // 効果発動
     /* 継承先で
-    new protected void use(Collision other){}
+    protected override void use(Collision other){}
     でオーバーライドしておく */
     protected virtual void use(){
+        Debug.Log("Triggered Operation: virtual use() start.");
         return;
     }
 

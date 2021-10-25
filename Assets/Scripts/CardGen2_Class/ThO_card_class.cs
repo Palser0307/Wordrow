@@ -57,6 +57,7 @@ public class ThO_card_class : MonoBehaviour{
     }
 
     // 接触時
+    // ここはvirtualがないと，継承先のuse()を呼んでくれない
     public void OnCollisionEnter(Collision other) {
         if(haveTargetTag(other.gameObject.tag) && getIsReady()){
             this.use(other);
@@ -65,9 +66,10 @@ public class ThO_card_class : MonoBehaviour{
 
     // 効果発動
     /* 継承先で
-    new protected void use(Collision other){}
+    protected override void use(Collision other){}
     でオーバーライドしておく */
     protected virtual void use(Collision other){
+        Debug.Log("Throwing Operation: virtual use() start.");
         return;
     }
 
