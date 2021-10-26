@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// "Fly" : 特定のタグを持つオブジェクトを上空に射出
+// 現状，Ballタグを持ってるオブジェクトにのみ反応
+// FlyというよりもはやJumpでは？
 public class card_Fly_gen2 : TD_card_class{
     // 加える力の大きさ
     private float power = 10f;
