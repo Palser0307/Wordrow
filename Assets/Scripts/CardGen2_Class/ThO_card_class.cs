@@ -17,7 +17,7 @@ using UnityEngine;
 public class ThO_card_class : MonoBehaviour{
     // エフェクトのPrefab
     [SerializeField]
-    GameObject Effect_Prefab;
+    protected GameObject Effect_Prefab;
 
     // カード名
     // オブジェクト名は"CardGen2_"+cardName
@@ -65,9 +65,9 @@ public class ThO_card_class : MonoBehaviour{
 
     // 接触時
     // ここはvirtualがないと，継承先のuse()を呼んでくれない
-    public void OnCollisionEnter(Collision other) {
+    public virtual void OnCollisionEnter(Collision other) {
         if(haveTargetTag(other.gameObject.tag) && getIsReady()){
-            this.use(other);
+            use(other);
         }
     }
 
@@ -87,6 +87,13 @@ public class ThO_card_class : MonoBehaviour{
         }else{
             Debug.Log(cardName+"(Gen2): Warning!!! >Effect_Prefab is NULL!!");
             return false;
+        }
+    }
+
+    // update isReady
+    protected void updateIsReady(){
+        if(OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && getIsHold()){
+            setIsReady(!getIsReady());
         }
     }
 

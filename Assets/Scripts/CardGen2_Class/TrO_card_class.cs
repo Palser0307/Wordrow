@@ -13,10 +13,11 @@ using UnityEngine;
 [RequireComponent(typeof(OVRGrabbable))]
 // 箱型当たり判定
 [RequireComponent(typeof(BoxCollider))]
+
 public class TrO_card_class : MonoBehaviour{
     // 効果のPrefab
     [SerializeField]
-    GameObject Effect_Prefab;
+    protected GameObject Effect_Prefab;
 
     // カード名
     // オブジェクト名は"CardGen2_"+cardName
@@ -72,7 +73,7 @@ public class TrO_card_class : MonoBehaviour{
 
     // トリガー発動呼出し
     protected void callUse(){
-        if(OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger)){
+        if(OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && getIsHold()){
             this.use();
         }
     }

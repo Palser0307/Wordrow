@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class card_Rain_gen2 : TrO_card_class{
-    // 雨のエフェクトPrefabは継承元クラスのEffect_Prefabに
+    // 雨のエフェクトPrefabは継承元クラスで宣言してる
+    // [SerializeField]
+    // protected GameObject Effect_Prefab;
 
     // 発生させたRainオブジェクトの格納先
     protected GameObject Rain_Object = null;
@@ -11,15 +13,14 @@ public class card_Rain_gen2 : TrO_card_class{
     // 雨の起点の高さ
     private float height = 10f;
 
+    // 雨の持続時間 [sec]
+    private float lifeTime = 10.0f;
+
     // 初期設定
     // 初ロード時に叩かれる
     new void Start(){
         // カード名設定
         setCardName("Rain");
-
-        // 発動対象タグの設定
-        // 今のところはタグだけ
-        addTargetList("Ball");
 
         checkPrefab();
         Debug.Log("Rain(Gen2): Setup finish.");
@@ -35,7 +36,7 @@ public class card_Rain_gen2 : TrO_card_class{
     // 発動時のカード位置からheight分上空にEffect_Prefabの配置
     protected override void use(){
         Debug.Log("Rain(Gen2): use() start.");
-        
+
         // Rain_Objectが空→まだ使ってない
         if(Rain_Object == null){
             Debug.Log("Rain(Gen2): Rain_Object appear.");
@@ -48,7 +49,7 @@ public class card_Rain_gen2 : TrO_card_class{
             Rain_Object.transform.position = this.transform.position + distance;
 
             // lifeTime 秒後にRain_Objectを削除する関数を呼び出すようにセット
-            Invoke(nameof(DelayMethod), 10.0f);
+            Invoke(nameof(DelayMethod), lifeTime);
         }else{
             Debug.Log("Rain(Gen2): Rain_Object disappear by use().");
 
