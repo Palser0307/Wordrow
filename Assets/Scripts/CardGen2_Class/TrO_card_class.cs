@@ -45,7 +45,11 @@ public class TrO_card_class : MonoBehaviour{
     // 初期設定
     // 呼び出させるつもりは無い
     protected void Start(){
+        // 名前設定
         setCardName("TrO_Class");
+
+        // Effect_Prefabにちゃんと指定してあるかチェック
+        checkPrefab();
     }
 
     // Update is called once per frame
@@ -70,6 +74,16 @@ public class TrO_card_class : MonoBehaviour{
     protected void callUse(){
         if(OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger)){
             this.use();
+        }
+    }
+
+    // Effect_Prefabが指定されているか
+    protected bool checkPrefab(){
+        if(Effect_Prefab != null){
+            return true;
+        }else{
+            Debug.Log(cardName+"(Gen2): Warning!!! >Effect_Prefab is NULL!!");
+            return false;
         }
     }
 

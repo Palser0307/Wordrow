@@ -15,6 +15,10 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 
 public class TD_card_class : MonoBehaviour{
+    // エフェクトのPrefab
+    [SerializeField]
+    GameObject Effect_Prefab;
+    
     // カード名
     // オブジェクト名は"CardGen2_"+cardName
     // Card Name
@@ -43,6 +47,9 @@ public class TD_card_class : MonoBehaviour{
     // 呼び出させるつもりは無い
     protected void Start(){
         setCardName("TD_Class");
+
+        // Effect_Prefabにちゃんと指定してあるかチェック
+        checkPrefab();
     }
 
     // Update is called once per frame
@@ -69,6 +76,15 @@ public class TD_card_class : MonoBehaviour{
         return;
     }
 
+    // Effect_Prefabが指定されているか
+    protected bool checkPrefab(){
+        if(Effect_Prefab != null){
+            return true;
+        }else{
+            Debug.Log(cardName+"(Gen2): Warning!!! >Effect_Prefab is NULL!!");
+            return false;
+        }
+    }
 
     // +--------------+
     // |    GETTER    |
