@@ -19,7 +19,13 @@ public class card_Smoke_gen2 : ThO_card_class{
         // カード名設定
         setCardName("Smoke");
 
+        // Prefabがちゃんとあるかどうか
         checkPrefab();
+
+        // 発動対象タグを追加(壁とかで発動しないように)
+        addTargetList("Untagged");
+        addTargetList("Ground");
+        
         Debug.Log("Smoke(Gen2): Setup finish.");
     }
 
@@ -30,7 +36,7 @@ public class card_Smoke_gen2 : ThO_card_class{
     }
 
     // 効果発動
-    // 発動時のカード位置からheight分上空にEffect_Prefabの配置
+    // 発動時のカード位置->着弾地点にEffect_Prefabの配置
     // 引数は宣言上Collision型otherが存在するが，呼出し時に渡してないからnullを代入しておくよってことで
     protected override void use(Collision other = null){
         Debug.Log("Smoke(Gen2): use() start.");
