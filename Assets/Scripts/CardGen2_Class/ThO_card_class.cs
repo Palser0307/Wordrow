@@ -61,6 +61,9 @@ public class ThO_card_class : MonoBehaviour{
     protected void Update(){
         // 把持情報の更新
         updateIsHold();
+
+        // 発動待機状態の更新
+        updateIsReady();
     }
 
     // 接触時
@@ -83,6 +86,7 @@ public class ThO_card_class : MonoBehaviour{
     // Effect_Prefabが指定されているか
     protected bool checkPrefab(){
         if(Effect_Prefab != null){
+            Debug.Log(getCardName() +": checkPrefab() OK!");
             return true;
         }else{
             Debug.Log(cardName+"(Gen2): Warning!!! >Effect_Prefab is NULL!!");
@@ -92,8 +96,10 @@ public class ThO_card_class : MonoBehaviour{
 
     // update isReady
     protected void updateIsReady(){
+        // Debug.Log(getCardName()+"updateIsReady()");
         if(OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && getIsHold()){
             setIsReady(!getIsReady());
+            Debug.Log(getCardName()+": updateIsReady() > change isReady.");
         }
     }
 

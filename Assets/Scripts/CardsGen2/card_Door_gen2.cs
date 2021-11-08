@@ -42,17 +42,23 @@ public class card_Door_gen2 : ThO_card_class{
     // 効果発動
     // 着弾時のカード位置にドアを設置
     // TODO: ドアの出現位置と角度の調整()
-    protected override void use(Collection other){
+    protected override void use(Collision other){
         Debug.Log("Door(Gen2): use() start.");
 
         // Door_Objectがnull->使ってないってことで．
         if(Door_Object == null){
             Debug.Log("Door(Gen2): Door_Object appear.");
+            Vector3 pos = this.transform.position;
+            Vector3 newPos = new Vector3(pos.x, pos.y, pos.z);
+            float newYrot = calcAngle(pos, releasePos);
+            Quaternion rot = Quaternion.Euler(0, newYrot-180, 0);
 
             // Effect_PrefabのインスタンスをDoor_Objectに格納
-            Door_Object = Instantiate(Effect_Prefan);
+            Door_Object = Instantiate(Effect_Prefab, newPos, rot);
             // 中心位置の代入
-            Door_Object.transform.position = this.transform.position;
+            //Door_Object.transform.position = this.transform.position;
+            // 角度の代入
+            //Door_Object.transform.LookAt(new Vector3(releasePos.x,0,releasePos.z));
 
             // lifeTime秒後にDoor_Objectを削除する関数を呼び出す
             Invoke(nameof(DelayMethod), lifeTime);
@@ -65,6 +71,7 @@ public class card_Door_gen2 : ThO_card_class{
         Debug.Log("Door(Gen2): Door_Object disappear by DelayMethod.");
         Destroy(Door_Object);
         Door_Object = null;
+        Destroy(this.gameObject);
     }
 
     // updateIsHold() を変更
@@ -79,5 +86,14 @@ public class card_Door_gen2 : ThO_card_class{
             }
             setIsHold(false);
         }
+    }
+
+    // 角度計算
+    public float calcAngle(Vector3 basePos, Vector3 targetPos){
+        float deltaX = targetPos.x - basePos.x;
+        float deltaZ = targetPos.z - basePos.z;
+        float angle = Mathf.Atan2(deltaZ, deltaX) * Mathf.Rad2Deg;
+        Debug.Log(this.name + ": calcAngle ="+angle);
+        return angle;
     }
 }
