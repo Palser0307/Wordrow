@@ -6,49 +6,33 @@ using UnityEngine;
 // 持った状態でトリガーで発動待機，その後手を離れてどこかに接触したことで発動
 // ThO = Throwing Operation (投擲着発)
 
-// 必須コンポーネントを補填
-// 重力判定
-[RequireComponent(typeof(Rigidbody))]
-// 掴める
-[RequireComponent(typeof(OVRGrabbable))]
-// 箱型当たり判定
-[RequireComponent(typeof(BoxCollider))]
-
-public class ThO_card_class : MonoBehaviour{
-    // エフェクトのPrefab
+public class ThO_card_class : card_class_gen2{
+/*
+    継承元で宣言された変数群
     [SerializeField]
     protected GameObject Effect_Prefab;
 
     // カード名
-    // オブジェクト名は"Card_"+cardName+"(gen2)"
     private string cardName = "";
 
     // 発動対象タグリスト 必要あるかな？
-    // 例: "Ball"
-    // Target Tag List
-    // example: "Ball"
     private List<string> targetList = new List<string>();
 
     // 発動条件
-    // 一応クラス内でも宣言しておく
-    // Trigger Type
-    private const string TRIGGERTYPE = "ThO";
+    private string TRIGGERTYPE = "";
 
     // 把持されているかどうか
     // 初期状態: false
-    // Is this card being held?
-    // default: false
     private bool isHold = false;
 
     // 発動待機状態のフラグ
     // 初期状態: false
-    // Is this card ready?
-    // default: false
     private bool isReady = false;
+*/
 
     // 初期設定
     // 呼び出させるつもりは無い
-    protected void Start(){
+    protected new void Start(){
         setCardName("ThO_Class");
 
         // Effect_Prefabにちゃんと指定してあるかチェック
@@ -56,7 +40,7 @@ public class ThO_card_class : MonoBehaviour{
     }
 
     // Update is called once per frame
-    protected void Update(){
+    protected new void Update(){
         // 把持情報の更新
         updateIsHold();
 
@@ -76,112 +60,9 @@ public class ThO_card_class : MonoBehaviour{
     /* 継承先で
     protected override void use(Collision other){}
     でオーバーライドしておく */
-    protected virtual void use(Collision other){
+    public virtual void use(Collision other){
         Debug.Log("Throwing Operation: virtual use() start.");
         return;
     }
 
-    // Effect_Prefabが指定されているか
-    protected bool checkPrefab(){
-        if(Effect_Prefab != null){
-            outputLog("checkPrefab() OK!");
-            return true;
-        }else{
-            outputLog("Warning!!! >Effect_Prefab is NULL!!");
-            return false;
-        }
-    }
-
-    // update isReady
-    protected void updateIsReady(){
-        // Debug.Log(getCardName()+"updateIsReady()");
-        if(OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && getIsHold()){
-            setIsReady(!getIsReady());
-            outputLog("updateIsReady() > change isReady.");
-        }
-    }
-
-    public void outputLog(string str){
-        Debug.Log(getObjectName() + " : " + str);
-    }
-
-    // +--------------+
-    // |    GETTER    |
-    // +--------------+
-
-    // get cardName
-    public string getCardName(){
-        return this.cardName;
-    }
-
-    // get TargetList
-    public List<string> getTargetList(){
-        return this.targetList;
-    }
-
-    // have TargetTag?
-    public bool haveTargetTag(string tag){
-        return this.targetList.Contains(tag);
-    }
-
-    // get TriggerType
-    public string getTriggerType(){
-        return TRIGGERTYPE;
-    }
-
-    // get isHold
-    public bool getIsHold(){
-        return this.isHold;
-    }
-
-    // get isReady
-    public bool getIsReady(){
-        return this.isReady;
-    }
-
-    // get Object Name
-    public string getObjectName(){
-        return this.name;
-    }
-
-    // +--------------+
-    // |    SETTER    |
-    // +--------------+
-
-    // update cardName
-    public void setCardName(string newCardName){
-        this.cardName = newCardName;
-        setObjectName(newCardName);
-    }
-
-    // add newTag to TargetList
-    public void addTargetList(string newTag){
-        if(!haveTargetTag(newTag)){
-            this.targetList.Add(newTag);
-        }
-    }
-
-    // set isHold
-    public void setIsHold(bool newStatus){
-        this.isHold = newStatus;
-    }
-
-    // update isHold
-    public void updateIsHold(){
-        if(this.transform.parent != null){
-            setIsHold(true);
-        }else{
-            setIsHold(false);
-        }
-    }
-
-    // set isReady
-    public void setIsReady(bool newStatus){
-        this.isReady = newStatus;
-    }
-
-    // set Object Name
-    public void setObjectName(string newName){
-        this.name = "Card_" + newName + "(gen2)";
-    }
 }

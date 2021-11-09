@@ -14,6 +14,10 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 
 public class card_class_gen2 : MonoBehaviour{
+    // +--------+
+    // | values |
+    // +--------+
+
     // エフェクトのプレハブ
     [SerializeField]
     protected GameObject Effect_Prefab;
@@ -29,11 +33,15 @@ public class card_class_gen2 : MonoBehaviour{
     // 発動条件
     // 一応クラス内でも宣言しておく
     // Trigger Type
-    private const string TRIGGERTYPE = "TrO";
+    private string TRIGGERTYPE = "";
 
     // 把持されているかどうか
     // default: false
     private bool isHold = false;
+
+    // +-----------+
+    // | functions |
+    // +-----------+
 
     // 初期設定
     // 呼び出し予定はない
@@ -56,7 +64,7 @@ public class card_class_gen2 : MonoBehaviour{
     /* 継承先で
     protected override void use(Collision other){}
     でオーバーライドしておく */
-    protected virtual void use(Collision other){
+    public virtual void use(Collision other){
         outputLog("virtual use() start.");
     }
 
@@ -126,6 +134,11 @@ public class card_class_gen2 : MonoBehaviour{
         if(!haveTargetTag(newTag)){
             this.targetList.Add(newTag);
         }
+    }
+
+    // set Trigger Type
+    private void setTriggerType(string newTT){
+        this.TRIGGERTYPE = TT;
     }
 
     // set isHold
