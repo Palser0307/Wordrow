@@ -2169,6 +2169,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: OVRPlayerController
       objectReference: {fileID: 0}
+    - target: {fileID: 3341302554419126668, guid: 21bc0ef0dcdcbdd4195e936dcf0e4a3d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3341302554419428770, guid: 21bc0ef0dcdcbdd4195e936dcf0e4a3d,
         type: 3}
       propertyPath: m_RootOrder
