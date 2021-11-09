@@ -37,7 +37,7 @@ public class card_Smoke_gen2 : ThO_card_class{
 
     // 効果発動
     // 発動時のカード位置->着弾地点にEffect_Prefabの配置
-    protected override void use(Collision other){
+    public override void use(Collision other){
         outputLog("use() start.");
 
         // Smoke_Objectが空→まだ使ってない
@@ -45,7 +45,7 @@ public class card_Smoke_gen2 : ThO_card_class{
             outputLog("Smoke_Object appear.");
 
             Vector3 pos = this.transform.position;
-            Quaternion rot = Quaternion.Euler(0, 0, 0);
+            Quaternion rot = Quaternion.Euler(-90, 0, 0);
 
             // Effect_PrefabのインスタンスをSmoke_Objectに格納
             Smoke_Object = Instantiate(Effect_Prefab, pos, rot);

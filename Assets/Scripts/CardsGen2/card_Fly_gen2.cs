@@ -11,7 +11,8 @@ public class card_Fly_gen2 : TD_card_class{
 
     // 初期設定
     // 初ロード時に叩かれる
-    new void Start(){
+    protected new void Start(){
+        base.Start();
         // カード名設定
         setCardName("Fly");
 
@@ -19,11 +20,11 @@ public class card_Fly_gen2 : TD_card_class{
         // 今のところはタグだけ
         addTargetList("Ball");
 
-        Debug.Log("Fly(Gen2): Setup finish.");
+        outputLog("Setup finish.");
     }
 
     // フレームごとに叩かれる
-    new void Update(){
+    protected new void Update(){
         // 継承元クラスのUpdate()を呼び出す
         base.Update();
     }
@@ -31,8 +32,8 @@ public class card_Fly_gen2 : TD_card_class{
     // 実際の効果
     // 触れた対象に鉛直上方向へpower分の力を加える．
     // 発動対象タグを持っているかはOnCollisionEnter()で確認済み
-    protected override void use(Collision other){
-        Debug.Log("Fly(Gen2): use func. start.");
+    public override void use(Collision other){
+        outputLog("use func. start.");
 
         // 鉛直上方向指定
         Vector3 direction = Vector3.up;

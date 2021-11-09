@@ -24,11 +24,10 @@ public class ThO_card_class : card_class_gen2{
     // 把持されているかどうか
     // 初期状態: false
     private bool isHold = false;
-
+*/
     // 発動待機状態のフラグ
     // 初期状態: false
     private bool isReady = false;
-*/
 
     // 初期設定
     // 呼び出させるつもりは無い
@@ -37,6 +36,8 @@ public class ThO_card_class : card_class_gen2{
 
         // Effect_Prefabにちゃんと指定してあるかチェック
         checkPrefab();
+
+        setTriggerType("ThO");
     }
 
     // Update is called once per frame
@@ -60,9 +61,34 @@ public class ThO_card_class : card_class_gen2{
     /* 継承先で
     protected override void use(Collision other){}
     でオーバーライドしておく */
-    public virtual void use(Collision other){
+    public new virtual void use(Collision other){
         Debug.Log("Throwing Operation: virtual use() start.");
         return;
     }
 
+    // update isReady
+    protected void updateIsReady(){
+        if(OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && getIsHold()){
+            setIsReady(!getIsReady());
+            outputLog("updateIsReady() > change isReady to "+ getIsReady());
+        }
+    }
+
+
+    // +--------+
+    // | GETTER |
+    // +--------+
+
+    protected bool getIsReady(){
+        return this.isReady;
+    }
+
+
+    // +--------+
+    // | SETTER |
+    // +--------+
+
+    protected void setIsReady(bool newStatus){
+        this.isReady = newStatus;
+    }
 }

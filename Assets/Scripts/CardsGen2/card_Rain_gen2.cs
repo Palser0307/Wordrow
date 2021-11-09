@@ -18,30 +18,31 @@ public class card_Rain_gen2 : TrO_card_class{
 
     // 初期設定
     // 初ロード時に叩かれる
-    new void Start(){
+    public new void Start(){
+        base.Start();
         // カード名設定
         setCardName("Rain");
 
         checkPrefab();
-        Debug.Log("Rain(Gen2): Setup finish.");
+        outputLog("Setup finish.");
     }
 
     // フレームごとに叩かれる
-        new void Update(){
+    public new void Update(){
         // 継承元クラスのUpdate()を呼び出す
         base.Update();
     }
 
     // 効果発動
     // 発動時のカード位置からheight分上空にEffect_Prefabの配置
-    protected override void use(){
-        Debug.Log("Rain(Gen2): use() start.");
+    public override void use(Collision other = null){
+        outputLog("use() start.");
 
         // Rain_Objectが空→まだ使ってない
         if(Rain_Object == null){
-            Debug.Log("Rain(Gen2): Rain_Object appear.");
+            outputLog("Rain_Object appear.");
             Vector3 pos = this.transform.position + Vector3.up * height;
-            Quaternion rot = Quaternion.Euler(0,0,0);
+            Quaternion rot = Quaternion.Euler(90,0,0);
 
             // Effect_PrefabのインスタンスをRain_Objectに格納
             Rain_Object = Instantiate(Effect_Prefab, pos, rot);
@@ -49,7 +50,7 @@ public class card_Rain_gen2 : TrO_card_class{
             // lifeTime 秒後にRain_Objectを削除する関数を呼び出すようにセット
             Invoke(nameof(DelayMethod), lifeTime);
         }else{
-            Debug.Log("Rain(Gen2): Rain_Object disappear by use().");
+            outputLog("Rain_Object disappear by use().");
 
             // Rain_Objectを破壊
             Destroy(Rain_Object);
@@ -63,7 +64,7 @@ public class card_Rain_gen2 : TrO_card_class{
     // Invokeで呼び出される関数
     // Rain_Objectを破壊し，nullを代入する
     protected void DelayMethod(){
-        Debug.Log("Rain(Gen2): Rain_Object disappear by InvokedMethod");
+        outputLog("Rain_Object disappear by InvokedMethod");
         Destroy(Rain_Object);
         Rain_Object = null;
     }

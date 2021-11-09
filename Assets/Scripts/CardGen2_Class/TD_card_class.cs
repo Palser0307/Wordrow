@@ -6,52 +6,40 @@ using UnityEngine;
 // 持った状態で対象にカードが触れることで発動
 // TD = Touch Directly (直接接触)
 
-// 必須コンポーネントを補填
-// 重力判定
-[RequireComponent(typeof(Rigidbody))]
-// 掴める
-[RequireComponent(typeof(OVRGrabbable))]
-// 箱型当たり判定
-[RequireComponent(typeof(BoxCollider))]
-
-public class TD_card_class : MonoBehaviour{
+public class TD_card_class : card_class_gen2{
+/*
+    継承元で宣言された変数群
     // エフェクトのPrefab
     [SerializeField]
     GameObject Effect_Prefab;
-    
+
     // カード名
-    // オブジェクト名は"Card_"+cardName+"(gen2)"
     private string cardName = "";
 
     // 発動対象タグリスト
-    // 例: "Ball"
-    // Target Tag List
-    // example: "Ball"
     private List<string> targetList = new List<string>();
 
     // 発動条件
-    // 一応クラス内でも宣言しておく
-    // Trigger Type
     private const string TRIGGERTYPE = "TD";
 
     // 把持されているかどうか
     // 初期状態: false
-    // Is this card being held?
-    // default: false
     private bool isHold = false;
-
+*/
 
     // 初期設定
     // 呼び出させるつもりは無い
-    protected void Start(){
+    protected new void Start(){
         setCardName("TD_Class");
 
         // Effect_Prefabにちゃんと指定してあるかチェック
         checkPrefab();
+
+        setTriggerType("TD");
     }
 
     // Update is called once per frame
-    protected void Update(){
+    protected new void Update(){
         // 把持情報の更新
         updateIsHold();
     }
@@ -59,7 +47,7 @@ public class TD_card_class : MonoBehaviour{
     // 接触時
     // ここはvirtualがないと，継承先のuseを呼んでくれない
     public virtual void OnCollisionEnter(Collision other){
-        Debug.Log("Touch Directly: OnCollisionEnter() start");
+        outputLog("OnCollisionEnter() start");
         if(haveTargetTag(other.gameObject.tag)){
             use(other);
         }
@@ -69,93 +57,8 @@ public class TD_card_class : MonoBehaviour{
     /* 継承先で
     protected override void use(Collision other){}
     でオーバーライドしておく */
-    protected virtual void use(Collision other){
-        Debug.Log("Touch Directly: virtual use() start.");
+    public new virtual void use(Collision other){
+        outputLog("virtual use() start.");
         return;
-    }
-
-    // Effect_Prefabが指定されているか
-    protected bool checkPrefab(){
-        if(Effect_Prefab != null){
-            return true;
-        }else{
-            Debug.Log(cardName+"(Gen2): Warning!!! >Effect_Prefab is NULL!!");
-            return false;
-        }
-    }
-
-    public void outputLog(string str){
-        Debug.Log(getObjectName() + " : " + str);
-    }
-
-
-    // +--------------+
-    // |    GETTER    |
-    // +--------------+
-
-    // get cardName
-    public string getCardName(){
-        return this.cardName;
-    }
-
-    // get TargetList
-    public List<string> getTargetList(){
-        return this.targetList;
-    }
-
-    // have TargetTag?
-    public bool haveTargetTag(string tag){
-        return this.targetList.Contains(tag);
-    }
-
-    // get TriggerType
-    public string getTriggerType(){
-        return TRIGGERTYPE;
-    }
-
-    // get isHold
-    public bool getIsHold(){
-        return this.isHold;
-    }
-
-    // get Object Name
-    public string getObjectName(){
-        return this.name;
-    }
-
-    // +--------------+
-    // |    SETTER    |
-    // +--------------+
-
-    // update cardName
-    public void setCardName(string newCardName){
-        this.cardName = newCardName;
-        this.name = "CardGen2_" + newCardName;
-    }
-
-    // add newTag to TargetList
-    public void addTargetList(string newTag){
-        if(!haveTargetTag(newTag)){
-            this.targetList.Add(newTag);
-        }
-    }
-
-    // set isHold
-    public void setIsHold(bool newStatus){
-        this.isHold = newStatus;
-    }
-
-    // update isHold
-    public void updateIsHold(){
-        if(this.transform.parent != null){
-            setIsHold(true);
-        }else{
-            setIsHold(false);
-        }
-    }
-
-        // set Object Name
-    public void setObjectName(string newName){
-        this.name = "Card_" + newName + "(gen2)";
     }
 }

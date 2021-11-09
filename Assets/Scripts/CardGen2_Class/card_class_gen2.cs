@@ -137,8 +137,8 @@ public class card_class_gen2 : MonoBehaviour{
     }
 
     // set Trigger Type
-    private void setTriggerType(string newTT){
-        this.TRIGGERTYPE = TT;
+    protected void setTriggerType(string newTT){
+        this.TRIGGERTYPE = newTT;
     }
 
     // set isHold

@@ -42,7 +42,7 @@ public class card_Door_gen2 : ThO_card_class{
     // 効果発動
     // 着弾時のカード位置にドアを設置
     // TODO: ドアの出現位置と角度の調整()
-    protected override void use(Collision other){
+    public override void use(Collision other){
         outputLog("use() start.");
 
         // Door_Objectがnull->使ってないってことで．
@@ -56,7 +56,7 @@ public class card_Door_gen2 : ThO_card_class{
             // Effect_PrefabのインスタンスをDoor_Objectに格納
             // インスタンス作成時に，座標及び角度も指定可能 むしろここで設定しておくべき
             Door_Object = Instantiate(Effect_Prefab, newPos, rot);
-            
+
             // lifeTime秒後にDoor_Objectを削除する関数を呼び出す
             Invoke(nameof(DelayMethod), lifeTime);
         }
