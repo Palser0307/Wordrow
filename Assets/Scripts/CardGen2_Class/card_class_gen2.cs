@@ -148,7 +148,13 @@ public class card_class_gen2 : MonoBehaviour{
 
     // update isHold
     public void updateIsHold(){
-        if(this.transform.parent != null){
+        // 最上位の親オブジェクトのGameObject
+        GameObject rootParent = this.transform.root.gameObject;
+        //outputLog("root tag -> "+rootParent.tag);
+
+        // 最上位の親オブジェクトがPlayerタグを持ってるか
+        // 持ってる->把持されてる
+        if(rootParent.tag == "Player"){
             setIsHold(true);
         }else{
             setIsHold(false);

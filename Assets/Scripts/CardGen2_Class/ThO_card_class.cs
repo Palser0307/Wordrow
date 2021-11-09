@@ -25,6 +25,7 @@ public class ThO_card_class : card_class_gen2{
     // 初期状態: false
     private bool isHold = false;
 */
+
     // 発動待機状態のフラグ
     // 初期状態: false
     private bool isReady = false;
