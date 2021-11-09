@@ -1,68 +1,55 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 直接接触発動型魔法カード用継承元クラス
-// 持った状態で対象にカードが触れることで発動
-// TD = Touch Directly (直接接触)
+// 第二世代魔法カード用継承元最上位クラス
+// 各発動条件クラスの共通項目をここから継承する
 
 // 必須コンポーネントを補填
-// 重力判定
+// 物理判定
 [RequireComponent(typeof(Rigidbody))]
-// 掴める
+// 掴めるように
 [RequireComponent(typeof(OVRGrabbable))]
 // 箱型当たり判定
 [RequireComponent(typeof(BoxCollider))]
 
-public class TD_card_class : MonoBehaviour{
-    // エフェクトのPrefab
+public class card_class_gen2 : MonoBehaviour{
+    // エフェクトのプレハブ
     [SerializeField]
-    GameObject Effect_Prefab;
-    
+    protected GameObject Effect_Prefab;
+
     // カード名
     // オブジェクト名は"Card_"+cardName+"(gen2)"
     private string cardName = "";
 
     // 発動対象タグリスト
     // 例: "Ball"
-    // Target Tag List
-    // example: "Ball"
     private List<string> targetList = new List<string>();
 
     // 発動条件
     // 一応クラス内でも宣言しておく
     // Trigger Type
-    private const string TRIGGERTYPE = "TD";
+    private const string TRIGGERTYPE = "TrO";
 
     // 把持されているかどうか
-    // 初期状態: false
-    // Is this card being held?
     // default: false
     private bool isHold = false;
 
-
     // 初期設定
-    // 呼び出させるつもりは無い
+    // 呼び出し予定はない
     protected void Start(){
-        setCardName("TD_Class");
-
-        // Effect_Prefabにちゃんと指定してあるかチェック
+        setCardName("CardClass");
         checkPrefab();
+        return;
     }
 
-    // Update is called once per frame
-    protected void Update(){
-        // 把持情報の更新
+    // Update() is called once per frame
+    /* 継承先で
+    protected override void Update(){}
+    でオーバーライドしておく */
+    protected virtual void Update(){
         updateIsHold();
-    }
-
-    // 接触時
-    // ここはvirtualがないと，継承先のuseを呼んでくれない
-    public virtual void OnCollisionEnter(Collision other){
-        Debug.Log("Touch Directly: OnCollisionEnter() start");
-        if(haveTargetTag(other.gameObject.tag)){
-            use(other);
-        }
+        return;
     }
 
     // 効果発動
@@ -70,23 +57,24 @@ public class TD_card_class : MonoBehaviour{
     protected override void use(Collision other){}
     でオーバーライドしておく */
     protected virtual void use(Collision other){
-        Debug.Log("Touch Directly: virtual use() start.");
-        return;
+        outputLog("virtual use() start.");
     }
 
-    // Effect_Prefabが指定されているか
+    // Effect_Prefabが指定されているかのチェック
     protected bool checkPrefab(){
         if(Effect_Prefab != null){
             return true;
         }else{
-            Debug.Log(cardName+"(Gen2): Warning!!! >Effect_Prefab is NULL!!");
+            outputLog("Warning!! >Effect_Prefab is NULL!!");
             return false;
         }
     }
 
+    // Debug.Log() for CardClass
     public void outputLog(string str){
         Debug.Log(getObjectName() + " : " + str);
     }
+
 
 
     // +--------------+
@@ -130,7 +118,7 @@ public class TD_card_class : MonoBehaviour{
     // update cardName
     public void setCardName(string newCardName){
         this.cardName = newCardName;
-        this.name = "CardGen2_" + newCardName;
+        this.name = "Card_" + newCardName + "(gen2)";
     }
 
     // add newTag to TargetList
@@ -154,8 +142,8 @@ public class TD_card_class : MonoBehaviour{
         }
     }
 
-        // set Object Name
+    // set Object Name
     public void setObjectName(string newName){
-        this.name = "Card_" + newName + "(gen2)";
+        this.cardName = "Card_" + newName + "(gen2)";
     }
 }

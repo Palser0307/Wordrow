@@ -43,23 +43,20 @@ public class card_Door_gen2 : ThO_card_class{
     // 着弾時のカード位置にドアを設置
     // TODO: ドアの出現位置と角度の調整()
     protected override void use(Collision other){
-        Debug.Log("Door(Gen2): use() start.");
+        outputLog("use() start.");
 
         // Door_Objectがnull->使ってないってことで．
         if(Door_Object == null){
-            Debug.Log("Door(Gen2): Door_Object appear.");
+            outputLog("Door_Object appear.");
             Vector3 pos = this.transform.position;
             Vector3 newPos = new Vector3(pos.x, pos.y, pos.z);
             float newYrot = calcAngle(pos, releasePos);
             Quaternion rot = Quaternion.Euler(0, newYrot-180, 0);
 
             // Effect_PrefabのインスタンスをDoor_Objectに格納
+            // インスタンス作成時に，座標及び角度も指定可能 むしろここで設定しておくべき
             Door_Object = Instantiate(Effect_Prefab, newPos, rot);
-            // 中心位置の代入
-            //Door_Object.transform.position = this.transform.position;
-            // 角度の代入
-            //Door_Object.transform.LookAt(new Vector3(releasePos.x,0,releasePos.z));
-
+            
             // lifeTime秒後にDoor_Objectを削除する関数を呼び出す
             Invoke(nameof(DelayMethod), lifeTime);
         }
@@ -68,7 +65,7 @@ public class card_Door_gen2 : ThO_card_class{
     // Invokeで呼び出される関数
     // Door_Objectを破壊し，nullを代入する
     protected void DelayMethod(){
-        Debug.Log("Door(Gen2): Door_Object disappear by DelayMethod.");
+        outputLog("Door_Object disappear by DelayMethod.");
         Destroy(Door_Object);
         Door_Object = null;
         Destroy(this.gameObject);
@@ -77,7 +74,7 @@ public class card_Door_gen2 : ThO_card_class{
     // updateIsHold() を変更
     // 手を離したときの位置座標を記録するように
     public new void updateIsHold(){
-        Debug.Log("Door2 updateIsHold()");
+        // outputLog("updateIsHold()");
         if(this.transform.parent != null){
             setIsHold(true);
         }else{
@@ -93,7 +90,7 @@ public class card_Door_gen2 : ThO_card_class{
         float deltaX = targetPos.x - basePos.x;
         float deltaZ = targetPos.z - basePos.z;
         float angle = Mathf.Atan2(deltaZ, deltaX) * Mathf.Rad2Deg;
-        Debug.Log(this.name + ": calcAngle ="+angle);
+        outputLog("calcAngle ="+angle);
         return angle;
     }
 }

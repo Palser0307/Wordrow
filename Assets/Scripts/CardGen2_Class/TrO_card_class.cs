@@ -20,9 +20,7 @@ public class TrO_card_class : MonoBehaviour{
     protected GameObject Effect_Prefab;
 
     // カード名
-    // オブジェクト名は"CardGen2_"+cardName
-    // Card Name
-    // ObjectName: "CardGen2_" + cardName
+    // オブジェクト名は"Card_"+cardName+"(gen2)"
     private string cardName = "";
 
     // 発動対象タグリスト
@@ -88,6 +86,11 @@ public class TrO_card_class : MonoBehaviour{
         }
     }
 
+    // Debug.Log() for CardClass
+    public void outputLog(string str){
+        Debug.Log(getObjectName() + " : " + str);
+    }
+
     // +--------------+
     // |    GETTER    |
     // +--------------+
@@ -117,6 +120,10 @@ public class TrO_card_class : MonoBehaviour{
         return this.isHold;
     }
 
+    // get Object Name
+    public string getObjectName(){
+        return this.name;
+    }
 
     // +--------------+
     // |    SETTER    |
@@ -147,5 +154,10 @@ public class TrO_card_class : MonoBehaviour{
         }else{
             setIsHold(false);
         }
+    }
+
+    // set Object Name
+    public void setObjectName(string newName){
+        this.cardName = "Card_" + newName + "(gen2)";
     }
 }

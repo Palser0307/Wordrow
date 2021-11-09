@@ -40,13 +40,11 @@ public class card_Rain_gen2 : TrO_card_class{
         // Rain_Objectが空→まだ使ってない
         if(Rain_Object == null){
             Debug.Log("Rain(Gen2): Rain_Object appear.");
+            Vector3 pos = this.transform.position + Vector3.up * height;
+            Quaternion rot = Quaternion.Euler(0,0,0);
 
             // Effect_PrefabのインスタンスをRain_Objectに格納
-            Rain_Object = Instantiate(Effect_Prefab);
-            // 高さ設定
-            Vector3 distance = Vector3.up * height;
-            // 中心位置の代入
-            Rain_Object.transform.position = this.transform.position + distance;
+            Rain_Object = Instantiate(Effect_Prefab, pos, rot);
 
             // lifeTime 秒後にRain_Objectを削除する関数を呼び出すようにセット
             Invoke(nameof(DelayMethod), lifeTime);

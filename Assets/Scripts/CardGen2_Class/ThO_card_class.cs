@@ -20,9 +20,7 @@ public class ThO_card_class : MonoBehaviour{
     protected GameObject Effect_Prefab;
 
     // カード名
-    // オブジェクト名は"CardGen2_"+cardName
-    // CardName
-    // ObjectName: "CardGen2_"+cardName
+    // オブジェクト名は"Card_"+cardName+"(gen2)"
     private string cardName = "";
 
     // 発動対象タグリスト 必要あるかな？
@@ -86,10 +84,10 @@ public class ThO_card_class : MonoBehaviour{
     // Effect_Prefabが指定されているか
     protected bool checkPrefab(){
         if(Effect_Prefab != null){
-            Debug.Log(getCardName() +": checkPrefab() OK!");
+            outputLog("checkPrefab() OK!");
             return true;
         }else{
-            Debug.Log(cardName+"(Gen2): Warning!!! >Effect_Prefab is NULL!!");
+            outputLog("Warning!!! >Effect_Prefab is NULL!!");
             return false;
         }
     }
@@ -99,8 +97,12 @@ public class ThO_card_class : MonoBehaviour{
         // Debug.Log(getCardName()+"updateIsReady()");
         if(OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && getIsHold()){
             setIsReady(!getIsReady());
-            Debug.Log(getCardName()+": updateIsReady() > change isReady.");
+            outputLog("updateIsReady() > change isReady.");
         }
+    }
+
+    public void outputLog(string str){
+        Debug.Log(getObjectName() + " : " + str);
     }
 
     // +--------------+
@@ -137,6 +139,10 @@ public class ThO_card_class : MonoBehaviour{
         return this.isReady;
     }
 
+    // get Object Name
+    public string getObjectName(){
+        return this.name;
+    }
 
     // +--------------+
     // |    SETTER    |
@@ -145,7 +151,7 @@ public class ThO_card_class : MonoBehaviour{
     // update cardName
     public void setCardName(string newCardName){
         this.cardName = newCardName;
-        this.name = "CardGen2_" + newCardName;
+        setObjectName(newCardName);
     }
 
     // add newTag to TargetList
@@ -172,5 +178,10 @@ public class ThO_card_class : MonoBehaviour{
     // set isReady
     public void setIsReady(bool newStatus){
         this.isReady = newStatus;
+    }
+
+    // set Object Name
+    public void setObjectName(string newName){
+        this.name = "Card_" + newName + "(gen2)";
     }
 }
