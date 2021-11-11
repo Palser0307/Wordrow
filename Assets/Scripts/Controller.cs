@@ -26,10 +26,16 @@ public class Controller : MonoBehaviour{
     protected bool LisHold = false;
     protected bool RisHold = false;
 
+    // 掴めるもののタグリスト
+    protected List<string> grabbableTagList = new List<string>();
+
     void Start(){
         Deck_Object = null;
         HUD_Menu.SetActive(false);
         HUD_Tip.SetActive(false);
+        addGrabbableTag("Card");
+        addGrabbableTag("Grabbable");
+        addGrabbableTag("Upgrader");
     }
 
     void Update(){
@@ -38,7 +44,7 @@ public class Controller : MonoBehaviour{
             RaycastHit[] hits;
             hits = Physics.SphereCastAll(rightController.transform.position, 0.01f, Vector3.forward);
             foreach(var hit in hits){
-                if(hit.collider.tag == "Card" || hit.collider.tag == "Grabbable"){
+                if(haveGrabbableTag(hit.collider.tag)){
                     // Debug.Log("Grip");
                     hit.collider.transform.parent = rightController.transform;
                     SetRHold(true);
@@ -51,7 +57,7 @@ public class Controller : MonoBehaviour{
         if(OVRInput.GetUp(OVRInput.RawButton.RHandTrigger)){
             for(int i = 0; i < rightController.transform.childCount; i++){
                 var child = rightController.transform.GetChild(i);
-                if(child.tag == "Card" || child.tag == "Grabbable"){
+                if(haveGrabbableTag(child.tag)){
                     child.parent = null;
                     SetRHold(false);
                 }
@@ -137,6 +143,22 @@ public class Controller : MonoBehaviour{
     }
     public bool GetRHold(){
         return RisHold;
+    }
+
+    public bool haveGrabbableTag(string tag){
+        return this.grabbableTagList.Contains(tag);
+    }
+    public List<string> getGrabbableTag(){
+        return this.grabbableTagList;
+    }
+
+    public bool addGrabbableTag(string tag){
+        if(!haveGrabbableTag(tag)){
+            this.grabbableTagList.Add(tag);
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 

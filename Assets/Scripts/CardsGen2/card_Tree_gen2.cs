@@ -39,7 +39,7 @@ public class card_Tree_gen2 : TrO_card_class{
         outputLog("use() start.");
 
         // Rain_Objectが空→まだ使ってない
-        if(Rain_Object == null){
+        if(Tree_Object == null){
             outputLog("Tree_Object appear.");
             Vector3 pos = this.transform.position + Vector3.up * height;
             Quaternion rot = Quaternion.Euler(90,0,0);

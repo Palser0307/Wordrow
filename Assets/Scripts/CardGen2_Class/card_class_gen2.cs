@@ -33,7 +33,7 @@ public class card_class_gen2 : MonoBehaviour{
     // 発動条件
     // 一応クラス内でも宣言しておく
     // Trigger Type
-    private string TRIGGERTYPE = "";
+    private string TRIGGERTYPE;
 
     // 把持されているかどうか
     // default: false
@@ -150,11 +150,16 @@ public class card_class_gen2 : MonoBehaviour{
     public void updateIsHold(){
         // 最上位の親オブジェクトのGameObject
         GameObject rootParent = this.transform.root.gameObject;
+        // 直接の親オブジェクトのGameObject
+        GameObject directParent = null;
+        if(this.transform.parent != null){
+            directParent = this.transform.parent.gameObject;
+        }
         //outputLog("root tag -> "+rootParent.tag);
 
         // 最上位の親オブジェクトがPlayerタグを持ってるか
         // 持ってる->把持されてる
-        if(rootParent.tag == "Player"){
+        if(rootParent.tag == "Player" && directParent.tag != "Upgrader"){
             setIsHold(true);
         }else{
             setIsHold(false);
