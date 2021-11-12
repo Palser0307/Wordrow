@@ -126,7 +126,7 @@ public class card_class_gen2 : MonoBehaviour{
     // update cardName
     public void setCardName(string newCardName){
         this.cardName = newCardName;
-        this.name = "Card_" + newCardName + "(gen2)";
+        this.name = "card_" + newCardName + "_gen2";
     }
 
     // add newTag to TargetList

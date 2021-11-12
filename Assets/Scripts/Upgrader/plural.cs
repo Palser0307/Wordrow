@@ -29,11 +29,17 @@ public class plural : MonoBehaviour{
     // 把持されているか
     protected bool isHold = false;
 
+    // 発動待機用
+    protected bool isReady = false;
+
     // jointへのアクセサ
     protected FixedJoint joint;
 
     // くっついたカードのスクリプト
-    // 少なくとも変数としては宣言できないわ
+    // 宣言できてるかなこれ・・・？
+    protected card_class_gen2 cardScript;
+
+    protected string TriggerType = "";
 
     // +-----------+
     // | functions |
@@ -49,7 +55,12 @@ public class plural : MonoBehaviour{
     protected void Update(){
         updateIsHold();
 
-        callUse();
+        if(TriggerType == "TrO"){
+            callUse();
+        }
+        if(TriggerType == "ThO"){
+            updateIsReady();
+        }
     }
 
     // カードだったらひっつく処理
@@ -73,6 +84,14 @@ public class plural : MonoBehaviour{
 
             joint.connectedBody = this.gameObject.GetComponent<Rigidbody>();
             // Card.GetComponent<Rigidbody>().mass = 0.1f;
+
+            // スクリプト呼び出し準備
+            cardScript = Card.GetComponent<>(Card.name);
+            TriggerType = cardScript.getTriggerType();
+        }
+
+        if(TriggerType == "TD" && cardScript.haveTargetTag(other.gameObject.tag)){
+            use(other);
         }
     }
 
@@ -122,6 +141,10 @@ public class plural : MonoBehaviour{
         return this.name;
     }
 
+    // get isReady
+    public bool getIsReady(){
+        return this.isReady;
+    }
 
     // +--------------+
     // |    SETTER    |
@@ -152,4 +175,16 @@ public class plural : MonoBehaviour{
         }
     }
 
+    // update isReady
+    protected void updateIsReady(){
+        if(OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && getIsHold()){
+            setIsReady(!getIsReady());
+            outputLog("updateIsReady() > change isReady to "+ getIsReady());
+        }
+    }
+
+    // set isReady
+    protected setIsReady(bool newStatus){
+        this.isReady = newStatus;
+    }
 }
