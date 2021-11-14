@@ -45,8 +45,8 @@ public class card_Tree_gen2 : TrO_card_class{
             Quaternion rot = Quaternion.Euler(90,0,0);
 
             // 出現位置ランダム化
-            float randX = 1 - Random.Range(0.0f, 2.0f);
-            float randZ = 1 - Random.Range(0.0f, 2.0f);
+            float randX = (1 - Random.Range(0.0f, 2.0f)) * 0.1f;
+            float randZ = (1 - Random.Range(0.0f, 2.0f)) * 0.1f;
             pos += Vector3.forward * randX + Vector3.right * randZ;
 
             // 出現角度ランダム化
@@ -54,7 +54,7 @@ public class card_Tree_gen2 : TrO_card_class{
             float randRotY = Random.Range(0.0f, 180.0f);
             rot = Quaternion.Euler(randRotX, randRotY, 0);
 
-            // Effect_PrefabのインスタンスをRain_Objectに格納
+            // Effect_PrefabのインスタンスをTree_Objectに格納
             Tree_Object = Instantiate(Effect_Prefab, pos, rot);
 
             // lifeTime 秒後にRain_Objectを削除する関数を呼び出すようにセット

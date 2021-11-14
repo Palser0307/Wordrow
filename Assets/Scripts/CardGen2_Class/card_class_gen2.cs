@@ -39,6 +39,12 @@ public class card_class_gen2 : MonoBehaviour{
     // default: false
     private bool isHold = false;
 
+    // 使えるUpgrader
+    private List<string> upgraderList = new List<string>();
+
+    // 今くっついてるUpgrader
+    //private string upgraderName = "";
+
     // +-----------+
     // | functions |
     // +-----------+
@@ -119,6 +125,16 @@ public class card_class_gen2 : MonoBehaviour{
         return this.name;
     }
 
+    // get UpgraderList
+    public List<string> getUpgraderList(){
+        return this.upgraderList;
+    }
+
+    // have upgrader?
+    public bool haveUpgrader(string type){
+        return this.upgraderList.Contains(type);
+    }
+
     // +--------------+
     // |    SETTER    |
     // +--------------+
@@ -169,5 +185,12 @@ public class card_class_gen2 : MonoBehaviour{
     // set Object Name
     public void setObjectName(string newName){
         this.cardName = "Card_" + newName + "(gen2)";
+    }
+
+    // add newType to UpgraderList
+    public void addUpgraderList(string newType){
+        if(!haveUpgrader(newType)){
+            this.upgraderList.Add(newType);
+        }
     }
 }

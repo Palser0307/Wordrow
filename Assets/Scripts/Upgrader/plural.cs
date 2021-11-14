@@ -39,7 +39,17 @@ public class plural : MonoBehaviour{
     // 宣言できてるかなこれ・・・？
     protected card_class_gen2 cardScript;
 
+    // 一応作っとく，接続したカードの発動形式の変数
     protected string TriggerType = "";
+
+    // インスペクタに表示するUpgraderの種別
+    // plural
+    //
+    //
+    public string UpgraderType_Inspector;
+
+    // Upgraderの名前リスト
+    protected List<string> jointable_Upgrader = new List<string>();
 
     // +-----------+
     // | functions |
@@ -86,8 +96,8 @@ public class plural : MonoBehaviour{
             // Card.GetComponent<Rigidbody>().mass = 0.1f;
 
             // スクリプト呼び出し準備
-            cardScript = Card.GetComponent<>(Card.name);
-            TriggerType = cardScript.getTriggerType();
+            // cardScript = Card.GetComponent<card_Tree_gen2>();
+            // TriggerType = cardScript.getTriggerType();
         }
 
         if(TriggerType == "TD" && cardScript.haveTargetTag(other.gameObject.tag)){
@@ -184,7 +194,7 @@ public class plural : MonoBehaviour{
     }
 
     // set isReady
-    protected setIsReady(bool newStatus){
+    protected void setIsReady(bool newStatus){
         this.isReady = newStatus;
     }
 }
