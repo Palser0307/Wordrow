@@ -58,7 +58,6 @@ public class plural : MonoBehaviour{
     // 初期設定
     protected void Start(){
         setCardName("plural");
-        joint = this.GetComponent<FixedJoint>();
     }
 
     // run per frame

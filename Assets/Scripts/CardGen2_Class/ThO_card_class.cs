@@ -33,6 +33,7 @@ public class ThO_card_class : card_class_gen2{
     // 初期設定
     // 呼び出させるつもりは無い
     protected new void Start(){
+        base.Start();
         setCardName("ThO_Class");
 
         // Effect_Prefabにちゃんと指定してあるかチェック

@@ -54,6 +54,15 @@ public class card_class_gen2 : MonoBehaviour{
     protected void Start(){
         setCardName("CardClass");
         checkPrefab();
+
+        // Rigidbodyアクセサを取得
+        Rigidbody rigid = this.GetComponent<Rigidbody>();
+        //this.GetComponent<Rigidbody>().isKinematic = true;
+        // 重力無視
+        rigid.useGravity = false;
+        // 非把持状態でのオブジェクト移動を制限
+        rigid.constraints = RigidbodyConstraints.FreezePosition;
+
         return;
     }
 

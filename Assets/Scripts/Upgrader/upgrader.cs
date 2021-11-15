@@ -17,6 +17,8 @@ public class upgrader : MonoBehaviour{
     // タイプ
     public string Upgrade_Type = "";
 
+    public string UpgraderName = "";
+
     private bool isHold = false;
 
     protected FixedJoint joint;
@@ -32,6 +34,7 @@ public class upgrader : MonoBehaviour{
 
         if(haveUpgraderType(Upgrade_Type)){
             setCardName(Upgrade_Type);
+            UpgraderName = Upgrade_Type;
         }
     }
 
@@ -41,25 +44,49 @@ public class upgrader : MonoBehaviour{
 
     }
 
+    /*
     // カードだったらひっつく処理
     protected void OnCollisionEnter(Collision other) {
         GameObject obj = other.gameObject;
         outputLog("くっつく？");
         // タグを見て，カードだったらひっつく
         if(obj.tag == "Card" && Card == null){
-            obj.transform.parent = this.transform;
             Card = obj;
+            OVRGrabbable CardGrabbable = Card.GetComponent<OVRGrabbable>();
+            //Card.GetComponent<OVRGrabbable>().enabled = false;
+            //Card.GetComponent<BoxCollider>().enabled = false;
+
+            //addJoint(Card);
+
+            // カード側が把持されてるんだったら…
+            if(//Card.transform.root.tag == "Player"
+            CardGrabbable.isGrabbed){
+                outputLog("カード側にくっつくよー");
+                this.transform.position = Card.transform.position;
+                this.transform.rotation = Card.transform.rotation;
+                this.GetComponent<Rigidbody>().isKinematic = true;
+                this.transform.parent = Card.transform;
+                this.transform.localPosition = new Vector3(0,0,0);
+            }else{
+                outputLog("plural側にくっつくよー");
+                Card.transform.position = this.transform.position;
+                Card.transform.rotation = this.transform.rotation;
+                Card.GetComponent<Rigidbody>().isKinematic = true;
+                Card.transform.parent = this.transform;
+                Card.transform.localPosition = new Vector3(0,0,0);
+            }
+
+            // Card.transform.parent = this.transform;
             outputLog("くっついた！");
 
             // FixedJointでくっつけてみる
             // …ための下準備 CardにFixedJointのComponentをつける
-            addJoint(Card);
+
             // 位置調整
             // FixedJointの接続先設定の前に位置を変えないと動けなくなる
-            Card.transform.position = this.transform.position;
-            Card.transform.rotation = this.transform.rotation;
 
-            joint.connectedBody = this.gameObject.GetComponent<Rigidbody>();
+            //joint.connectedBody = this.gameObject.GetComponent<Rigidbody>();
+
             // Card.GetComponent<Rigidbody>().mass = 0.1f;
 
             // スクリプト呼び出し準備
@@ -71,6 +98,7 @@ public class upgrader : MonoBehaviour{
             DownCard = Instantiate(Card.GetComponent<Test_Tree>().plural_card, this.transform.position + Vector3.up*0.1f, this.transform.rotation);
         }
     }
+    */
 
     public void outputLog(string str){
         Debug.Log(getObjectName() + " : " + str);
@@ -78,7 +106,6 @@ public class upgrader : MonoBehaviour{
 
     protected void addJoint(GameObject target){
         joint = target.AddComponent<FixedJoint>();
-        target.GetComponent<BoxCollider>().enabled = false;
     }
 
     // get isHold

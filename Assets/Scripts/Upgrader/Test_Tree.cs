@@ -11,6 +11,13 @@ public class Test_Tree : TrO_card_class{
     // 丸太出現の起点の高さ
     private float height = 0.2f;
 
+    // くっついたUpgraderとそのスクリプト
+    protected GameObject UpgraderObj = null;
+    protected upgrader UpgraderScript = null;
+
+    // くっつけるUpgrader名リスト
+    protected List<string> jointableUpgraderList = new List<string>();
+
     // 初期設定
     // 初ロード
     public new void Start(){
@@ -19,6 +26,9 @@ public class Test_Tree : TrO_card_class{
         setCardName("Tree_Test");
 
         checkPrefab();
+
+        addJointableUpgraderList("plural");
+
         outputLog("Setup finish.");
     }
 
@@ -49,5 +59,63 @@ public class Test_Tree : TrO_card_class{
 
         // Effect_PrefabのインスタンスをTree_Objectに格納
         Instantiate(Effect_Prefab, pos, rot);
+    }
+
+    protected void OnCollisionEnter(Collision other){
+        // Upgrader接触時
+        //outputLog("くっつく？");
+        if(other.gameObject.tag == "Upgrader" && UpgraderObj == null){
+            UpgraderObj = other.gameObject;
+            UpgraderScript = UpgraderObj.GetComponent<upgrader>();
+            if(
+                !haveJointableUpgraderList(
+                UpgraderScript.UpgraderName
+                )){
+                outputLog("reject");
+                return;
+            }
+            // カード側が把持されているんだったら…
+            if(this.GetComponent<OVRGrabbable>().isGrabbed){
+                outputLog("カード側にくっつくよー");
+                this.transform.position = UpgraderObj.transform.position;
+                this.transform.rotation = UpgraderObj.transform.rotation;
+                this.transform.parent = UpgraderObj.transform;
+                this.UpgraderObj.transform.localPosition = new Vector3(0,0,0);
+            }else if(UpgraderObj.GetComponent<OVRGrabbable>().isGrabbed){
+                outputLog("アプグレ側にくっつくよー");
+                UpgraderObj.transform.position = this.transform.position;
+                UpgraderObj.transform.rotation = this.transform.rotation;
+                UpgraderObj.transform.parent = this.transform;
+                UpgraderObj.transform.localPosition = new Vector3(0,0,0);
+            }
+            outputLog("くっついたよー");
+
+            // カード生成
+            Instantiate(this.plural_card,
+            this.transform.position + Vector3.up*0.1f,
+            this.transform.rotation);
+
+            // カード及びアプグレのオブジェクト削除
+            Destroy(UpgraderObj);
+            Destroy(this.gameObject);
+        }
+    }
+
+
+    // GETTER
+
+    protected bool haveJointableUpgraderList(string UpgraderType){
+        return jointableUpgraderList.Contains(UpgraderType);
+    }
+
+    // SETTER
+
+    protected bool addJointableUpgraderList(string newUpgraderType){
+        if(!haveJointableUpgraderList(newUpgraderType)){
+            jointableUpgraderList.Add(newUpgraderType);
+            return true;
+        }else{
+            return false;
+        }
     }
 }

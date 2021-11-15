@@ -22,6 +22,8 @@ public class Controller : MonoBehaviour{
 
     protected GameObject Deck_Object;
 
+    protected GameObject Grab_Object;
+
     // Is L/R Hand hold?
     protected bool LisHold = false;
     protected bool RisHold = false;
@@ -36,6 +38,7 @@ public class Controller : MonoBehaviour{
         addGrabbableTag("Card");
         addGrabbableTag("Grabbable");
         addGrabbableTag("Upgrader");
+        Grab_Object = null;
     }
 
     void Update(){
@@ -46,7 +49,8 @@ public class Controller : MonoBehaviour{
             foreach(var hit in hits){
                 if(haveGrabbableTag(hit.collider.tag)){
                     // Debug.Log("Grip");
-                    hit.collider.transform.parent = rightController.transform;
+                    Grab_Object = hit.collider.gameObject;
+                    Grab_Object.transform.parent = rightController.transform;
                     SetRHold(true);
                     break;
                 }
@@ -55,6 +59,7 @@ public class Controller : MonoBehaviour{
 
         // 離す処理
         if(OVRInput.GetUp(OVRInput.RawButton.RHandTrigger)){
+            /*
             for(int i = 0; i < rightController.transform.childCount; i++){
                 var child = rightController.transform.GetChild(i);
                 if(haveGrabbableTag(child.tag)){
@@ -62,6 +67,9 @@ public class Controller : MonoBehaviour{
                     SetRHold(false);
                 }
             }
+            */
+            Grab_Object.transform.parent = null;
+            Grab_Object = null;
         }
 
         // HUD Menu表示/非表示
@@ -73,6 +81,7 @@ public class Controller : MonoBehaviour{
             HUD_Tip.SetActive(!tipActive);
         }
 
+        /*
         // 山札出現・消滅
         if(OVRInput.GetDown(OVRInput.RawButton.X)){
             Debug.Log("Push X Button");
@@ -96,6 +105,7 @@ public class Controller : MonoBehaviour{
                 go.transform.position = Deck_Object.transform.position + Deck_Object.transform.up * 0.5f;
             }
         }
+        */
     }
 
     // カード出現
