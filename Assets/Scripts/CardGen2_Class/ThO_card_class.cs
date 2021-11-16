@@ -44,6 +44,7 @@ public class ThO_card_class : card_class_gen2{
 
     // Update is called once per frame
     protected new void Update(){
+        base.Update();
         // 把持情報の更新
         updateIsHold();
 

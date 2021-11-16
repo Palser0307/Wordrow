@@ -67,26 +67,9 @@ public class Test_Tree : TrO_card_class{
         if(other.gameObject.tag == "Upgrader" && UpgraderObj == null){
             UpgraderObj = other.gameObject;
             UpgraderScript = UpgraderObj.GetComponent<upgrader>();
-            if(
-                !haveJointableUpgraderList(
-                UpgraderScript.UpgraderName
-                )){
+            if(UpgraderScript != null && !haveJointableUpgraderList(UpgraderScript.getUpgraderName())){
                 outputLog("reject");
                 return;
-            }
-            // カード側が把持されているんだったら…
-            if(this.GetComponent<OVRGrabbable>().isGrabbed){
-                outputLog("カード側にくっつくよー");
-                this.transform.position = UpgraderObj.transform.position;
-                this.transform.rotation = UpgraderObj.transform.rotation;
-                this.transform.parent = UpgraderObj.transform;
-                this.UpgraderObj.transform.localPosition = new Vector3(0,0,0);
-            }else if(UpgraderObj.GetComponent<OVRGrabbable>().isGrabbed){
-                outputLog("アプグレ側にくっつくよー");
-                UpgraderObj.transform.position = this.transform.position;
-                UpgraderObj.transform.rotation = this.transform.rotation;
-                UpgraderObj.transform.parent = this.transform;
-                UpgraderObj.transform.localPosition = new Vector3(0,0,0);
             }
             outputLog("くっついたよー");
 
@@ -100,7 +83,6 @@ public class Test_Tree : TrO_card_class{
             Destroy(this.gameObject);
         }
     }
-
 
     // GETTER
 

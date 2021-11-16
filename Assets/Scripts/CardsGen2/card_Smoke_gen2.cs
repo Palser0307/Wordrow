@@ -16,6 +16,7 @@ public class card_Smoke_gen2 : ThO_card_class{
     // 初期設定
     // 初ロード時に叩かれる
     new void Start(){
+        base.Start();
         // カード名設定
         setCardName("Smoke");
 

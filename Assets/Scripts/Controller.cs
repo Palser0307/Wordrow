@@ -42,6 +42,7 @@ public class Controller : MonoBehaviour{
     }
 
     void Update(){
+        /*
         // 掴む処理
         if(OVRInput.GetDown(OVRInput.RawButton.RHandTrigger)){
             RaycastHit[] hits;
@@ -59,18 +60,12 @@ public class Controller : MonoBehaviour{
 
         // 離す処理
         if(OVRInput.GetUp(OVRInput.RawButton.RHandTrigger)){
-            /*
-            for(int i = 0; i < rightController.transform.childCount; i++){
-                var child = rightController.transform.GetChild(i);
-                if(haveGrabbableTag(child.tag)){
-                    child.parent = null;
-                    SetRHold(false);
-                }
+            if(Grab_Object != null){
+                Grab_Object.transform.parent = null;
+                Grab_Object = null;
             }
-            */
-            Grab_Object.transform.parent = null;
-            Grab_Object = null;
         }
+        */
 
         // HUD Menu表示/非表示
         if(OVRInput.GetDown(OVRInput.RawButton.B)){

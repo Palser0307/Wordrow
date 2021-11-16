@@ -45,6 +45,10 @@ public class card_class_gen2 : MonoBehaviour{
     // 今くっついてるUpgrader
     //private string upgraderName = "";
 
+    protected Rigidbody rigid;
+
+    protected OVRGrabbable grab;
+
     // +-----------+
     // | functions |
     // +-----------+
@@ -56,13 +60,15 @@ public class card_class_gen2 : MonoBehaviour{
         checkPrefab();
 
         // Rigidbodyアクセサを取得
-        Rigidbody rigid = this.GetComponent<Rigidbody>();
-        //this.GetComponent<Rigidbody>().isKinematic = true;
+        rigid = this.GetComponent<Rigidbody>();
+        // 力学無視
+        rigid.isKinematic = true;
         // 重力無視
         rigid.useGravity = false;
         // 非把持状態でのオブジェクト移動を制限
-        rigid.constraints = RigidbodyConstraints.FreezePosition;
+        //rigid.constraints = RigidbodyConstraints.FreezePosition;
 
+        grab = this.GetComponent<OVRGrabbable>();
         return;
     }
 
@@ -72,6 +78,8 @@ public class card_class_gen2 : MonoBehaviour{
     でオーバーライドしておく */
     protected virtual void Update(){
         updateIsHold();
+
+        rigid.velocity = Vector3.zero;
         return;
     }
 
@@ -189,6 +197,7 @@ public class card_class_gen2 : MonoBehaviour{
         }else{
             setIsHold(false);
         }
+        setIsHold(grab.isGrabbed);
     }
 
     // set Object Name
