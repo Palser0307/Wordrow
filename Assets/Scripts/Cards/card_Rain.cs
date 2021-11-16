@@ -55,7 +55,7 @@ public class card_Rain : card_class{
         if(Rain_Object == null){
             Debug.Log("Rain appear");
             Rain_Object = Instantiate(Rain_Prefab);
-            Rain_Object.transform.position = new Vector3(0.0f, 10.0f, 0.0f);
+            Rain_Object.transform.position = new Vector3(0.0f, 5.0f, 0.0f);
             Invoke(nameof(DelayMethod), 10.0f);
         }else{
             Destroy(Rain_Object);

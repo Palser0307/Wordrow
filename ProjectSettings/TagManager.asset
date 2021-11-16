@@ -10,6 +10,7 @@ TagManager:
   - Door
   - Grabbable
   - ALPHA
+  - tree
   layers:
   - Default
   - TransparentFX
