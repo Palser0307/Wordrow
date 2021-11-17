@@ -35,6 +35,8 @@ public class upgrader : MonoBehaviour{
 
     protected GameObject DownCard;
 
+    protected Rigidbody rigid;
+
     void Start(){
         setupTypeList();
 
@@ -42,12 +44,20 @@ public class upgrader : MonoBehaviour{
             setCardName(Upgrade_Type);
             setUpgraderName(Upgrade_Type);
         }
+        // Rigidbodyアクセサを取得
+        rigid = this.GetComponent<Rigidbody>();
+        // 力学無視
+        rigid.isKinematic = true;
+        // 重力無視
+        rigid.useGravity = false;
+        // 非把持状態でのオブジェクト移動を制限
+        //rigid.constraints = RigidbodyConstraints.FreezePosition;
     }
 
     // Update is called once per frame
     void Update(){
         updateIsHold();
-
+        rigid.velocity = Vector3.zero;
     }
 
     public void outputLog(string str){

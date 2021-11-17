@@ -30,6 +30,8 @@ public class card_Tree_gen2 : TrO_card_class{
 
         checkPrefab();
 
+        addJointableUpgraderList("plural");
+
         outputLog("Setup finish.");
     }
 
@@ -67,8 +69,10 @@ public class card_Tree_gen2 : TrO_card_class{
         if(other.gameObject.tag == "Upgrader" && UpgraderObj == null){
             UpgraderObj = other.gameObject;
             UpgraderScript = UpgraderObj.GetComponent<upgrader>();
-            if(UpgraderScript != null && !haveJointableUpgraderList(UpgraderScript.getUpgraderName())){
-                outputLog("reject");
+            if(UpgraderScript == null ||
+                !haveJointableUpgraderList(UpgraderScript.getUpgraderName())){
+                outputLog("reject"+(UpgraderScript!=null)+" "+!haveJointableUpgraderList(UpgraderScript.getUpgraderName()));
+                outputLog(UpgraderScript.getUpgraderName());
                 return;
             }
 
@@ -76,6 +80,10 @@ public class card_Tree_gen2 : TrO_card_class{
             Instantiate(this.plural_card,
             this.transform.position + Vector3.up * 0.1f,
             this.transform.rotation);
+
+            // Grabberの把持解除
+            OVRGrabber graber = this.grab.grabbedBy;
+            //graber.ForceRelease(this.grab);
 
             // カード及びアプグレのオブジェクト削除
             Destroy(this.UpgraderObj);

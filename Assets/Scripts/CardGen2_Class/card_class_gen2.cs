@@ -101,11 +101,12 @@ public class card_class_gen2 : MonoBehaviour{
         }
     }
 
+
+
     // Debug.Log() for CardClass
     public void outputLog(string str){
         Debug.Log(getObjectName() + " : " + str);
     }
-
 
 
     // +--------------+
