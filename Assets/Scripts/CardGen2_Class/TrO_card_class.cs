@@ -42,12 +42,14 @@ public class TrO_card_class : card_class_gen2{
 
     // Update is called once per frame
     protected new void Update(){
-        base.Update();
+        //base.Update();
         // 把持情報の更新
         this.updateIsHold();
 
         // use()を呼び出す関数を叩く
         this.callUse();
+
+        vectorZero();
     }
 
     // 効果発動

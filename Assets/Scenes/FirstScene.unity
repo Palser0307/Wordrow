@@ -2637,7 +2637,7 @@ PrefabInstance:
     - target: {fileID: 6654282525198866556, guid: e4a11a7337d7acf46ac47cf5f364f176,
         type: 3}
       propertyPath: m_Name
-      value: Upgrader_Plural
+      value: Plural
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4a11a7337d7acf46ac47cf5f364f176, type: 3}

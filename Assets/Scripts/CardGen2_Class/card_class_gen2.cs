@@ -62,11 +62,9 @@ public class card_class_gen2 : MonoBehaviour{
         // Rigidbodyアクセサを取得
         rigid = this.GetComponent<Rigidbody>();
         // 力学無視
-        rigid.isKinematic = true;
+        //rigid.isKinematic = true;
         // 重力無視
         rigid.useGravity = false;
-        // 非把持状態でのオブジェクト移動を制限
-        //rigid.constraints = RigidbodyConstraints.FreezePosition;
 
         grab = this.GetComponent<OVRGrabbable>();
         return;
@@ -79,7 +77,7 @@ public class card_class_gen2 : MonoBehaviour{
     protected virtual void Update(){
         updateIsHold();
 
-        rigid.velocity = Vector3.zero;
+        vectorZero();
         return;
     }
 
@@ -108,6 +106,10 @@ public class card_class_gen2 : MonoBehaviour{
         Debug.Log(getObjectName() + " : " + str);
     }
 
+    // 移動速度をゼロに
+    protected void vectorZero(){
+        rigid.velocity = Vector3.zero;
+    }
 
     // +--------------+
     // |    GETTER    |
@@ -182,23 +184,9 @@ public class card_class_gen2 : MonoBehaviour{
 
     // update isHold
     public void updateIsHold(){
-        // 最上位の親オブジェクトのGameObject
-        GameObject rootParent = this.transform.root.gameObject;
-        // 直接の親オブジェクトのGameObject
-        GameObject directParent = null;
-        if(this.transform.parent != null){
-            directParent = this.transform.parent.gameObject;
+        if(getIsHold() != grab.isGrabbed){
+            setIsHold(grab.isGrabbed);
         }
-        //outputLog("root tag -> "+rootParent.tag);
-
-        // 最上位の親オブジェクトがPlayerタグを持ってるか
-        // 持ってる->把持されてる
-        if(rootParent.tag == "Player" && directParent.tag != "Upgrader"){
-            setIsHold(true);
-        }else{
-            setIsHold(false);
-        }
-        setIsHold(grab.isGrabbed);
     }
 
     // set Object Name

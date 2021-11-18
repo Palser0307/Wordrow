@@ -28,8 +28,6 @@ public class card_Tree_gen2 : TrO_card_class{
         // カード名設定
         setCardName("Tree");
 
-        checkPrefab();
-
         addJointableUpgraderList("plural");
 
         outputLog("Setup finish.");
@@ -65,6 +63,7 @@ public class card_Tree_gen2 : TrO_card_class{
     }
 
     protected void OnCollisionEnter(Collision other){
+        outputLog("Oncollision Enter");
         // Upgrader接触時
         if(other.gameObject.tag == "Upgrader" && UpgraderObj == null){
             UpgraderObj = other.gameObject;
@@ -73,17 +72,29 @@ public class card_Tree_gen2 : TrO_card_class{
                 !haveJointableUpgraderList(UpgraderScript.getUpgraderName())){
                 outputLog("reject"+(UpgraderScript!=null)+" "+!haveJointableUpgraderList(UpgraderScript.getUpgraderName()));
                 outputLog(UpgraderScript.getUpgraderName());
+                UpgraderObj = null;
                 return;
             }
+
+            outputLog("蝶☆合体");
 
             // カード生成
             Instantiate(this.plural_card,
             this.transform.position + Vector3.up * 0.1f,
             this.transform.rotation);
 
-            // Grabberの把持解除
-            OVRGrabber graber = this.grab.grabbedBy;
-            //graber.ForceRelease(this.grab);
+            // どっちかが握られてたら，その解除をする
+            // TODO: UpgraderObj.grab == UpgraderObj_grab
+            OVRGrabbable UpgraderObj_grab = this.UpgraderObj.GetComponent<OVRGrabbable>();
+            if(grab.isGrabbed){
+                // Grabberの把持解除
+                OVRGrabber grabber = this.grab.grabbedBy;
+                grabber.ForceRelease(this.grab);
+            }else if(UpgraderObj_grab.isGrabbed){
+                // Upgrager側をGrabしてるGrabberの把持解除
+                OVRGrabber grabber = UpgraderObj_grab.grabbedBy;
+                grabber.ForceRelease(UpgraderObj_grab);
+            }
 
             // カード及びアプグレのオブジェクト削除
             Destroy(this.UpgraderObj);

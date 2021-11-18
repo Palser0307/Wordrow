@@ -37,8 +37,11 @@ public class upgrader : MonoBehaviour{
 
     protected Rigidbody rigid;
 
+    protected OVRGrabbable grab;
+
     void Start(){
         setupTypeList();
+        addUpgraderType("plural");
 
         if(haveUpgraderType(Upgrade_Type)){
             setCardName(Upgrade_Type);
@@ -47,11 +50,10 @@ public class upgrader : MonoBehaviour{
         // Rigidbodyアクセサを取得
         rigid = this.GetComponent<Rigidbody>();
         // 力学無視
-        rigid.isKinematic = true;
+        //rigid.isKinematic = true;
         // 重力無視
         rigid.useGravity = false;
-        // 非把持状態でのオブジェクト移動を制限
-        //rigid.constraints = RigidbodyConstraints.FreezePosition;
+        grab = this.GetComponent<OVRGrabbable>();
     }
 
     // Update is called once per frame
@@ -89,29 +91,21 @@ public class upgrader : MonoBehaviour{
     }
 
     public void updateIsHold(){
-        // 最上位の親オブジェクトのGameObject
-        GameObject rootParent = this.transform.root.gameObject;
-        //outputLog("root tag -> "+rootParent.tag);
-
-        // 最上位の親オブジェクトがPlayerタグを持ってるか
-        // 持ってる->把持されてる
-        if(rootParent.tag == "Player"){
-            setIsHold(true);
-        }else{
-            setIsHold(false);
+        if(getIsHold() != grab.isGrabbed){
+            setIsHold(grab.isGrabbed);
         }
     }
 
-public bool haveUpgraderType(string type){
-    return this.UpgraderType.Contains(type);
-}
-public void addUpgraderType(string type){
-    if(!haveUpgraderType(type)){
-        this.UpgraderType.Add(type);
+    public bool haveUpgraderType(string type){
+        return this.UpgraderType.Contains(type);
     }
-}
-public void setupTypeList(){
-    addUpgraderType("plural");
-}
+    public void addUpgraderType(string type){
+        if(!haveUpgraderType(type)){
+            this.UpgraderType.Add(type);
+        }
+    }
+    public void setupTypeList(){
+        addUpgraderType("plural");
+    }
 
 }

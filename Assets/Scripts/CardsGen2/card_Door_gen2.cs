@@ -76,7 +76,7 @@ public class card_Door_gen2 : ThO_card_class{
     // 手を離したときの位置座標を記録するように
     public new void updateIsHold(){
         // outputLog("updateIsHold()");
-        if(this.transform.parent != null){
+        if(!grab.isGrabbed){
             setIsHold(true);
         }else{
             if(getIsHold()){
