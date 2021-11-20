@@ -30,6 +30,7 @@ public class TrO_card_class : card_class_gen2{
     // 初期設定
     // 呼び出させるつもりは無い
     protected new void Start(){
+        base.Start();
         // 名前設定
         setCardName("TrO_Class");
 
@@ -41,11 +42,14 @@ public class TrO_card_class : card_class_gen2{
 
     // Update is called once per frame
     protected new void Update(){
+        //base.Update();
         // 把持情報の更新
-        updateIsHold();
+        this.updateIsHold();
 
         // use()を呼び出す関数を叩く
-        callUse();
+        this.callUse();
+
+        vectorZero();
     }
 
     // 効果発動

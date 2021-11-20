@@ -22,25 +22,36 @@ public class Controller : MonoBehaviour{
 
     protected GameObject Deck_Object;
 
+    protected GameObject Grab_Object;
+
     // Is L/R Hand hold?
     protected bool LisHold = false;
     protected bool RisHold = false;
+
+    // 掴めるもののタグリスト
+    protected List<string> grabbableTagList = new List<string>();
 
     void Start(){
         Deck_Object = null;
         HUD_Menu.SetActive(false);
         HUD_Tip.SetActive(false);
+        addGrabbableTag("Card");
+        addGrabbableTag("Grabbable");
+        addGrabbableTag("Upgrader");
+        Grab_Object = null;
     }
 
     void Update(){
+        /*
         // 掴む処理
         if(OVRInput.GetDown(OVRInput.RawButton.RHandTrigger)){
             RaycastHit[] hits;
             hits = Physics.SphereCastAll(rightController.transform.position, 0.01f, Vector3.forward);
             foreach(var hit in hits){
-                if(hit.collider.tag == "Card" || hit.collider.tag == "Grabbable"){
+                if(haveGrabbableTag(hit.collider.tag)){
                     // Debug.Log("Grip");
-                    hit.collider.transform.parent = rightController.transform;
+                    Grab_Object = hit.collider.gameObject;
+                    Grab_Object.transform.parent = rightController.transform;
                     SetRHold(true);
                     break;
                 }
@@ -49,14 +60,12 @@ public class Controller : MonoBehaviour{
 
         // 離す処理
         if(OVRInput.GetUp(OVRInput.RawButton.RHandTrigger)){
-            for(int i = 0; i < rightController.transform.childCount; i++){
-                var child = rightController.transform.GetChild(i);
-                if(child.tag == "Card" || child.tag == "Grabbable"){
-                    child.parent = null;
-                    SetRHold(false);
-                }
+            if(Grab_Object != null){
+                Grab_Object.transform.parent = null;
+                Grab_Object = null;
             }
         }
+        */
 
         // HUD Menu表示/非表示
         if(OVRInput.GetDown(OVRInput.RawButton.B)){
@@ -67,6 +76,7 @@ public class Controller : MonoBehaviour{
             HUD_Tip.SetActive(!tipActive);
         }
 
+        /*
         // 山札出現・消滅
         if(OVRInput.GetDown(OVRInput.RawButton.X)){
             Debug.Log("Push X Button");
@@ -90,6 +100,7 @@ public class Controller : MonoBehaviour{
                 go.transform.position = Deck_Object.transform.position + Deck_Object.transform.up * 0.5f;
             }
         }
+        */
     }
 
     // カード出現
@@ -137,6 +148,22 @@ public class Controller : MonoBehaviour{
     }
     public bool GetRHold(){
         return RisHold;
+    }
+
+    public bool haveGrabbableTag(string tag){
+        return this.grabbableTagList.Contains(tag);
+    }
+    public List<string> getGrabbableTag(){
+        return this.grabbableTagList;
+    }
+
+    public bool addGrabbableTag(string tag){
+        if(!haveGrabbableTag(tag)){
+            this.grabbableTagList.Add(tag);
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 

@@ -33,11 +33,21 @@ public class card_class_gen2 : MonoBehaviour{
     // 発動条件
     // 一応クラス内でも宣言しておく
     // Trigger Type
-    private string TRIGGERTYPE = "";
+    private string TRIGGERTYPE;
 
     // 把持されているかどうか
     // default: false
     private bool isHold = false;
+
+    // 使えるUpgrader
+    private List<string> upgraderList = new List<string>();
+
+    // 今くっついてるUpgrader
+    //private string upgraderName = "";
+
+    protected Rigidbody rigid;
+
+    protected OVRGrabbable grab;
 
     // +-----------+
     // | functions |
@@ -48,6 +58,15 @@ public class card_class_gen2 : MonoBehaviour{
     protected void Start(){
         setCardName("CardClass");
         checkPrefab();
+
+        // Rigidbodyアクセサを取得
+        rigid = this.GetComponent<Rigidbody>();
+        // 力学無視
+        //rigid.isKinematic = true;
+        // 重力無視
+        rigid.useGravity = false;
+
+        grab = this.GetComponent<OVRGrabbable>();
         return;
     }
 
@@ -57,6 +76,8 @@ public class card_class_gen2 : MonoBehaviour{
     でオーバーライドしておく */
     protected virtual void Update(){
         updateIsHold();
+
+        vectorZero();
         return;
     }
 
@@ -78,12 +99,17 @@ public class card_class_gen2 : MonoBehaviour{
         }
     }
 
+
+
     // Debug.Log() for CardClass
     public void outputLog(string str){
         Debug.Log(getObjectName() + " : " + str);
     }
 
-
+    // 移動速度をゼロに
+    protected void vectorZero(){
+        rigid.velocity = Vector3.zero;
+    }
 
     // +--------------+
     // |    GETTER    |
@@ -119,6 +145,16 @@ public class card_class_gen2 : MonoBehaviour{
         return this.name;
     }
 
+    // get UpgraderList
+    public List<string> getUpgraderList(){
+        return this.upgraderList;
+    }
+
+    // have upgrader?
+    public bool haveUpgrader(string type){
+        return this.upgraderList.Contains(type);
+    }
+
     // +--------------+
     // |    SETTER    |
     // +--------------+
@@ -126,7 +162,7 @@ public class card_class_gen2 : MonoBehaviour{
     // update cardName
     public void setCardName(string newCardName){
         this.cardName = newCardName;
-        this.name = "Card_" + newCardName + "(gen2)";
+        this.name = "card_" + newCardName + "_gen2";
     }
 
     // add newTag to TargetList
@@ -148,15 +184,20 @@ public class card_class_gen2 : MonoBehaviour{
 
     // update isHold
     public void updateIsHold(){
-        if(this.transform.parent != null){
-            setIsHold(true);
-        }else{
-            setIsHold(false);
+        if(getIsHold() != grab.isGrabbed){
+            setIsHold(grab.isGrabbed);
         }
     }
 
     // set Object Name
     public void setObjectName(string newName){
         this.cardName = "Card_" + newName + "(gen2)";
+    }
+
+    // add newType to UpgraderList
+    public void addUpgraderList(string newType){
+        if(!haveUpgrader(newType)){
+            this.upgraderList.Add(newType);
+        }
     }
 }

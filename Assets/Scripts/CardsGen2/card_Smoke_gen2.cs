@@ -16,6 +16,7 @@ public class card_Smoke_gen2 : ThO_card_class{
     // 初期設定
     // 初ロード時に叩かれる
     new void Start(){
+        base.Start();
         // カード名設定
         setCardName("Smoke");
 
@@ -54,6 +55,9 @@ public class card_Smoke_gen2 : ThO_card_class{
 
             // lifeTime 秒後にSmoke_Objectを削除する関数を呼び出すようにセット
             Invoke(nameof(DelayMethod), lifeTime);
+
+            // 発動待機状態を解除
+            setIsReady(false);
         }
     }
 
@@ -63,5 +67,7 @@ public class card_Smoke_gen2 : ThO_card_class{
         outputLog("Smoke_Object disappear by InvokedMethod");
         Destroy(Smoke_Object);
         Smoke_Object = null;
+
+        Destroy(this.gameObject);
     }
 }

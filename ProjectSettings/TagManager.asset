@@ -11,6 +11,8 @@ TagManager:
   - Grabbable
   - ALPHA
   - tree
+  - Plural
+  - Upgrader
   layers:
   - Default
   - TransparentFX
