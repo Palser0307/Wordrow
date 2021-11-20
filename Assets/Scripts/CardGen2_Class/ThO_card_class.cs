@@ -40,16 +40,21 @@ public class ThO_card_class : card_class_gen2{
         checkPrefab();
 
         setTriggerType("ThO");
+        rigid.isKinematic = false;
     }
 
     // Update is called once per frame
     protected new void Update(){
-        base.Update();
+        // base.Update();
         // 把持情報の更新
         updateIsHold();
 
         // 発動待機状態の更新
         updateIsReady();
+
+        if(!getIsReady()){
+            vectorZero();
+        }
     }
 
     // 接触時
@@ -77,6 +82,12 @@ public class ThO_card_class : card_class_gen2{
         }
     }
 
+    // update isHold
+    public new void updateIsHold(){
+        if(getIsHold() != grab.isGrabbed){
+            setIsHold(grab.isGrabbed);
+        }
+    }
 
     // +--------+
     // | GETTER |
@@ -93,5 +104,13 @@ public class ThO_card_class : card_class_gen2{
 
     protected void setIsReady(bool newStatus){
         this.isReady = newStatus;
+        rigid.useGravity = newStatus;
+    }
+    public new void setIsHold(bool newStatus){
+        outputLog("setIsHold()");
+        base.setIsHold(newStatus);
+        if(newStatus == false){
+            rigid.isKinematic = false;
+        }
     }
 }
