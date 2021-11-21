@@ -6,21 +6,27 @@ using System.IO;
 
 // in "System_Scripts" Object
 public class Alpha_Controller : MonoBehaviour{
+    // HUDアクセサ
     [SerializeField]
     protected GameObject Alpha_HUD;
+
+    // HUDテキスト部分のアクセサ
     [SerializeField]
     protected GameObject Alpha_Text;
 
+    // HUDアバター部分のアクセサ
     protected GameObject alpha_avater;
+
     protected GameObject alpha_text;
     // Alpha_HUDのテキスト部分オブジェクト
     protected GameObject Text_string;
     protected Text text_string;
 
+    // あーちゃんセリフ格納配列
     protected string[] alpha_wordsArray;
 
-    // in System_Scripts Object
-    protected GameObject Sys_Scripts = null;
+    // in System_Controller Object
+    protected GameObject Sys_Controller = null;
     public Alpha_Words alpha_Scinario;
 
     protected static int cnt = 0;
@@ -31,7 +37,7 @@ public class Alpha_Controller : MonoBehaviour{
     protected static string status = "active";
 
     void Start(){
-        Sys_Scripts = GameObject.Find("System_Scripts");
+        Sys_Controller = this.gameObject;
         alpha_Scinario = new Alpha_Words();
         // alpha_Scinario = (Alpha_Words)Alpha_Words.loadFromJSON();
         // Debug.Log(Alpha_Words.loadFromJSON().num);
@@ -60,11 +66,12 @@ public class Alpha_Controller : MonoBehaviour{
             return;
         }
         if(OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger)){
-            Debug.Log(Sys_Scripts.GetComponent<Controller>().GetLHold());
+            // Debug.Log(Sys_Scripts.GetComponent<Controller>().GetLHold());
             // next();
             // Debug.Log(next_str());
             nxt_str = next_str();
             Debug.Log(nxt_str);
+            // ここでセリフテキストを出力
             text_string.text = nxt_str;
         }
     }
@@ -115,10 +122,10 @@ public class Alpha_Controller : MonoBehaviour{
     }
 
     /*
-    +----------------------+
+    +------------------------+
     | あーちゃん用セリフ関連 |
-    |     セリフ内蔵版      |
-    +----------------------+
+    |     セリフ内蔵版       |
+    +------------------------+
     */
     // セリフのstring配列
     public static string[] words = {

@@ -22,10 +22,17 @@ public class tutorial_flags : MonoBehaviour{
     // 未使用
     public static bool Door_appear = false;
 
+    // あーちゃん
+    protected Alpha_Controller alpha_Controller;
+
     void Start(){
+        alpha_Controller = this.gameObject.GetComponent<Alpha_Controller>();
     }
 
     void Update(){
+        if(Metamorphose == true){
+            //Debug.Log("蝶☆合体！パピヨン！");
+        }
     }
 
     public bool getDoorAppear(){
@@ -34,4 +41,23 @@ public class tutorial_flags : MonoBehaviour{
     public void setDoorAppear(bool temp){
         Door_appear = temp;
     }
+
+    // 握っているか？
+    private bool canGrab=false;
+    public bool CanGrab{
+        set{
+            this.canGrab = value;
+        }
+        get{
+            return this.canGrab;
+        }
+    }
+
+    // 蝶☆合体
+    private bool metamorphose = false;
+    public bool Metamorphose{get; set;} // これで簡易実装
+
+    // 木が燃える
+    private bool burningTree = false;
+    public bool BurningTree{get; set;}
 }

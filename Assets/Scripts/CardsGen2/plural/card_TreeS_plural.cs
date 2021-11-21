@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class card_TreeS_plural : TrO_card_class{
     private float height = 0.2f;
+
+    // 丸太を一括管理するGameObject
+    [SerializeField]
+    protected GameObject Trees;
+    protected Trees TreeS;
+
     protected new void Start(){
         base.Start();
         setCardName("TreeS");
@@ -42,6 +48,18 @@ public class card_TreeS_plural : TrO_card_class{
         rot = Quaternion.Euler(randRotX, randRotY, 0);
 
         // Effect_PrefabのインスタンスをTree_Objectに格納
-        Instantiate(Effect_Prefab, pos, rot);
+        if(TreeS != null){
+            TreeS.addList(Instantiate(Effect_Prefab, pos, rot));
+        }else{
+            Instantiate(Effect_Prefab, pos, rot);
+        }
+    }
+
+    public void setTreeS(GameObject t){
+        Trees = t;
+        TreeS = Trees.GetComponent<Trees>();
+        if(TreeS == null){
+            outputLog("ERROR TreeS is NULL!!");
+        }
     }
 }
