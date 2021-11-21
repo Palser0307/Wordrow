@@ -21,6 +21,16 @@ public class card_Tree_gen2 : TrO_card_class{
     protected GameObject UpgraderObj = null;
     protected upgrader UpgraderScript = null;
 
+    // Flag
+    protected tutorial_flags tf;
+
+    // 丸太を一括管理するGameObject
+    // 生成した丸太は全てここに
+    // ちゃんとインスペクタでアタッチしておくこと
+    [SerializeField]
+    protected GameObject Trees;
+    protected Trees TreeS;
+
     // 初期設定
     // 初ロード時に叩かれる
     public new void Start(){
@@ -31,6 +41,14 @@ public class card_Tree_gen2 : TrO_card_class{
         addJointableUpgraderList("plural");
 
         outputLog("Setup finish.");
+
+        // フラグシステムテスト
+        tf = GameObject.Find("System_Controller").GetComponent<tutorial_flags>();
+
+        TreeS = Trees.GetComponent<Trees>();
+        if(TreeS == null){
+            outputLog("TreeS is NULL!!");
+        }
     }
 
     // フレームごとに叩かれる
@@ -58,8 +76,9 @@ public class card_Tree_gen2 : TrO_card_class{
         float randRotY = Random.Range(0.0f, 180.0f);
         rot = Quaternion.Euler(randRotX, randRotY, 0);
 
-        // Effect_PrefabのインスタンスをTree_Objectに格納
-        Instantiate(Effect_Prefab, pos, rot);
+        // Effect_Prefabのインスタンスを生成
+        //Instantiate(Effect_Prefab, pos, rot);
+        TreeS.addList(Instantiate(Effect_Prefab, pos, rot));
     }
 
     protected void OnCollisionEnter(Collision other){
@@ -79,9 +98,12 @@ public class card_Tree_gen2 : TrO_card_class{
             outputLog("蝶☆合体");
 
             // カード生成
-            Instantiate(this.plural_card,
+            GameObject card = Instantiate(this.plural_card,
             this.transform.position + Vector3.up * 0.1f,
             this.transform.rotation);
+
+            // 丸太をまとめるGameObjectをアタッチする
+            card.GetComponent<card_TreeS_plural>().setTreeS(Trees);
 
             // どっちかが握られてたら，その解除をする
             // TODO: UpgraderObj.grab == UpgraderObj_grab
@@ -95,6 +117,10 @@ public class card_Tree_gen2 : TrO_card_class{
                 OVRGrabber grabber = UpgraderObj_grab.grabbedBy;
                 grabber.ForceRelease(UpgraderObj_grab);
             }
+
+            // TEST
+            // フラグ管理
+            tf.Metamorphose = true;
 
             // カード及びアプグレのオブジェクト削除
             Destroy(this.UpgraderObj);

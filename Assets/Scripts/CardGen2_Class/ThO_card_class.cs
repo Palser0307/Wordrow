@@ -107,7 +107,7 @@ public class ThO_card_class : card_class_gen2{
         rigid.useGravity = newStatus;
     }
     public new void setIsHold(bool newStatus){
-        outputLog("setIsHold()");
+        //outputLog("setIsHold()");
         base.setIsHold(newStatus);
         if(newStatus == false){
             rigid.isKinematic = false;
