@@ -103,39 +103,9 @@ public class Controller : MonoBehaviour{
         */
     }
 
-    // カード出現
-    void CardAppear(Vector3 basePos, Vector3 direction, GameObject newCard){
-        // カード出現位置指定
-        newCard.transform.position = basePos + direction * 0.2f;
-    }
-
-    // カード生成
-    GameObject CreateCard(){
-        GameObject newCard = Instantiate(RandomCard());
-        // 物理演算の停止
-        // newCard.GetComponent<Rigidbody>().isKinematic = true;
-        return newCard;
-    }
-
-    // カード追加の度にリスト追加
-    protected List<string> card_list = new List<string>{
-        "Fly",
-        "Rain",
-        "Smoke",
-    };
-    // カードランダム選択
-    GameObject RandomCard(){
-        string path_1 = "Cards/Card_";
-
-        int randomNum = Random.Range(0, card_list.Count);
-        string path_2 = card_list[randomNum];
-
-        string path = path_1 + path_2;
-
-        GameObject newCard = (GameObject)Resources.Load(path);
-        return newCard;
-    }
-
+    //
+    // GETTER / SETTER
+    //
     public void SetLHold(bool newStatus){
         LisHold = newStatus;
     }
