@@ -33,39 +33,67 @@ public class Alpha_Controller : MonoBehaviour{
     protected static int cnt = 0;
 
     // 現在のセリフ位置
-    protected static int strPos = 0;
+    public int strPos = 0;
 
     // あーちゃんのシナリオ同期，管理用
     // active: あーちゃんのセリフ送り可能
     // inactive: あーちゃんのセリフ送り停止
     // next: 外部からのセリフ送り要求
-    private static string status = "active";
-    public string Status{get;set;}
+    public string Status{get;set;} = "active";
 
     void Start(){
         Sys_Controller = this.gameObject;
 
+        /*
         // 各GameObjectへのアクセサを代入
         Alpha_AvaterObj = GameObject.Find("Alpha_Avater");
         Alpha_TextObj = GameObject.Find("Alpha_Text");
-        Alpha_Text_string = GameObject.Find("Text_String");
+        Alpha_Text_string = GameObject.Find("Text_string");
         text_string = Alpha_Text_string.GetComponent<Text>();
+        */
+
+        Transform children = Alpha_HUD.GetComponentInChildren<Transform>();
+        if(children.childCount == 0){
+            outputLog("this object haven't child object.");
+        }
+        foreach(Transform obj in children){
+            switch (obj.gameObject.name){
+                case "Alpha_Avater":
+                    outputLog("Alpha_Avater");
+                    Alpha_AvaterObj = obj.gameObject;
+                    break;
+                case "Alpha_Text":
+                    outputLog("Alpha_Text");
+                    Alpha_TextObj = obj.gameObject;
+                    Alpha_Text_string = Alpha_TextObj.transform.GetChild(1).gameObject;
+                    text_string = Alpha_Text_string.GetComponent<Text>();
+                    if(text_string == null){
+                        outputError("text_string is null");
+                    }
+                    text_string.text = wakeUpMessage;
+                    break;
+                default:
+                    break;
+            }
+        }
 
         // とりあえず起動確認用のMessageを出力
         text_string.text = wakeUpMessage;
+        reloadStr();
         outputLog("start() finished");
     }
 
     void Update(){
-        switch (status){
+        switch (Status){
             case "active":
                 if(OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger)){
-                    nextStr(text_string.text);
+                    nextStr();
                 }
                 break;
 
             case "next":
-                nextStr(text_string.text);
+                nextStr();
+                Status = "active";
                 break;
 
             case "inactive":
@@ -75,14 +103,27 @@ public class Alpha_Controller : MonoBehaviour{
     }
 
     // セリフ送り
-    protected void nextStr(string text){
-        if(strPos >= words.Length){
-            strPos = 0;
-            return;
-        }else{
+    public void nextStr(){
+        if(strPos < words.Length-1){
             strPos++;
+        }else{
+            strPos = 0;
         }
-        text = words[strPos];
+        string text = words[strPos];
+        text_string.text = text;
+        //outputLog(text_string.text);
+    }
+
+    // セリフリロード
+    public void reloadStr(){
+        string text = words[strPos];
+        text_string.text = text;
+    }
+
+    // セリフ位置リセット
+    public void resetStr(){
+        strPos = 0;
+        reloadStr();
     }
 
 
@@ -93,7 +134,7 @@ public class Alpha_Controller : MonoBehaviour{
     +------------------------+
     */
     // セリフのstring配列
-    public static string[] words = {
+    public string[] words = {
         "・・・",
         "マスターの生体情報を確認中・・・",
         "・・・",
@@ -126,6 +167,9 @@ public class Alpha_Controller : MonoBehaviour{
 
     protected void outputLog(string str){
         Debug.Log("a_Ctrller.cs : " + str);
+    }
+    protected void outputError(string str){
+        Debug.LogError("a_Ctrller.cs : " + str);
     }
 
 }

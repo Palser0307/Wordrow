@@ -8,8 +8,6 @@ public class Controller : MonoBehaviour{
     GameObject leftController;
     [SerializeField]
     GameObject rightController;
-    [SerializeField]
-    GameObject Deck_Prefab;
 
     // HUDはプレイヤのGameObjectの子に入れておく
     // 以下3つはHUDsの子オブジェクトになってる…はず
@@ -19,8 +17,6 @@ public class Controller : MonoBehaviour{
     GameObject HUD_Tip;
     [SerializeField]
     GameObject HUD_Alpha;
-
-    protected GameObject Deck_Object;
 
     protected GameObject Grab_Object;
 
@@ -32,7 +28,6 @@ public class Controller : MonoBehaviour{
     protected List<string> grabbableTagList = new List<string>();
 
     void Start(){
-        Deck_Object = null;
         HUD_Menu.SetActive(false);
         HUD_Tip.SetActive(false);
         addGrabbableTag("Card");
@@ -42,31 +37,6 @@ public class Controller : MonoBehaviour{
     }
 
     void Update(){
-        /*
-        // 掴む処理
-        if(OVRInput.GetDown(OVRInput.RawButton.RHandTrigger)){
-            RaycastHit[] hits;
-            hits = Physics.SphereCastAll(rightController.transform.position, 0.01f, Vector3.forward);
-            foreach(var hit in hits){
-                if(haveGrabbableTag(hit.collider.tag)){
-                    // Debug.Log("Grip");
-                    Grab_Object = hit.collider.gameObject;
-                    Grab_Object.transform.parent = rightController.transform;
-                    SetRHold(true);
-                    break;
-                }
-            }
-        }
-
-        // 離す処理
-        if(OVRInput.GetUp(OVRInput.RawButton.RHandTrigger)){
-            if(Grab_Object != null){
-                Grab_Object.transform.parent = null;
-                Grab_Object = null;
-            }
-        }
-        */
-
         // HUD Menu表示/非表示
         if(OVRInput.GetDown(OVRInput.RawButton.B)){
             Debug.Log("Push B Button");
@@ -75,32 +45,6 @@ public class Controller : MonoBehaviour{
             HUD_Menu.SetActive(!menuActive);
             HUD_Tip.SetActive(!tipActive);
         }
-
-        /*
-        // 山札出現・消滅
-        if(OVRInput.GetDown(OVRInput.RawButton.X)){
-            Debug.Log("Push X Button");
-            if(Deck_Object == null){
-                Debug.Log("Deck appear");
-                Deck_Object = Instantiate(Deck_Prefab);
-                Deck_Object.transform.position = leftController.transform.position + leftController.transform.forward * 0.1f;
-            }else{
-                Debug.Log("Deck disappear");
-                Destroy(Deck_Object);
-                Deck_Object = null;
-            }
-        }
-
-        // 山札の上にカード出現
-        if(OVRInput.GetDown(OVRInput.RawButton.Y)){
-            Debug.Log("Push Y Button.");
-            if(Deck_Object != null){
-                Debug.Log("Card appear");
-                GameObject go = CreateCard();
-                go.transform.position = Deck_Object.transform.position + Deck_Object.transform.up * 0.5f;
-            }
-        }
-        */
     }
 
     //
