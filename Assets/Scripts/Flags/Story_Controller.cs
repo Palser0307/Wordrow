@@ -65,8 +65,119 @@ public class Story_Controller : MonoBehaviour {
 --------------------------------------------------
 */
     protected void setup_Tutorial(){
-        fm = new FlagManager("Tutorial");
+        this.fm = new FlagManager("Tutorial");
+        this.a_words = new string[]{
+            "それでは，チュートリアルを始めましょう．",
+            "あたりを見渡してみてください．",
+            "目の前に箱が見えますか？その箱の位置まで歩いてみてください．",
+            "Lコントローラのスティックで移動ができますよ．", // movePoint1(def:false)
+            "そのまま目の前のSMOKEカードをつかんでみてください．",
+            "Rスティックのハンドトリガーでカードをつかめますよ．", // grabSmoke(def:false)
+            "カードがつかめましたね．",
+            "Rコントローラのインデックストリガーを押してからカードを投げてみてください．", // useSmoke(def:false)
+            "煙が出てきましたね．",
+            "どうやらSMOKEカードを使うと煙が出るようです．",
+            "次はRAINのカードを使ってみましょう．",
+            "箱の上のRAINカードをつかんでみてください．", // grabRain(def:false)
+            "そのままRコントローラのインデックストリガーを押してみてください．", // useRain(def:false)
+            "雨が降ってきましたね．",
+            "RAINカードは雨を発生させるようです．",
+            "それでは次が最後のカードです．",
+            "箱の上のFLYカードをつかんでみてください．", // grabFly(def:false)
+            "そのカードを使ってこの部屋から出てみましょう．",
+            "前方の黒い球体にFLYカードを使ってください．", // useFly(def:false)
+            "無事に扉が出現しましたね．",
+            "その扉に入ればここから出ることができますよ．",
+            "それでは，以上でチュートリアルは終了です．",
+            "Have a nice trip, Master.", // scenarioClear(def:false)
+        };
+        // フラグ設定
+        this.fm.initFlag("movePoint1", false);
+        this.fm.initFlag("grabSmoke", false);
+        this.fm.initFlag("useSmoke", false);
+        this.fm.initFlag("grabRain", false);
+        this.fm.initFlag("useRain", false);
+        this.fm.initFlag("grabFly", false);
+        this.fm.initFlag("useFly", false);
+        this.fm.initFlag("scenarioClear", false);
 
+        // セリフ上書き
+        this.alpha_ctrl.words = a_words;
+
+        // Alpha_ctrlのStart()終わり待ち
+        Invoke(nameof(delaymethod), 1.0f);
+    }
+
+    protected void update_Tutorial(){
+        switch(storyCount){
+            case 3:
+                if((bool)fm.getFlag("movePoint1") == false){
+                    alpha_ctrl.Status = "inactive";
+                }else{
+                    alpha_ctrl.nextStr();
+                    alpha_ctrl.Status = "active";
+                }
+                break;
+            case 5:
+                if((bool)fm.getFlag("grabSmoke") == false){
+                    alpha_ctrl.Status = "inactive";
+                }else{
+                    alpha_ctrl.nextStr();
+                    alpha_ctrl.Status = "active";
+                }
+                break;
+            case 7:
+                if((bool)fm.getFlag("useSmoke") == false){
+                    alpha_ctrl.Status = "inactive";
+                }else{
+                    alpha_ctrl.nextStr();
+                    alpha_ctrl.Status = "active";
+                }
+                break;
+            case 11:
+                if((bool)fm.getFlag("grabRain") == false){
+                    alpha_ctrl.Status = "inactive";
+                }else{
+                    alpha_ctrl.nextStr();
+                    alpha_ctrl.Status = "active";
+                }
+                break;
+            case 12:
+                if((bool)fm.getFlag("useRain") == false){
+                    alpha_ctrl.Status = "inactive";
+                }else{
+                    alpha_ctrl.nextStr();
+                    alpha_ctrl.Status = "active";
+                }
+                break;
+            case 16:
+                if((bool)fm.getFlag("grabFly") == false){
+                    alpha_ctrl.Status = "inactive";
+                }else{
+                    alpha_ctrl.nextStr();
+                    alpha_ctrl.Status = "active";
+                }
+                break;
+            case 18:
+                if((bool)fm.getFlag("grabSmoke") == false){
+                    alpha_ctrl.Status = "inactive";
+                }else{
+                    alpha_ctrl.nextStr();
+                    alpha_ctrl.Status = "active";
+                }
+                break;
+            case 22:
+                if((bool)fm.getFlag("grabSmoke") == false){
+                    alpha_ctrl.Status = "inactive";
+                }else{
+                    alpha_ctrl.nextStr();
+                    alpha_ctrl.Status = "active";
+                }
+                break;
+
+            default:
+                break;
+        }
     }
 
 /*
@@ -90,7 +201,7 @@ public class Story_Controller : MonoBehaviour {
             "それでは，前方に見える赤い柱に向かいましょう．",
             "そこに向かえば次のマップに移動できますよ．",
             "また御用の際はいつでもお呼び出し下さい．",
-            "Thank you,Master.", // portal2end?(def:false)
+            "Thank you,Master.", // scenarioClear?(def:false)
         };
         this.fm.initFlag("isAlphaTree", false);
         this.fm.initFlag("scenarioClear", false);
@@ -98,7 +209,7 @@ public class Story_Controller : MonoBehaviour {
         //this.alpha_ctrl.resetStr();
 
         // Alpha_ctrlのStart()終わり待ち
-        // Invokeはその実行を待たずに次に勧めてくれるから…
+        // Invokeはその実行を待たずに次に進めてくれるから…
         Invoke(nameof(delaymethod),1.0f);
         //alpha_ctrl.reloadStr();
     }
