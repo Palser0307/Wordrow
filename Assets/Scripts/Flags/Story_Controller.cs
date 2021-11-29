@@ -32,6 +32,9 @@ public class Story_Controller : MonoBehaviour {
 
         if(haveStoryList(storyName) == true){
             switch(storyName){
+                case "Tutorial":
+                    setup_Tutorial();
+                    break;
                 case "Tutorial2":
                     setup_Tutorial2();
                     break;
@@ -49,6 +52,9 @@ public class Story_Controller : MonoBehaviour {
         storyCount = alpha_ctrl.strPos;
 
         switch(storyName){
+            case "Tutorial":
+                update_Tutorial();
+                break;
             case "Tutorial2":
                 update_Tutorial2();
                 break;
@@ -92,7 +98,7 @@ public class Story_Controller : MonoBehaviour {
             "Have a nice trip, Master.", // scenarioClear(def:false)
         };
         // フラグ設定
-        this.fm.initFlag("movePoint1", false);
+        this.fm.initFlag("movePoint1", true); // 要修正
         this.fm.initFlag("grabSmoke", false);
         this.fm.initFlag("useSmoke", false);
         this.fm.initFlag("grabRain", false);
@@ -159,7 +165,7 @@ public class Story_Controller : MonoBehaviour {
                 }
                 break;
             case 18:
-                if((bool)fm.getFlag("grabSmoke") == false){
+                if((bool)fm.getFlag("useFly") == false){
                     alpha_ctrl.Status = "inactive";
                 }else{
                     alpha_ctrl.nextStr();
@@ -167,7 +173,7 @@ public class Story_Controller : MonoBehaviour {
                 }
                 break;
             case 22:
-                if((bool)fm.getFlag("grabSmoke") == false){
+                if((bool)fm.getFlag("scenarioClear") == false){
                     alpha_ctrl.Status = "inactive";
                 }else{
                     alpha_ctrl.nextStr();

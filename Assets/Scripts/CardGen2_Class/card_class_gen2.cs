@@ -49,6 +49,9 @@ public class card_class_gen2 : MonoBehaviour{
 
     protected OVRGrabbable grab;
 
+    // フラグ関連 てかストーリー管理スクリプトへのアクセサ
+    protected Story_Controller sc = null;
+
     // +-----------+
     // | functions |
     // +-----------+
@@ -67,7 +70,15 @@ public class card_class_gen2 : MonoBehaviour{
         rigid.useGravity = false;
 
         grab = this.GetComponent<OVRGrabbable>();
+
+        Invoke(nameof(setup_sc), 1.0f);
         return;
+    }
+    void setup_sc(){
+        sc = GameObject.Find("System_Scripts").GetComponent<Story_Controller>();
+        if(sc == null){
+            outputError("Story_Controller is not FOUND");
+        }
     }
 
     // Update() is called once per frame
@@ -184,6 +195,9 @@ public class card_class_gen2 : MonoBehaviour{
     // set isHold
     public void setIsHold(bool newStatus){
         this.isHold = newStatus;
+        // flag
+        //outputError(getCardName()+" : setIsHold");
+        sc.fm.setFlag("grab"+getCardName(), newStatus);
     }
 
     // update isHold

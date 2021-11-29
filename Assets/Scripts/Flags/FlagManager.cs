@@ -30,6 +30,7 @@ public class FlagManager : MonoBehaviour{
         bool canSetFlag = searchFlagKey(keyName);
         if(canSetFlag == true){
             flagDictionary[keyName] = newValue;
+            outputLog(keyName + ": ->" + newValue);
         }
         return canSetFlag;
     }
@@ -38,8 +39,10 @@ public class FlagManager : MonoBehaviour{
     public void initFlag(string keyName, object init){
         // keyNameが存在するか
         bool isExist = searchFlagKey(keyName);
+        // keyNameが存在しなければフラグkeyNameを追加し，initで初期化
         if(isExist == false){
             flagDictionary[keyName] = init;
+            outputLog(keyName + " is initialize");
         }
     }
 
@@ -56,5 +59,8 @@ public class FlagManager : MonoBehaviour{
 
     public void outputLog(string str){
         Debug.Log("FlagManager: " + str);
+    }
+    public void outputError(string str){
+        Debug.LogError("FlagManager: " + str);
     }
 }

@@ -107,7 +107,7 @@ public class Alpha_Controller : MonoBehaviour{
         if(strPos < words.Length-1){
             strPos++;
         }else{
-            strPos = 0;
+            //strPos = 0;
         }
         string text = words[strPos];
         text_string.text = text;
