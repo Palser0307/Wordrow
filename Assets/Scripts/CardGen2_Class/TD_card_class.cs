@@ -48,7 +48,7 @@ public class TD_card_class : card_class_gen2{
     // 接触時
     // ここはvirtualがないと，継承先のuseを呼んでくれない
     public virtual void OnCollisionEnter(Collision other){
-        outputLog("OnCollisionEnter() start");
+        //outputLog("OnCollisionEnter() start");
         if(haveTargetTag(other.gameObject.tag)){
             use(other);
         }
