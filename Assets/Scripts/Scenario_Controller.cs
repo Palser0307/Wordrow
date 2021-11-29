@@ -25,7 +25,7 @@ public class Scenario_Controller : MonoBehaviour{
         // this.statusを各Scriptに反映
         switch (status){
             case "alpha" :
-                Alpha_Controller.setStatus("active");
+                //Alpha_Controller.Status = "active";
                 break;
             case "wait":
 
