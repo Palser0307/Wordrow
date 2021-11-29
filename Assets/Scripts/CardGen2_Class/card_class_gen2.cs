@@ -105,6 +105,10 @@ public class card_class_gen2 : MonoBehaviour{
     public void outputLog(string str){
         Debug.Log(getObjectName() + " : " + str);
     }
+    // Debug.LogError() for CardClass
+    protected void outputError(string str){
+        Debug.LogError(getObjectName() + " : " + str);
+    }
 
     // 移動速度をゼロに
     protected void vectorZero(){
