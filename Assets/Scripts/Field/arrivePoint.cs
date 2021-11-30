@@ -7,31 +7,35 @@ using UnityEngine;
 public class arrivePoint : MonoBehaviour {
     // 位置の名前をインスペクタからロード
     [SerializeField]
-    protected string pointName = null;
+    protected string pointNum = null;
 
     protected Story_Controller sc = null;
 
     private void Start() {
-        Invoke(nameof(sc_setup), 1.0f);
-    }
-
-    void sc_setup(){
-        sc = GameObject.Find("System_Scripts").GetComponent<Story_Controller>();
-        if(sc==null){
-            outputError("Story_Controller is not FOUND!!");
+        // scの割り当て
+        if(GameObject.Find("System_Scripts").TryGetComponent(out sc)){
+            outputLog("OK");
+        }else{
+            outputLog("false");
         }
     }
 
     // 接触判定
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.tag == "Player"){
-            sc.fm.setFlag("arrivePoint"+pointName, true);
+            sc.fm.setFlag("arrivePoint"+pointNum, true);
+        }
+    }
+    private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == "Player"){
+            sc.fm.setFlag("arrivePoint"+pointNum, true);
+            outputLog("true");
         }
     }
     void outputLog(string str){
-        Debug.Log("arrivePoint"+pointName+" : "+str);
+        Debug.Log("arrivePoint"+pointNum+" : "+str);
     }
     void outputError(string str){
-        Debug.LogError("arrivePoint"+pointName+" : "+str);
+        Debug.LogError("arrivePoint"+pointNum+" : "+str);
     }
 }

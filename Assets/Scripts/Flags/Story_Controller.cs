@@ -98,7 +98,7 @@ public class Story_Controller : MonoBehaviour {
             "Have a nice trip, Master.", // scenarioClear(def:false)
         };
         // フラグ設定
-        this.fm.initFlag("arrivePoint1", true); // 要修正
+        this.fm.initFlag("arrivePoint1", false);
         this.fm.initFlag("grabSmoke", false);
         this.fm.initFlag("useSmoke", false);
         this.fm.initFlag("grabRain", false);
