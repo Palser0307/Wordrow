@@ -98,7 +98,7 @@ public class Story_Controller : MonoBehaviour {
             "Have a nice trip, Master.", // scenarioClear(def:false)
         };
         // フラグ設定
-        this.fm.initFlag("movePoint1", true); // 要修正
+        this.fm.initFlag("arrivePoint1", true); // 要修正
         this.fm.initFlag("grabSmoke", false);
         this.fm.initFlag("useSmoke", false);
         this.fm.initFlag("grabRain", false);
@@ -117,7 +117,7 @@ public class Story_Controller : MonoBehaviour {
     protected void update_Tutorial(){
         switch(storyCount){
             case 3:
-                if((bool)fm.getFlag("movePoint1") == false){
+                if((bool)fm.getFlag("arrivePoint1") == false){
                     alpha_ctrl.Status = "inactive";
                 }else{
                     alpha_ctrl.nextStr();
