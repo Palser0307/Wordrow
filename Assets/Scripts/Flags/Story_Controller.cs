@@ -28,6 +28,7 @@ public class Story_Controller : MonoBehaviour {
     private void Start() {
         addStoryList("Tutorial");
         addStoryList("Tutorial2");
+        addStoryList("AlyxTest");
         setAlphaCtrl();
 
         if(haveStoryList(storyName) == true){
@@ -37,6 +38,9 @@ public class Story_Controller : MonoBehaviour {
                     break;
                 case "Tutorial2":
                     setup_Tutorial2();
+                    break;
+                case "AlyxTest":
+                    setup_AlyxTest();
                     break;
 
                 default:
@@ -58,6 +62,9 @@ public class Story_Controller : MonoBehaviour {
             case "Tutorial2":
                 update_Tutorial2();
                 break;
+            case "AlyxTest":
+                update_AlyxTest();
+                break;
 
             default:
                 break;
@@ -67,7 +74,7 @@ public class Story_Controller : MonoBehaviour {
 
 /*
 --------------------------------------------------
-    Tutorial2
+    Tutorial
 --------------------------------------------------
 */
     protected void setup_Tutorial(){
@@ -219,9 +226,6 @@ public class Story_Controller : MonoBehaviour {
         Invoke(nameof(delaymethod),1.0f);
         //alpha_ctrl.reloadStr();
     }
-    protected void delaymethod(){
-        this.alpha_ctrl.resetStr();
-    }
 
     protected void update_Tutorial2(){
         switch (storyCount){
@@ -245,6 +249,42 @@ public class Story_Controller : MonoBehaviour {
         }
     }
 
+/*
+--------------------------------------------------
+    AlyxTest
+--------------------------------------------------
+*/
+
+    protected void setup_AlyxTest(){
+        this.fm = new FlagManager("AlyxTest");
+        this.a_words = new string[]{
+            "セリフ1",
+            "タスク説明1",
+            "セリフ2",// 2: task1Clear :false
+        };
+        // Flag設定
+        this.fm.initFlag("task1Clear", false);
+
+        // セリフ上書き
+        this.alpha_ctrl.words = a_words;
+
+        Invoke(nameof(delaymethod), 1.0f);
+    }
+
+    protected void update_AlyxTest(){
+        switch (storyCount){
+            case 2:
+                if((bool)fm.getFlag("task1Clear")==false){
+                    alpha_ctrl.Status = "inactive";
+                }else{
+                    alpha_ctrl.nextStr();
+                    alpha_ctrl.Status = "active";
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
 /*
 --------------------------------------------------
@@ -274,4 +314,8 @@ public class Story_Controller : MonoBehaviour {
     protected void outputError(string str){
         Debug.LogError("Story_ctrl : "+str);
     }
+    protected void delaymethod(){
+        this.alpha_ctrl.resetStr();
+    }
+
 }
