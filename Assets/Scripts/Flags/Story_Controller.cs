@@ -25,11 +25,15 @@ public class Story_Controller : MonoBehaviour {
     // Alpha_Controllerへのアクセサ
     protected Alpha_Controller alpha_ctrl = null;
 
+    // Task_Display_Controllerへのアクセサ
+    protected Task_Display_Controller task_disp_ctrl = null;
+
     private void Start() {
         addStoryList("Tutorial");
         addStoryList("Tutorial2");
         addStoryList("AlyxTest");
         setAlphaCtrl();
+        setTaskDispCtrl();
 
         if(haveStoryList(storyName) == true){
             switch(storyName){
@@ -53,6 +57,9 @@ public class Story_Controller : MonoBehaviour {
     }
 
     protected void Update(){
+        if(storyCount == alpha_ctrl.strPos){
+            return;
+        }
         storyCount = alpha_ctrl.strPos;
 
         switch(storyName){
@@ -261,6 +268,7 @@ public class Story_Controller : MonoBehaviour {
             "セリフ1",
             "タスク説明1",
             "セリフ2",// 2: task1Clear :false
+            "セリフ3：task1 Clear",
         };
         // Flag設定
         this.fm.initFlag("task1Clear", false);
@@ -276,9 +284,12 @@ public class Story_Controller : MonoBehaviour {
             case 2:
                 if((bool)fm.getFlag("task1Clear")==false){
                     alpha_ctrl.Status = "inactive";
+                    task_disp_ctrl.setActive(true);
+                    task_disp_ctrl.replaceStr("タスク1", true);
                 }else{
                     alpha_ctrl.nextStr();
                     alpha_ctrl.Status = "active";
+                    task_disp_ctrl.setActive(false);
                 }
                 break;
             default:
@@ -305,6 +316,12 @@ public class Story_Controller : MonoBehaviour {
         alpha_ctrl = this.gameObject.GetComponent<Alpha_Controller>();
         if(alpha_ctrl == null){
             outputError("alpha is not found");
+        }
+    }
+
+    protected void setTaskDispCtrl(){
+        if(this.gameObject.TryGetComponent(out task_disp_ctrl) == false){
+            outputError("TaskDispCtrl is not found");
         }
     }
 
