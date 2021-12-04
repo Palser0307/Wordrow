@@ -71,14 +71,7 @@ public class card_class_gen2 : MonoBehaviour{
 
         grab = this.GetComponent<OVRGrabbable>();
 
-        Invoke(nameof(setup_sc), 1.0f);
         return;
-    }
-    void setup_sc(){
-        sc = GameObject.Find("System_Scripts").GetComponent<Story_Controller>();
-        if(sc == null){
-            outputError("Story_Controller is not FOUND");
-        }
     }
 
     // Update() is called once per frame
@@ -89,6 +82,12 @@ public class card_class_gen2 : MonoBehaviour{
         updateIsHold();
 
         vectorZero();
+
+        if(sc==null){
+            if(GameObject.Find("System_Scripts").TryGetComponent(out sc)){
+                outputError("can't found sc");
+            }
+        }
         return;
     }
 

@@ -43,11 +43,8 @@ public class card_Tree_gen2 : TrO_card_class{
         outputLog("Setup finish.");
 
         // フラグシステムテスト
-        tf = GameObject.Find("System_Controller").GetComponent<tutorial_flags>();
-
-        TreeS = Trees.GetComponent<Trees>();
-        if(TreeS == null){
-            outputLog("TreeS is NULL!!");
+        if(GameObject.Find("System_Scripts").TryGetComponent(out Story_Controller sc)){
+            outputError("can't found sc");
         }
     }
 
@@ -120,7 +117,7 @@ public class card_Tree_gen2 : TrO_card_class{
 
             // TEST
             // フラグ管理
-            tf.Metamorphose = true;
+            sc.fm.setFlag("useTree", true);
 
             // カード及びアプグレのオブジェクト削除
             Destroy(this.UpgraderObj);

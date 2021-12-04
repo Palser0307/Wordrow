@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6327401820352016107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1721809905763961032}
+  - component: {fileID: 2829001646547565162}
+  - component: {fileID: 7824458857267245904}
+  - component: {fileID: 6327401820352016106}
+  - component: {fileID: 6327401820352016109}
+  m_Layer: 0
+  m_Name: System_Scripts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1721809905763961032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327401820352016107}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2829001646547565162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327401820352016107}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79e75251f0320f841934130fe5b03109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftController: {fileID: 0}
+  rightController: {fileID: 0}
+  HUD_Menu: {fileID: 0}
+  HUD_Tip: {fileID: 0}
+  HUD_Alpha: {fileID: 0}
+--- !u!114 &7824458857267245904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327401820352016107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe03b5eac17a39a41a36244985a94167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Alpha_HUD: {fileID: 0}
+  strPos: 0
+  words:
+  - "\u30FB\u30FB\u30FB"
+  - "\u30DE\u30B9\u30BF\u30FC\u306E\u751F\u4F53\u60C5\u5831\u3092\u78BA\u8A8D\u4E2D\u30FB\u30FB\u30FB"
+  - "\u30FB\u30FB\u30FB"
+  - "\u30C7\u30FC\u30BF\u30D9\u30FC\u30B9\u306B\u4E8B\u524D\u767B\u9332\u3055\u308C\u3066\u3044\u308B\u751F\u4F53\u60C5\u5831\u3068\u306E\u4E00\u81F4\u3092\u78BA\u8A8D\uFF0E"
+  - "I\u2019m OK, My master."
+  - "\u30FB\u30FB\u30FB\u521D\u3081\u307E\u3057\u3066\uFF0C\u30DE\u30B9\u30BF\u30FC\uFF0E"
+  - "\u3042\u306A\u305F\u69D8\u306E\u30A2\u30B7\u30B9\u30BF\u30F3\u30C8\u3092\u52D9\u3081\u308B\uFF0C\u03B1(\u30A2\u30EB\u30D5\u30A1)\u3068\u7533\u3057\u307E\u3059\uFF0E"
+  - "\u4EE5\u5F8C\uFF0C\u304A\u898B\u77E5\u308A\u304A\u304D\u3092\uFF0E"
+  - "\u65E9\u901F\u3067\u3059\u304C\uFF0C\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u3092\u958B\u59CB\u3055\u305B\u3066\u3044\u305F\u3060\u304D\u307E\u3059\uFF0E"
+  - "\u3042\u305F\u308A\u3092\u898B\u6E21\u3057\u3066\u307F\u3066\u304F\u3060\u3055\u3044\uFF0E"
+  - "\u76EE\u306E\u524D\u306B\u3042\u308B\u30AB\u30FC\u30C9\u304C\u898B\u3048\u307E\u3059\u304B\uFF1F\n\u305D\u306E\u30AB\u30FC\u30C9\u3092\u624B\u306B\u53D6\u3063\u3066\u307F\u3066\u304F\u3060\u3055\u3044\uFF0E"
+  - "\u30AB\u30FC\u30C9\u304C\u3064\u304B\u3081\u307E\u3057\u305F\u306D\uFF0E"
+  - "\u3053\u306E\u4E16\u754C\u3067\u306F\u305D\u306E\u30AB\u30FC\u30C9\u3092\u4F7F\u3063\u3066\u69D8\u3005\u306A\u3053\u3068\u304C\u3067\u304D\u307E\u3059\uFF0E"
+  - "\u5B9F\u969B\u306B\u8A66\u3057\u3066\u307F\u307E\u3057\u3087\u3046\uFF0E"
+  - "\u76EE\u306E\u524D\u304C\u71C3\u3048\u3066\u3044\u307E\u3059\u306D\uFF0E"
+  - "\u3055\u3066\uFF0C\u3053\u306E\u307E\u307E\u3060\u3068\u5371\u967A\u306A\u306E\u3067\uFF0C\u706B\u3092\u6D88\u3057\u3066\u307F\u307E\u3057\u3087\u3046\uFF0E"
+  - "\u624B\u306B\u6301\u3063\u3066\u3044\u308B\u30AB\u30FC\u30C9\u3092\u4F7F\u3063\u3066\u307F\u3066\u304F\u3060\u3055\u3044\uFF0E"
+  - "\u3069\u3046\u3084\u3089\u71C3\u3048\u3066\u3044\u308B\u3082\u306E\u306B\u306F\u3053\u306E\u30AB\u30FC\u30C9\u306F\u4F7F\u308F\u306A\u3044\u307B\u3046\u304C\u826F\u3044\u3088\u3046\u3067\u3059\u306D\uFF0E"
+  - "\u305D\u308C\u3067\u306F\uFF0C\u4ECA\u5EA6\u306F\u3053\u3061\u3089\u306E\u30AB\u30FC\u30C9\u3092\u4F7F\u3063\u3066\u307F\u3066\u304F\u3060\u3055\u3044\uFF0E"
+  - "\u706B\u304C\u6D88\u3048\u3066\u304F\u308C\u307E\u3057\u305F\u306D\uFF0E"
+  - "\u3053\u306E\u3088\u3046\u306B\uFF0C\u72B6\u6CC1\u306B\u5408\u308F\u305B\u3066\u4F7F\u3046\u30AB\u30FC\u30C9\u3092\u9078\u629E\u3059\u308B\u3053\u3068\u304C\u5927\u4E8B\u3067\u3059\uFF0E"
+  - "\u305D\u308C\u3067\u306F\uFF0C\u6700\u5F8C\u306E\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u306B\u79FB\u308A\u307E\u3057\u3087\u3046\uFF0E"
+  - "\u305D\u306E\u30AB\u30FC\u30C9\u3092\u4F7F\u3063\u3066\u3053\u306E\u90E8\u5C4B\u304B\u3089\u51FA\u3066\u307F\u307E\u3057\u3087\u3046\uFF0E"
+  - "\u524D\u65B9\u306E\u6249\u306B\u30AB\u30FC\u30C9\u3092\u8FD1\u3065\u3051\u3066\u304F\u3060\u3055\u3044\uFF0E"
+  - "\u7121\u4E8B\u306B\u6249\u304C\u958B\u3044\u305F\u3088\u3046\u3067\u3059\u306D\uFF0E"
+  - "\u4EE5\u4E0A\u3067\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u3092\u7D42\u4E86\u3057\u307E\u3059\uFF0E"
+  - Have a nice trip, Master.
+--- !u!114 &6327401820352016106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327401820352016107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15eaec848b34bda48938e5c31cf43efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storyName: 
+  fm: {fileID: 0}
+--- !u!114 &6327401820352016109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327401820352016107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b1be38562e2d242ac00c0ba63836d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Task_Display: {fileID: 0}
+  displayString: Order\nSearch And Destroy

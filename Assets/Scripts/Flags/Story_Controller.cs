@@ -28,10 +28,16 @@ public class Story_Controller : MonoBehaviour {
     // Task_Display_Controllerへのアクセサ
     protected Task_Display_Controller task_disp_ctrl = null;
 
+    //
+    protected Field field = null;
+
     private void Start() {
+        outputLog("Awake");
         addStoryList("Tutorial");
         addStoryList("Tutorial2");
         addStoryList("AlyxTest");
+        addStoryList("Object1");
+
         setAlphaCtrl();
         setTaskDispCtrl();
 
@@ -46,14 +52,21 @@ public class Story_Controller : MonoBehaviour {
                 case "AlyxTest":
                     setup_AlyxTest();
                     break;
+                case "Object1":
+                    setup_Object1();
+                    break;
 
                 default:
+                    this.fm = new FlagManager("");
                     break;
             }
         }else{
             outputError("\""+storyName+"\" is not Story Name!");
             storyName = null;
         }
+
+        this.field = this.gameObject.GetComponent<Field>();
+        outputLog("Awake finish");
     }
 
     protected void Update(){
@@ -71,6 +84,9 @@ public class Story_Controller : MonoBehaviour {
                 break;
             case "AlyxTest":
                 update_AlyxTest();
+                break;
+            case "Object1":
+                update_Object1();
                 break;
 
             default:
@@ -290,6 +306,64 @@ public class Story_Controller : MonoBehaviour {
                     alpha_ctrl.nextStr();
                     alpha_ctrl.Status = "active";
                     task_disp_ctrl.setActive(false);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+/*
+--------------------------------------------------
+    AlyxTest
+--------------------------------------------------
+*/
+    protected void setup_Object1(){
+        this.fm = new FlagManager("Object1");
+        this.a_words = new string[]{
+            "おや，お困りですか，マスター？",
+            "目の前の大きな木が邪魔でポータルに入ることができませんね．",
+            "近くに使えそうなカードがありませんか？", // grabFire
+            "FIREのカードですか．使ってみましょう．", // burningTree true
+            "おや，これは・・・",
+            "どうやらFIREのカードはオブジェクトを燃やしてしまうようです．",
+            "木が燃えてしまって危険ですね．",
+            "火を消せるようなカードはありませんか？", // grabWater
+            "WATERのカードですね．使ってみてください．",
+            "水が出て・・・火も消えたようですね．", // burningTree false
+            "それではもう一度使えそうなカードを探してみましょう．", // grabCut
+            "CUTのカードですか．",
+            "これならよさそうですね．",
+            "使ってみましょう．", // useCut
+            "・・・邪魔な木がなくなりましたね．",
+            "CUTのカードはオブジェクトを切ることができるようです．",
+            "それでは，次のステージへと進みましょう．",
+            "Thank you,Master.", // scenarioClear
+        };
+        // フラグ管理
+        this.fm.initFlag("grabFire", false);
+        this.fm.initFlag("burningTree", false);
+        this.fm.initFlag("grabWater", false);
+        this.fm.initFlag("grabCut", false);
+        this.fm.initFlag("useCut", false);
+        this.fm.initFlag("scenarioClear", false);
+
+        // セリフ上書き
+        this.alpha_ctrl.words = a_words;
+
+        // Alpha_ctrlのStart()終わり待ち
+        Invoke(nameof(delaymethod), 1.0f);
+    }
+
+    protected void update_Object1(){
+        switch (storyCount){
+            case 2:
+                if((bool)this.fm.getFlag("grabTree")==false){
+                    this.field.cardInstantiate(0, new Vector3(0,1,0), new Quaternion(0,0,0,0));
+                    alpha_ctrl.Status = "inactive";
+                }else{
+                    alpha_ctrl.nextStr();
+                    alpha_ctrl.Status = "active";
                 }
                 break;
             default:
