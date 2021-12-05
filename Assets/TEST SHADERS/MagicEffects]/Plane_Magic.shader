@@ -2,6 +2,7 @@
 {
     Properties
     {
+        [NoScaleOffset]
         _MainTex ("Texture", 2D) = "white" {}
         [MaterialToggle] _Enable ("Enable Texture", Int) = 0
     }
@@ -53,12 +54,11 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                i.uv-=float2(0.5,0.5);
+                i.uv-=0.5;
                 i.uv=float2(_CosTime.x*i.uv.x-_SinTime.x*i.uv.y,_SinTime.x*i.uv.x+_CosTime.x*i.uv.y);
-
-                i.uv+=float2(0.5,0.5);
-
-                fixed4 col = tex2D(_MainTex, i.uv)*_Enable;
+                
+                //square分でテクスチャの端っこがループしちゃうので，0.9で枠を作った
+                fixed4 col = tex2D(_MainTex, i.uv+0.5)*_Enable*(1-step(0.9,length(i.uv*2)));
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;

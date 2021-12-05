@@ -7,11 +7,15 @@ public class LineRendererSettings : MonoBehaviour
 {
     [SerializeField] LineRenderer rend;
 
-    Vector3[] points;
+    public GameManager GM;
 
-    public Image img;
-    public GameObject panel;
+    Vector3[] points;
     public Button btn;
+
+    //audio用Flag
+    private string btnaudio;
+
+    private AudioSource AS;
     void Start()
     {
         //Line Renderer持ってるのは分かっているので，
@@ -26,7 +30,8 @@ public class LineRendererSettings : MonoBehaviour
         rend.SetPositions(points);
         rend.enabled = true;
 
-        img = panel.GetComponent<Image>();
+        AS=this.GetComponent<AudioSource>();
+
 
     }
 
@@ -43,12 +48,7 @@ public class LineRendererSettings : MonoBehaviour
         //レイキャストが何かにあたった
         if(Physics.Raycast(ray, out hit, layerMask))
         {
-            //レイの距離をその位置に合わせる
-            points[1]=transform.forward+new Vector3(0,0,hit.distance);
-            //色を変えてみる
-            rend.startColor = Color.red;
-            rend.endColor = Color.red;
-
+            
             //Button
             btn = hit.collider.gameObject.GetComponent<Button>();
             
@@ -58,8 +58,31 @@ public class LineRendererSettings : MonoBehaviour
             //あたったのがbtnならtrue
             if(btn != null)
             {
-                hitBtn=true;
+            Debug.Log(btn.name);
+            //レイの距離をその位置に合わせる
+            points[1]=transform.forward+new Vector3(0,0,hit.distance);
+            //色を変えてみる
+            rend.startColor = Color.red;
+            rend.endColor = Color.red;
+
+            //hover audio
+            if(btnaudio != btn.name){
+                AS.PlayOneShot(AS.clip);
+                btnaudio=btn.name;
             }
+
+                hitBtn=true;
+            }else{
+                hitBtn=false;
+                //レイは20m
+                points[1]=transform.forward + new Vector3(0,0,20);
+                //基本色は青
+                rend.startColor=Color.blue;
+                rend.endColor=Color.blue;
+            }
+
+        rend.SetPositions(points);
+        rend.material.color=rend.startColor;
 
 
         }
@@ -82,21 +105,29 @@ public class LineRendererSettings : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(AlignLineRenderer(rend) && OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > 0.9){
+        if(AlignLineRenderer(rend) && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch)){
             btn.onClick.Invoke();
         }
     }
 
 
 
-    public void ColorChangeOnClick(){
+    public void ButtonOnClick(){
         if(btn!= null){
-            if(btn.name=="Return"){
-                img.color=Color.red;
-            }
-            if(btn.name=="Exit"){
-                img.color=Color.blue;
-            }
+            //現在のボタン
+            GM.GAMEMODE=btn.name;
+            Debug.Log("NOW Bottun"+btn.name);
+            AudioSource audio=btn.GetComponent<AudioSource>();
+            audio.PlayOneShot(audio.clip);
+        }
+    }
+    public void StartOnClick(){
+        if(btn!= null){
+            //現在のボタン
+            GM.START=true;
+            Debug.Log("NOW Bottun"+btn.name);
+            AudioSource audio=btn.GetComponent<AudioSource>();
+            audio.PlayOneShot(audio.clip);
         }
     }
 }
