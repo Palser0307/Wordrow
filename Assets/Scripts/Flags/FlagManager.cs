@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlagManager : MonoBehaviour{
+public class FlagManager{
     // ストーリー名
     protected string storyName;
 
@@ -11,8 +11,8 @@ public class FlagManager : MonoBehaviour{
 
     // コンストラクタ
     public FlagManager(string name){
-        storyName = name;
-        flagDictionary = new Dictionary<string, object>();
+        this.storyName = name;
+        this.flagDictionary = new Dictionary<string, object>();
     }
 
     // フラグkeyNameを取得する
@@ -20,7 +20,7 @@ public class FlagManager : MonoBehaviour{
         bool isExist = searchFlagKey(keyName);
         object returnValue = null;
         if(isExist == true){
-            returnValue = flagDictionary[keyName];
+            returnValue = this.flagDictionary[keyName];
         }
         return returnValue;
     }
@@ -29,7 +29,7 @@ public class FlagManager : MonoBehaviour{
     public bool setFlag(string keyName, object newValue){
         bool canSetFlag = searchFlagKey(keyName);
         if(canSetFlag == true){
-            flagDictionary[keyName] = newValue;
+            this.flagDictionary[keyName] = newValue;
             outputLog(keyName + ": ->" + newValue);
         }
         return canSetFlag;
@@ -41,7 +41,7 @@ public class FlagManager : MonoBehaviour{
         bool isExist = searchFlagKey(keyName);
         // keyNameが存在しなければフラグkeyNameを追加し，initで初期化
         if(isExist == false){
-            flagDictionary[keyName] = init;
+            this.flagDictionary[keyName] = init;
             outputLog(keyName + " is initialize");
         }
     }

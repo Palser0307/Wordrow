@@ -24,11 +24,15 @@ public class card_Rain_gen2 : TrO_card_class{
         setCardName("Rain");
 
         checkPrefab();
-        if(GameObject.Find("System_Scripts") == null){
+        GameObject scObj = GameObject.Find("System_Scripts");
+        if(scObj == null){
             outputError("Obj not found");
         }
-        if(GameObject.Find("System_Scripts").TryGetComponent(out Story_Controller sc)){
+        if(scObj.TryGetComponent(out Story_Controller sc)){
             outputError("can't found sc");
+        }
+        if(scObj.TryGetComponent(out Task_Display_Controller tdc)){
+            outputError("can't found tdc");
         }
         outputLog("Setup finish.");
     }

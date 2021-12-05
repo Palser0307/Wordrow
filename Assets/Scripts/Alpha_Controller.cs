@@ -41,7 +41,7 @@ public class Alpha_Controller : MonoBehaviour{
     // next: 外部からのセリフ送り要求
     public string Status{get;set;} = "active";
 
-    void Start(){
+    void Awake(){
         Sys_Controller = this.gameObject;
 
         /*
@@ -81,6 +81,10 @@ public class Alpha_Controller : MonoBehaviour{
         text_string.text = wakeUpMessage;
         reloadStr();
         outputLog("start() finished");
+    }
+
+    private void Start() {
+        return;
     }
 
     void Update(){

@@ -21,7 +21,7 @@ public class Task_Display_Controller : MonoBehaviour {
     // 外部から設定されている表示/非表示設定
     protected bool isActive;
 
-    private void Start() {
+    private void Awake() {
         Transform children = Task_Display.GetComponentInChildren<Transform>();
         foreach(Transform obj in children){
             switch(obj.gameObject.name){
@@ -40,6 +40,10 @@ public class Task_Display_Controller : MonoBehaviour {
         }
         // reloadStr();
         setActive(false);
+    }
+
+    private void Start() {
+        return;
     }
 
     private void Update() {

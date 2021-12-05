@@ -65,7 +65,10 @@ public class Story_Controller : MonoBehaviour {
             storyName = null;
         }
 
-        this.field = this.gameObject.GetComponent<Field>();
+        //this.field = this.gameObject.GetComponent<Field>();
+        if(!this.gameObject.TryGetComponent(out this.field)){
+            outputError("field is not found.");
+        }
         outputLog("Awake finish");
     }
 
@@ -253,7 +256,7 @@ public class Story_Controller : MonoBehaviour {
     protected void update_Tutorial2(){
         switch (storyCount){
             case 4: // alpha: "Alpha is TREE."
-                if((bool)fm.getFlag("isAlphaTree") == false){
+                if((bool)this.fm.getFlag("isAlphaTree") == false){
                     alpha_ctrl.Status = "inactive";
                 }else{
                     alpha_ctrl.Status = "active";
@@ -262,7 +265,7 @@ public class Story_Controller : MonoBehaviour {
                 break;
 
             case 13: // alpha: "Thank you, Master."
-                if((bool)fm.getFlag("scenarioClear") == false){
+                if((bool)this.fm.getFlag("scenarioClear") == false){
                     alpha_ctrl.Status = "inactive";
                 }
                 break;
@@ -315,7 +318,7 @@ public class Story_Controller : MonoBehaviour {
 
 /*
 --------------------------------------------------
-    AlyxTest
+    Object1
 --------------------------------------------------
 */
     protected void setup_Object1(){
@@ -341,6 +344,7 @@ public class Story_Controller : MonoBehaviour {
             "Thank you,Master.", // scenarioClear
         };
         // フラグ管理
+        this.fm.initFlag("grabTree", false);
         this.fm.initFlag("grabFire", false);
         this.fm.initFlag("burningTree", false);
         this.fm.initFlag("grabWater", false);
@@ -353,17 +357,23 @@ public class Story_Controller : MonoBehaviour {
 
         // Alpha_ctrlのStart()終わり待ち
         Invoke(nameof(delaymethod), 1.0f);
+        outputLog("Object1 Start finish.");
+
     }
 
     protected void update_Object1(){
         switch (storyCount){
             case 2:
-                if((bool)this.fm.getFlag("grabTree")==false){
-                    this.field.cardInstantiate(0, new Vector3(0,1,0), new Quaternion(0,0,0,0));
-                    alpha_ctrl.Status = "inactive";
+                if((bool)fm.getFlag("grabTree")==false){
+                    this.field.cardInstantiate(0, new Vector3(0,1.6f,0), new Quaternion(0,0,0,0));
+                    this.alpha_ctrl.Status = "inactive";
+                    this.task_disp_ctrl.setActive(true);
+                    this.task_disp_ctrl.replaceStr("カードを掴む", true);
                 }else{
-                    alpha_ctrl.nextStr();
-                    alpha_ctrl.Status = "active";
+                    outputLog("grabed TreeCard!");
+                    this.alpha_ctrl.nextStr();
+                    this.alpha_ctrl.Status = "active";
+                    this.task_disp_ctrl.setActive(false);
                 }
                 break;
             default:
@@ -387,15 +397,18 @@ public class Story_Controller : MonoBehaviour {
     }
 
     protected void setAlphaCtrl(){
-        alpha_ctrl = this.gameObject.GetComponent<Alpha_Controller>();
-        if(alpha_ctrl == null){
-            outputError("alpha is not found");
+        if(!this.gameObject.TryGetComponent(out this.alpha_ctrl)){
+            outputError("alpha_ctrl is not found.");
+        }else{
+            outputLog("alpha_ctrl is found.");
         }
     }
 
     protected void setTaskDispCtrl(){
-        if(this.gameObject.TryGetComponent(out task_disp_ctrl) == false){
-            outputError("TaskDispCtrl is not found");
+        if(!this.gameObject.TryGetComponent(out this.task_disp_ctrl)){
+            outputError("TaskDispCtrl is not found.");
+        }else{
+            outputLog("TaskDispCtrl is found.");
         }
     }
 
