@@ -32,7 +32,7 @@ public class Story_Controller : MonoBehaviour {
     protected Field field = null;
 
     private void Start() {
-        outputLog("Awake");
+        outputLog("Start");
         addStoryList("Tutorial");
         addStoryList("Tutorial2");
         addStoryList("AlyxTest");
@@ -69,13 +69,15 @@ public class Story_Controller : MonoBehaviour {
         if(!this.gameObject.TryGetComponent(out this.field)){
             outputError("field is not found.");
         }
-        outputLog("Awake finish");
+        outputLog("Start finish");
     }
 
     protected void Update(){
+        /*
         if(storyCount == alpha_ctrl.strPos){
             return;
         }
+        */
         storyCount = alpha_ctrl.strPos;
 
         switch(storyName){
@@ -257,8 +259,10 @@ public class Story_Controller : MonoBehaviour {
         switch (storyCount){
             case 4: // alpha: "Alpha is TREE."
                 if((bool)this.fm.getFlag("isAlphaTree") == false){
+                    //outputLog("260: isAlphaTree : "+(bool)this.fm.getFlag("isAlphaTree"));
                     alpha_ctrl.Status = "inactive";
                 }else{
+                    //outputLog("263: isAlphaTree : "+(bool)this.fm.getFlag("isAlphaTree"));
                     alpha_ctrl.Status = "active";
                     alpha_ctrl.nextStr();
                 }
@@ -364,7 +368,7 @@ public class Story_Controller : MonoBehaviour {
     protected void update_Object1(){
         switch (storyCount){
             case 2:
-                if((bool)fm.getFlag("grabTree")==false){
+                if((bool)this.fm.getFlag("grabTree")==false){
                     this.field.cardInstantiate(0, new Vector3(0,1.6f,0), new Quaternion(0,0,0,0));
                     this.alpha_ctrl.Status = "inactive";
                     this.task_disp_ctrl.setActive(true);
