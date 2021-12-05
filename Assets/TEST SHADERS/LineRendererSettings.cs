@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LineRendererSettings : MonoBehaviour
 {
     [SerializeField] LineRenderer rend;
 
-    public GameManager GM;
+    public GameModeManager GM;
+    public TextMeshProUGUI GameModeDisplay;
 
     Vector3[] points;
     public Button btn;
@@ -119,6 +121,9 @@ public class LineRendererSettings : MonoBehaviour
             Debug.Log("NOW Bottun"+btn.name);
             AudioSource audio=btn.GetComponent<AudioSource>();
             audio.PlayOneShot(audio.clip);
+            
+            //displayの更新
+            GameModeDisplay.text=btn.name;
         }
     }
     public void StartOnClick(){

@@ -11,34 +11,38 @@ public class GenerateTargets : MonoBehaviour
     bool Generate(){
         //y-direction
         //On
-        Instantiate(target,this.gameObject.transform,false).name="on";
+        locateTarget(new Vector3(0,1,0),"on");
 
         //Under
-        Instantiate(target,new Vector3(0,-1,0),Quaternion.identity,this.gameObject.transform).name="under";
+        locateTarget(new Vector3(0,-1,0),"under");
 
         //above/over
-        Instantiate(target,new Vector3(0,2,0),Quaternion.identity,this.gameObject.transform).name="above";
+        locateTarget(new Vector3(0,2,0),"above");
 
         //below
-        Instantiate(target,new Vector3(0,-2,0),Quaternion.identity,this.gameObject.transform).name="below";
+        locateTarget(new Vector3(0,-2,0),"below");
 
         //z-direction
         //in_front_of
-        Instantiate(target,new Vector3(0,0,-1),Quaternion.identity,this.gameObject.transform).name="in_front_of";
+        locateTarget(new Vector3(0,0,-1),"in_front_of");
 
         //behind
-        Instantiate(target,new Vector3(0,0,1),Quaternion.identity,this.gameObject.transform).name="behind";
+        locateTarget(new Vector3(0,0,1),"behind");
 
         //x-direction
         //next_to
-        Instantiate(target,new Vector3(-1,0,0),Quaternion.identity,this.gameObject.transform).name="next_to";
+        locateTarget(new Vector3(-1,0,0),"next_to");
 
         //生成したのでfalseを返す
         return false;
     }
 
-    void setName(string name,GameObject gm){
+    void locateTarget(Vector3 vec,string name){
+
+        GameObject gm = Instantiate(target,this.gameObject.transform,false);
         gm.name=name;
+        gm.transform.localPosition=vec;
+        gm.tag="Target";
     }
     void Start()
     {

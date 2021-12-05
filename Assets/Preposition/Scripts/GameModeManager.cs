@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class GameManager : MonoBehaviour
+public class GameModeManager : MonoBehaviour
 {
     // Start is called before the first frame update
 
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     
     //GAME START SWITCH
     public bool START=false;
+    
     void Start()
     {
         START = false;
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if(START){
             Debug.Log("START!");
             if(GAMEMODE == "PREPOSITION_1"){
