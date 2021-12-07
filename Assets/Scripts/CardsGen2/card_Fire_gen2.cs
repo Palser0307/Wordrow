@@ -13,7 +13,7 @@ public class card_Fire_gen2 : TrO_card_class {
 
     protected GameObject FireObj = null;
 
-    private void Start() {
+    private new void Start() {
         base.Start();
         setCardName("Fire");
 
@@ -23,7 +23,7 @@ public class card_Fire_gen2 : TrO_card_class {
         }
     }
 
-    private void Update() {
+    private new void Update() {
         base.Update();
     }
 
@@ -35,16 +35,13 @@ public class card_Fire_gen2 : TrO_card_class {
                 return;
             }
             // OVRGrabberを持ってるオブジェクト=手のGameObjectをとってくる
-            GameObject grabberObj = grabbable.grabbedBy().gameObject;
+            GameObject grabberObj = grabbable.grabbedBy.gameObject;
 
-            // 火柱オブジェクトの角度調整1(手に対して上方向)
-            Quaternion rot1 = Quaternion.Euler(0,0,0);
-
-            // 火柱オブジェクトの角度調整2(上方向から前方向への調整)
-            Quaternion rot2 = Quaternion.Euler(0,0,0);
+            // 火柱オブジェクトの角度調整変数
+            float[] rot = new float[3]{0,0,0};
 
             // 火柱のインスタンス生成
-            FireObj = Instantiate(Effect_Prefab, this.gameObject.transform.position, rot1+rot2);
+            FireObj = Instantiate(Effect_Prefab, this.gameObject.transform.position, Quaternion.Euler(rot[0], rot[1], rot[2]));
             FireObj.transform.parent = this.gameObject.transform;
         }else{
             FireObj.transform.parent = null;

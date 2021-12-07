@@ -42,11 +42,6 @@ public class card_Tree_gen2 : TrO_card_class{
 
         outputLog("Setup finish.");
 
-        // フラグシステムテスト
-        GameObject ssObj = GameObject.Find("System_Scripts");
-        if(!ssObj.TryGetComponent(out this.sc)){
-            outputError("can't found sc");
-        }
 
         // TreesObjectからTreeSスクリプトを取り出しておく...?
         if(Trees == null){

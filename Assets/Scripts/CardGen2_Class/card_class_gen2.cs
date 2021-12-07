@@ -70,6 +70,10 @@ public class card_class_gen2 : MonoBehaviour{
         rigid.useGravity = false;
 
         grab = this.GetComponent<OVRGrabbable>();
+        GameObject ssObj = GameObject.Find("System_Scripts");
+        if(!ssObj.TryGetComponent(out this.sc)){
+            outputError("can't found sc");
+        }
 
         return;
     }

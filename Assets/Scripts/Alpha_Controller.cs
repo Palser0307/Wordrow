@@ -130,6 +130,10 @@ public class Alpha_Controller : MonoBehaviour{
         reloadStr();
     }
 
+    // セリフ出力
+    public void outputStr(string str){
+        text_string.text = str;
+    }
 
     /*
     +------------------------+

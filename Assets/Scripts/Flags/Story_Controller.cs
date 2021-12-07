@@ -31,12 +31,16 @@ public class Story_Controller : MonoBehaviour {
     //
     protected Field field = null;
 
+    // 一回限り実行用
+    protected bool once = false;
+
     private void Start() {
         outputLog("Start");
         addStoryList("Tutorial");
         addStoryList("Tutorial2");
         addStoryList("AlyxTest");
         addStoryList("Object1");
+        addStoryList("Classroom");
 
         setAlphaCtrl();
         setTaskDispCtrl();
@@ -55,6 +59,8 @@ public class Story_Controller : MonoBehaviour {
                 case "Object1":
                     setup_Object1();
                     break;
+                case "Classroom":
+                    break;
 
                 default:
                     this.fm = new FlagManager("");
@@ -63,6 +69,7 @@ public class Story_Controller : MonoBehaviour {
         }else{
             outputError("\""+storyName+"\" is not Story Name!");
             storyName = null;
+            this.fm = new FlagManager("");
         }
 
         //this.field = this.gameObject.GetComponent<Field>();
@@ -384,6 +391,121 @@ public class Story_Controller : MonoBehaviour {
                 break;
         }
     }
+
+/*
+--------------------------------------------------
+    Classroom
+--------------------------------------------------
+*/
+    protected void setup_Classroom(){
+        this.fm = new FlagManager("Classroom");
+        this.a_words = new string[]{
+            //ステージに到着
+            //机に日誌が出現
+            //黒板に落書き(絵)が出現
+            "新しいステージですね．",
+            "・・・え，マスターはこのステージに見覚えがあるのですか？",
+            "既視感というものでしょうか．不思議なこともあるものですね．",
+            "さて，このステージにはどんなタスクがあるのでしょうか？",
+            "・・・おや，机の上に何かありますね．",
+            "マスター，読んでみましょうか．",
+            "読むために使えそうなカードが近くにありませんか？",
+            //write,close,readカードが出現
+            "・・・え？カードが3つもある？",
+            "読むためのカードは1つのはずですが・・・．",
+            "どのカードを使えばいいか，マスターはわかりますか？",
+
+            //タスク1：日誌を読む(タスクの表示)
+            //readカードを使用した場合：正解
+                //タスクメッセージが表示される
+                "黒板の落書きはちゃんと消しましょう",
+                "黒板の落書き・・・",
+                "黒板に描かれている絵のことでしょうか．",
+            //write，closeカードを使用した場合：不正解
+                //何も起きない：タスクメッセージは表示されない
+                //"どうやら使うカードを間違えたようです．",
+
+            //タスク2：黒板の落書きを消す
+            //walk,jump,cleanカードが出現
+            "それでは黒板の落書きを消してみましょう．",
+            "またしても使えそうなカードが3つほどありますね．",
+            "机の上の3つのカードから使うカードを選んでください．",
+            //cleanカードを使用した場合：正解
+                //黒板の絵が消えて元の黒板オブジェクトに戻る
+                "黒板がきれいになりましたね．",
+                "お見事です，マスター．",
+            //walk,jumpカードを使用した場合：不正解
+                //何も起きない：黒板の絵はそのまま
+                //"どうやら使うカードを間違えたようです．",
+            //タスクをすべてクリア
+            "このステージでのタスクはすべて完了したようです．",
+            "Thank you,Master.",
+        };
+        // フラグ設定
+        this.fm.initFlag("readBook", 0);
+        this.fm.initFlag("clearBoard", 0);
+        this.fm.initFlag("ScenarioClear", false);
+
+        // セリフ上書き
+        this.alpha_ctrl.words = a_words;
+
+        // Alpha_ctrlのStart()終わり待ち
+        Invoke(nameof(delaymethod), 1.0f);
+        outputLog("Classroom Start finish.");
+    }
+
+    protected void update_Classroom(){
+        switch (storyCount){
+            case 6:// write,close,readカードが出現
+                if(once==false){
+                    once=true;
+                    // write, close, readカードが出現
+                }
+                break;
+            case 9:// 本を読む
+                switch((int)this.fm.getFlag("readBook")){
+                    case 0:// なし
+                        this.alpha_ctrl.Status = "inactive";
+                        this.task_disp_ctrl.setActive(true);
+                        this.task_disp_ctrl.replaceStr("タスク\n日誌を読む", true);
+                        break;
+                    case 1:// 正解:
+                        this.alpha_ctrl.Status = "next";
+                        this.task_disp_ctrl.replaceStr("「黒板の落書きはちゃんと消しましょう」", true);
+                        break;
+                    case 2:// 不正解
+                        this.alpha_ctrl.Status = "inactive";
+                        this.alpha_ctrl.outputStr("どうやら使うカードを間違えたようです");
+                        break;
+                }
+                break;
+            case 12:// walk, jump, cleanのカードが出現
+                break;
+            case 14:// 黒板
+                switch((int)this.fm.getFlag("clearBoard")){
+                    case 0:// なし
+                        this.alpha_ctrl.Status = "inactive";
+                        this.task_disp_ctrl.setActive(true);
+                        this.task_disp_ctrl.replaceStr("タスク\n黒板の落書きを消す", true);
+                        break;
+                    case 1:// 正解:黒板の落書きが消える
+                        this.alpha_ctrl.Status = "next";
+                        this.task_disp_ctrl.setActive(false);
+                        break;
+                    case 2:// 不正解
+                        this.alpha_ctrl.Status = "inactive";
+                        this.alpha_ctrl.outputStr("どうやら使うカードを間違えたようです");
+                        this.task_disp_ctrl.replaceStr("タスク\n黒板をきれいにしよう", true);
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
 
 /*
 --------------------------------------------------

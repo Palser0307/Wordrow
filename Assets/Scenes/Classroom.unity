@@ -3035,6 +3035,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6327401820352016106, guid: 2122ff82be339574f91f4cdb1184abc5,
+        type: 3}
+      propertyPath: storyName
+      value: Classroom
+      objectReference: {fileID: 0}
     - target: {fileID: 6327401820352016107, guid: 2122ff82be339574f91f4cdb1184abc5,
         type: 3}
       propertyPath: m_Name
@@ -3052,6 +3057,25 @@ PrefabInstance:
       objectReference: {fileID: 762224984}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2122ff82be339574f91f4cdb1184abc5, type: 3}
+--- !u!1 &671919327 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6327401820352016107, guid: 2122ff82be339574f91f4cdb1184abc5,
+    type: 3}
+  m_PrefabInstance: {fileID: 671919326}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &671919328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671919327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2378ef422e7d54a4195b1d12a86c6f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cards_prefab: []
 --- !u!1001 &692844745
 PrefabInstance:
   m_ObjectHideFlags: 0

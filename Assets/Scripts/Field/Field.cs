@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// in "System_Scripts"
+
 public class Field : MonoBehaviour {
     //[SerializeField]protected string storyName = null;
 
