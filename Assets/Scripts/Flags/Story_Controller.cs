@@ -31,6 +31,9 @@ public class Story_Controller : MonoBehaviour {
     //
     protected Field field = null;
 
+    // Prefab管理用
+    public GameObject[] Prefab = null;
+
     // 一回限り実行用
     protected bool once = false;
 
@@ -60,6 +63,7 @@ public class Story_Controller : MonoBehaviour {
                     setup_Object1();
                     break;
                 case "Classroom":
+                    setup_Classroom();
                     break;
 
                 default:
@@ -99,6 +103,9 @@ public class Story_Controller : MonoBehaviour {
                 break;
             case "Object1":
                 update_Object1();
+                break;
+            case "Classroom":
+                update_Classroom();
                 break;
 
             default:
@@ -449,6 +456,10 @@ public class Story_Controller : MonoBehaviour {
         // セリフ上書き
         this.alpha_ctrl.words = a_words;
 
+        // カードをまとめてるGameObjectを非表示に
+        Prefab[0].SetActive(false);
+        Prefab[1].SetActive(false);
+
         // Alpha_ctrlのStart()終わり待ち
         Invoke(nameof(delaymethod), 1.0f);
         outputLog("Classroom Start finish.");
@@ -459,7 +470,8 @@ public class Story_Controller : MonoBehaviour {
             case 6:// write,close,readカードが出現
                 if(once==false){
                     once=true;
-                    // write, close, readカードが出現
+                    // No1を有効化
+                    Prefab[0].SetActive(true);
                 }
                 break;
             case 9:// 本を読む
@@ -478,8 +490,16 @@ public class Story_Controller : MonoBehaviour {
                         this.alpha_ctrl.outputStr("どうやら使うカードを間違えたようです");
                         break;
                 }
+                once = false;
                 break;
             case 12:// walk, jump, cleanのカードが出現
+                if(once==false){
+                    once=true;
+                    // No1を無効化
+                    Prefab[0].SetActive(false);
+                    // No2を有効化
+                    Prefab[1].SetActive(true);
+                }
                 break;
             case 14:// 黒板
                 switch((int)this.fm.getFlag("clearBoard")){
