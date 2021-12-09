@@ -29,9 +29,10 @@ public class card_Fire_gen2 : TrO_card_class {
 
     public override void use(Collision other = null){
         this.sc.fm.setFlag("useFire", true);
+        outputLog("use() start");
         if(FireObj == null){
             OVRGrabbable grabbable;
-            if(this.gameObject.TryGetComponent(out grabbable)){
+            if(!this.gameObject.TryGetComponent(out grabbable)){
                 return;
             }
             // OVRGrabberを持ってるオブジェクト=手のGameObjectをとってくる
@@ -42,7 +43,7 @@ public class card_Fire_gen2 : TrO_card_class {
 
             // 火柱のインスタンス生成
             FireObj = Instantiate(Effect_Prefab, this.gameObject.transform.position, Quaternion.Euler(rot[0], rot[1], rot[2]));
-            FireObj.transform.parent = this.gameObject.transform;
+            FireObj.transform.parent = grabberObj.gameObject.transform;
         }else{
             FireObj.transform.parent = null;
             Destroy(FireObj);

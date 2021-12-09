@@ -3167,7 +3167,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7255396735556883772}
   m_LocalRotation: {x: -0, y: -0.9688436, z: -0, w: 0.24767375}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.575, y: 0, z: -0.938}
   m_LocalScale: {x: 0.09, y: 0.16, z: 0.03}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3267,7 +3267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703056e6220fcd54d9ede4a727b02162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Effect_Prefab: {fileID: 0}
+  Effect_Prefab: {fileID: 1634767862067424, guid: 007c57e2df8e9b144b99f471b84f3d56,
+    type: 3}
 --- !u!1 &7294111471684197532 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4798624427347018624, guid: a7581dd83041dd845a12e2b61e54262a,
