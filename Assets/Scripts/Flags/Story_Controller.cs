@@ -475,6 +475,7 @@ public class Story_Controller : MonoBehaviour {
                 }
                 break;
             case 9:// 本を読む
+                outputLog("case 9: \"readBook\" -> "+(int)this.fm.getFlag("readBook"));
                 switch((int)this.fm.getFlag("readBook")){
                     case 0:// なし
                         this.alpha_ctrl.Status = "inactive";
