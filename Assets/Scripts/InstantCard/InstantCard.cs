@@ -81,6 +81,14 @@ public class InstantCard : MonoBehaviour{
         rigid.velocity = Vector3.zero;
     }
 
+    // 強制把持解除
+    public void forceRelease(){
+        if(this.getIsHold()){
+            OVRGrabber grabber = this.grab.grabbedBy;
+            grabber.ForceRelease(this.grab);
+        }
+    }
+
     // +--------------+
     // |    GETTER    |
     // +--------------+

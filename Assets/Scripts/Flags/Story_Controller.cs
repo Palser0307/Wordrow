@@ -460,6 +460,9 @@ public class Story_Controller : MonoBehaviour {
         Prefab[0].SetActive(false);
         Prefab[1].SetActive(false);
 
+        // タスク表示を非表示
+        this.task_disp_ctrl.setActive(false);
+
         // Alpha_ctrlのStart()終わり待ち
         Invoke(nameof(delaymethod), 1.0f);
         outputLog("Classroom Start finish.");
@@ -467,6 +470,9 @@ public class Story_Controller : MonoBehaviour {
 
     protected void update_Classroom(){
         switch (storyCount){
+            case 0:
+                this.task_disp_ctrl.setActive(false);
+                break;
             case 6:// write,close,readカードが出現
                 if(once==false){
                     once=true;
@@ -475,12 +481,13 @@ public class Story_Controller : MonoBehaviour {
                 }
                 break;
             case 9:// 本を読む
-                outputLog("case 9: \"readBook\" -> "+(int)this.fm.getFlag("readBook"));
+                this.alpha_ctrl.Status = "inactive";
+                this.task_disp_ctrl.setActive(true);
+                this.task_disp_ctrl.replaceStr("タスク\n日誌を読む", true);
+                //outputLog("case 9: \"readBook\" -> "+(int)this.fm.getFlag("readBook"));
                 switch((int)this.fm.getFlag("readBook")){
                     case 0:// なし
                         this.alpha_ctrl.Status = "inactive";
-                        this.task_disp_ctrl.setActive(true);
-                        this.task_disp_ctrl.replaceStr("タスク\n日誌を読む", true);
                         break;
                     case 1:// 正解:
                         this.alpha_ctrl.Status = "next";
@@ -496,22 +503,30 @@ public class Story_Controller : MonoBehaviour {
             case 12:// walk, jump, cleanのカードが出現
                 if(once==false){
                     once=true;
+                    // No1の子オブジェクト(全部InstantCard)を強制リリース
+                    InstantCard[] ics = Prefab[0].gameObject.GetComponentsInChildren<InstantCard>();
+                    foreach(InstantCard ic in ics){
+                        ic.forceRelease();
+                    }
                     // No1を無効化
                     Prefab[0].SetActive(false);
                     // No2を有効化
                     Prefab[1].SetActive(true);
                 }
                 break;
-            case 14:// 黒板
+            case 15:// 黒板
+                once = false;
+                this.alpha_ctrl.Status = "inactive";
+                this.task_disp_ctrl.setActive(true);
+                this.task_disp_ctrl.replaceStr("タスク\n黒板の落書きを消す", true);
                 switch((int)this.fm.getFlag("clearBoard")){
                     case 0:// なし
                         this.alpha_ctrl.Status = "inactive";
-                        this.task_disp_ctrl.setActive(true);
-                        this.task_disp_ctrl.replaceStr("タスク\n黒板の落書きを消す", true);
                         break;
                     case 1:// 正解:黒板の落書きが消える
                         this.alpha_ctrl.Status = "next";
                         this.task_disp_ctrl.setActive(false);
+                        Prefab[2].SetActive(false);
                         break;
                     case 2:// 不正解
                         this.alpha_ctrl.Status = "inactive";
@@ -520,6 +535,18 @@ public class Story_Controller : MonoBehaviour {
                         break;
                     default:
                         break;
+                }
+                break;
+            case 16:// walk, jump, cleanのカードが出現
+                if(once==false){
+                    once=true;
+                    // No2の子オブジェクト(全部InstantCard)を強制リリース
+                    InstantCard[] ics = Prefab[1].gameObject.GetComponentsInChildren<InstantCard>();
+                    foreach(InstantCard ic in ics){
+                        ic.forceRelease();
+                    }
+                    // No2を有効化
+                    Prefab[1].SetActive(false);
                 }
                 break;
             default:

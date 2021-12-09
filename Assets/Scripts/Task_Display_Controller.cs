@@ -19,7 +19,7 @@ public class Task_Display_Controller : MonoBehaviour {
     public string displayString = "";
 
     // 外部から設定されている表示/非表示設定
-    protected bool isActive;
+    protected bool isActive = true;
 
     private void Awake() {
         Transform children = Task_Display.GetComponentInChildren<Transform>();
@@ -39,7 +39,7 @@ public class Task_Display_Controller : MonoBehaviour {
             }
         }
         // reloadStr();
-        setActive(false);
+        this.setActive(false);
     }
 
     private void Start() {
@@ -59,9 +59,11 @@ public class Task_Display_Controller : MonoBehaviour {
     // 有効化/無効化
     // newStatus : 有効化/無効化
     public void setActive(bool newStatus){
-        outputLog("setActive() -> "+newStatus);
-        Task_Display.SetActive(newStatus);
-        isActive = newStatus;
+        if(isActive != newStatus){
+            outputLog("setActive() -> "+newStatus);
+            Task_Display.SetActive(newStatus);
+            isActive = newStatus;
+        }
     }
 
     public void reloadStr(){
