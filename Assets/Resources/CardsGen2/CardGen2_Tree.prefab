@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_allowOffhandGrab: 1
-  m_snapPosition: 0
-  m_snapOrientation: 0
+  m_snapPosition: 1
+  m_snapOrientation: 1
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
 --- !u!114 &5719872599409989964
@@ -143,5 +143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Effect_Prefab: {fileID: 7303829660706174715, guid: bd4cd14690eddd14ebb5a5302a0c4755,
     type: 3}
-  plural_card: {fileID: 1990432631614444089, guid: a4e429ea9cd865047a081bcdbade8649,
+  plural_card: {fileID: 9171206402746719030, guid: a4e429ea9cd865047a081bcdbade8649,
     type: 3}
+  Trees: {fileID: 0}

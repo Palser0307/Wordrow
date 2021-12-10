@@ -11,7 +11,7 @@ public class Dedicate_Spot : MonoBehaviour
 
     //カードをはめる位置
     private GameObject display;
-    
+
     //displayするマテリアル
     //将来的にはフォルダから名前で取ってきたい
     [SerializeField]
@@ -35,8 +35,17 @@ public class Dedicate_Spot : MonoBehaviour
     //文が決定されたかどうか
     bool determine=false;
 
+    // フラグ関連 てかストーリー管理スクリプトへのアクセサ
+    protected Story_Controller sc = null;
+
+    private void Start() {
+        if(!GameObject.Find("System_Scripts").TryGetComponent(out sc)){
+            outputError("can't found sc");
+        }
+    }
+
     void Update(){
-        
+
         //文が決定された
         if(determine==true){
             //今のエフェクトを消す
@@ -51,11 +60,9 @@ public class Dedicate_Spot : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider collision)
-    {
-        
+    void OnTriggerEnter(Collider collision){
         GameObject go = collision.gameObject;
-        
+
         //TagがCardであるオブジェクトと衝突したら，displayのテクスチャを切り替える
         if(go.tag == "Card"){
 
@@ -64,15 +71,29 @@ public class Dedicate_Spot : MonoBehaviour
             for(int i=0;i<texes.Length;i++){
                 if(name == texes[i].name){
                     display.GetComponent<Renderer>().material.SetTexture("_MainTex",texes[i]);
-                    
+
                     //現在の選択を保存
                     effect_num=i;
-                    Debug.Log("now EFFECT_NUM IS" + effect_num);
+                    Debug.Log("now EFFECT_NUM IS " + effect_num);
                     determine=true;
+
+                    // フラグ
+                    if(sc!=null && name=="tree"){
+                        sc.fm.setFlag("isAlphaTree", true);
+                    }
                 }
             }
-            
+
         }
 
+    }
+
+    // Log output
+    protected void outputLog(string str){
+        Debug.Log("Dedicate_Spot : " + str);
+    }
+    // Error Log output
+    protected void outputError(string str){
+        Debug.LogError("Dedicate_Spot : "+str);
     }
 }

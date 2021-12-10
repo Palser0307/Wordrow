@@ -10,9 +10,16 @@ public class card_TreeS_plural : TrO_card_class{
     protected GameObject Trees;
     protected Trees TreeS;
 
+    protected MeshRenderer SpellSphere;
+
     protected new void Start(){
         base.Start();
         setCardName("TreeS");
+        SpellSphere = GameObject.Find("Spell").GetComponent<MeshRenderer>();
+        Invoke(nameof(DelayMethod), 3.0f);
+    }
+    void DelayMethod(){
+        SpellSphere.enabled = false;
     }
 
     // Update is called once per frame
