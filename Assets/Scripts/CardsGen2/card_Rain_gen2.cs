@@ -11,7 +11,7 @@ public class card_Rain_gen2 : TrO_card_class{
     protected GameObject Rain_Object = null;
 
     // 雨の起点の高さ
-    private float height = 10f;
+    private float height = 5f;
 
     // 雨の持続時間 [sec]
     private float lifeTime = 10.0f;

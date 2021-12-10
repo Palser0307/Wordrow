@@ -5,13 +5,24 @@ using UnityEngine;
 // 出席簿にアタッチする
 public class blackboard : MonoBehaviour {
     protected Story_Controller sc = null;
-    private void Start() {
+    public void Start() {
         if(!GameObject.Find("System_Scripts").TryGetComponent(out this.sc)){
             Debug.LogError("blackboard: cant found sc");
         }
         return;
     }
     private void Update(){
+        if(this.sc == null){
+            GameObject ss = GameObject.Find("System_Scripts");
+            if(ss == null){
+                return;
+            }
+            if(!ss.TryGetComponent(out this.sc)){
+                //Debug.LogError("blackboard: cant found sc");
+            }else{
+                Debug.Log("blackboard: can found sc");
+            }
+        }
         return;
     }
     private void OnCollisionEnter(Collision other) {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // in "System_Scripts" Object
 // インスペクタで設定されたステージのフラグ管理を行う…予定
@@ -122,19 +123,19 @@ public class Story_Controller : MonoBehaviour {
     protected void setup_Tutorial(){
         this.fm = new FlagManager("Tutorial");
         this.a_words = new string[]{
-            "それでは，チュートリアルを始めましょう．",
+            "それでは，チュートリアルを始めましょう．\n左コントローラの人差し指トリガーで次に進めます",
             "あたりを見渡してみてください．",
             "目の前に箱が見えますか？その箱の位置まで歩いてみてください．",
-            "Lコントローラのスティックで移動ができますよ．", // movePoint1(def:false)
+            "左コントローラのスティックで移動ができますよ．", // movePoint1(def:false)
             "そのまま目の前のSMOKEカードをつかんでみてください．",
-            "Rスティックのハンドトリガーでカードをつかめますよ．", // grabSmoke(def:false)
+            "右コントローラの中指トリガーでカードをつかめますよ．", // grabSmoke(def:false)
             "カードがつかめましたね．",
-            "Rコントローラのインデックストリガーを押してからカードを投げてみてください．", // useSmoke(def:false)
+            "右コントローラの人差し指トリガーを押してからカードを投げてみてください．", // useSmoke(def:false)
             "煙が出てきましたね．",
             "どうやらSMOKEカードを使うと煙が出るようです．",
             "次はRAINのカードを使ってみましょう．",
             "箱の上のRAINカードをつかんでみてください．", // grabRain(def:false)
-            "そのままRコントローラのインデックストリガーを押してみてください．", // useRain(def:false)
+            "そのまま右コントローラの人差し指トリガーを押してみてください．", // useRain(def:false)
             "雨が降ってきましたね．",
             "RAINカードは雨を発生させるようです．",
             "それでは次が最後のカードです．",
@@ -155,6 +156,7 @@ public class Story_Controller : MonoBehaviour {
         this.fm.initFlag("grabFly", false);
         this.fm.initFlag("useFly", false);
         this.fm.initFlag("scenarioClear", false);
+        this.fm.initFlag("arrivePoint2", false);
 
         // セリフ上書き
         this.alpha_ctrl.words = a_words;
@@ -164,6 +166,13 @@ public class Story_Controller : MonoBehaviour {
     }
 
     protected void update_Tutorial(){
+        // ゴールについた判定
+        if((bool)this.fm.getFlag("arrivePoint2") == true){
+            this.alpha_ctrl.outputStr("次のワールドを読み込み中です");
+            // 遷移処理
+            string nextStage = "Scenes/ScenarioPart/" + "BaseRoom";
+            SceneManager.LoadScene(nextStage);
+        }
         switch(storyCount){
             case 3:
                 if((bool)fm.getFlag("arrivePoint1") == false){
@@ -460,8 +469,12 @@ public class Story_Controller : MonoBehaviour {
         Prefab[0].SetActive(false);
         Prefab[1].SetActive(false);
 
+        GameObject.Find("blackboard01_1").GetComponent<blackboard>().Start();
+
         // タスク表示を非表示
         this.task_disp_ctrl.setActive(false);
+
+        this.alpha_ctrl.reloadStr();
 
         // Alpha_ctrlのStart()終わり待ち
         Invoke(nameof(delaymethod), 1.0f);
@@ -472,6 +485,7 @@ public class Story_Controller : MonoBehaviour {
         switch (storyCount){
             case 0:
                 this.task_disp_ctrl.setActive(false);
+                this.alpha_ctrl.reloadStr();
                 break;
             case 6:// write,close,readカードが出現
                 if(once==false){

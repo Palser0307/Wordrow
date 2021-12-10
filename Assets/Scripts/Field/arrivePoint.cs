@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 目的地に到着を感知するためのスクリプト
+// ColliderのOnTriggerはTrueにしておくこと
 
 public class arrivePoint : MonoBehaviour {
     // 位置の名前をインスペクタからロード
