@@ -22,7 +22,9 @@ public class Task_Display_Controller : MonoBehaviour {
     protected bool isActive = true;
 
     private void Awake() {
-        Task_Display = GameObject.Find("Task_Display");
+        if(Task_Display == null){
+            Task_Display = GameObject.Find("Task_Display");
+        }
         Transform children = Task_Display.GetComponentInChildren<Transform>();
         foreach(Transform obj in children){
             switch(obj.gameObject.name){

@@ -19,7 +19,8 @@ public class StageManager : MonoBehaviour{
     void Start(){
         START = false;
         GAMEMODE = null;
-        addStoryList("Classroom(SiS)");
+        addStoryList("ClassRoom(SiS)");
+        addStoryList("Tutorial(SiS)");
     }
 
     // Update is called once per frame
@@ -30,16 +31,53 @@ public class StageManager : MonoBehaviour{
                 SceneManager.UnloadSceneAsync(nowStage);
             }
 
-            // make address
-            if(GAMEMODE == "Classroom"){
-                GAMEMODE = "Classroom(SiS)";
-            }
-            if(haveStoryList(GAMEMODE) == true){
+            /*
+            //if(haveStoryList(GAMEMODE) == true){
+            if(GAMEMODE ==)
                 nowStage = "Scenes/ScenarioPart/" + GAMEMODE;
 
                 SceneManager.LoadScene(nowStage,LoadSceneMode.Additive);
 
                 Debug.Log("StageManager: StageChange start");
+            }else if(GAMEMODE == "PREPOSITION"){
+                nowStage = "Scenes/" + GAMEMODE;
+                SceneManager.LoadScene(nowStage);
+                Debug.Log("StageManager: change to PREPOSITION MODE");
+            }*/
+            Debug.Log("SM: GAMEMODE -> "+GAMEMODE);
+            switch (GAMEMODE){
+                // Classroomへの遷移
+                case "ClassRoom":
+                    Debug.Log("ClassRoom");
+                    nowStage = "Scenes/ScenarioPart/" + GAMEMODE + "(SiS)";
+                    SceneManager.LoadScene(nowStage,LoadSceneMode.Additive);
+                    break;
+                case "ClassRoom(SiS)":
+                    Debug.Log("ClassRoomSiS");
+                    nowStage = "Scenes/ScenarioPart/" + GAMEMODE;
+                    SceneManager.LoadScene(nowStage,LoadSceneMode.Additive);
+                    break;
+
+                // Tutorialへの遷移
+                case "Tutorial":
+                    Debug.Log("Tutorial");
+                    nowStage = "Scenes/ScenarioPart/" + GAMEMODE + "(SiS)";
+                    SceneManager.LoadScene(nowStage);
+                    break;
+                case "Tutorial(Sis)":
+                    Debug.Log("TutorialSiS");
+                    nowStage = "Scenes/ScenarioPart/" + GAMEMODE;
+                    SceneManager.LoadScene(nowStage);
+                    break;
+
+                // PREPOSITIONへの遷移
+                case "PREPOSITION":
+                    Debug.Log("PREPOSITION");
+                    nowStage = "Scenes/" + GAMEMODE;
+                    SceneManager.LoadScene(nowStage);
+                    break;
+                default:
+                    break;
             }
 
             // 後処理
