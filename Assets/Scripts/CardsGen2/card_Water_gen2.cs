@@ -11,7 +11,7 @@ public class card_Water_gen2 : TrO_card_class {
     // [SerializeField]
     // protected GameObject Effect_Prefab;
 
-    public GameObject WaterObj = null;
+    protected GameObject WaterObj = null;
 
     private new void Start() {
         base.Start();
@@ -25,6 +25,14 @@ public class card_Water_gen2 : TrO_card_class {
 
     private new void Update() {
         base.Update();
+
+        // 手から放したら水柱は消える
+        if(!getIsHold()){
+            if(WaterObj != null){
+                Destroy(WaterObj);
+                WaterObj = null;
+            }
+        }
     }
 
     public override void use(Collision other = null){
@@ -45,7 +53,7 @@ public class card_Water_gen2 : TrO_card_class {
 
             // 水柱のインスタンス生成
             WaterObj = Instantiate(Effect_Prefab, grabberObj.transform.position, grabberObj.transform.rotation);
-            WaterObj.transform.parent = this.gameObject.transform;//grabberObj.transform;
+            WaterObj.transform.parent = grabberObj.gameObject.transform;
 
             Invoke(nameof(DelayMethod), 20.0f);
         }else{

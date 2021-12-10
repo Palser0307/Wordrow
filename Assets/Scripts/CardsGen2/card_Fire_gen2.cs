@@ -25,6 +25,14 @@ public class card_Fire_gen2 : TrO_card_class {
 
     private new void Update() {
         base.Update();
+
+        // 手から放したら炎は消える
+        if(!getIsHold()){
+            if(FireObj != null){
+                Destroy(FireObj);
+                FireObj = null;
+            }
+        }
     }
 
     public override void use(Collision other = null){
@@ -33,6 +41,7 @@ public class card_Fire_gen2 : TrO_card_class {
         if(FireObj == null){
             OVRGrabbable grabbable;
             if(!this.gameObject.TryGetComponent(out grabbable)){
+                outputError("can't found OVRGrabbable");
                 return;
             }
             // OVRGrabberを持ってるオブジェクト=手のGameObjectをとってくる
@@ -44,10 +53,17 @@ public class card_Fire_gen2 : TrO_card_class {
             // 火柱のインスタンス生成
             FireObj = Instantiate(Effect_Prefab, this.gameObject.transform.position, Quaternion.Euler(rot[0], rot[1], rot[2]));
             FireObj.transform.parent = grabberObj.gameObject.transform;
+
+            Invoke(nameof(DelayMethod), 20.0f);
         }else{
             FireObj.transform.parent = null;
             Destroy(FireObj);
             FireObj = null;
         }
+    }
+
+    void DelayMethod(){
+        Destroy(FireObj);
+        FireObj = null;
     }
 }
