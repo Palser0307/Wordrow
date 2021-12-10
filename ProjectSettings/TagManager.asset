@@ -13,6 +13,7 @@ TagManager:
   - tree
   - Plural
   - Upgrader
+  - Target
   - TASK
   layers:
   - Default
