@@ -8,7 +8,7 @@ using System.IO;
 public class Alpha_Controller : MonoBehaviour{
     // HUDアクセサ
     [SerializeField]
-    protected GameObject Alpha_HUD;
+    protected GameObject Alpha_HUD = null;
 
     // HUDアバター部分のアクセサ
     protected GameObject Alpha_AvaterObj;
@@ -41,7 +41,20 @@ public class Alpha_Controller : MonoBehaviour{
     // next: 外部からのセリフ送り要求
     public string Status{get;set;} = "active";
 
+    // セリフ更新可能時のLED
+    // 要はポケモンのセリフウィンドウとかの下矢印みたいなもんだね
+    // +---------------------+
+    // |                     |
+    // |            これ→   ↓|
+    // +---------------------+
+    protected GameObject Alpha_Led = null;
+
     void Awake(){
+        // Alpha_HUDを探す
+        if(Alpha_HUD == null){
+            Alpha_HUD = GameObject.Find("Alpha_HUD");
+        }
+
         Sys_Controller = this.gameObject;
 
         /*
@@ -59,11 +72,11 @@ public class Alpha_Controller : MonoBehaviour{
         foreach(Transform obj in children){
             switch (obj.gameObject.name){
                 case "Alpha_Avater":
-                    outputLog("Alpha_Avater");
+                    outputLog("set Alpha_Avater");
                     Alpha_AvaterObj = obj.gameObject;
                     break;
                 case "Alpha_Text":
-                    outputLog("Alpha_Text");
+                    outputLog("set Alpha_Text");
                     Alpha_TextObj = obj.gameObject;
                     Alpha_Text_string = Alpha_TextObj.transform.GetChild(1).gameObject;
                     text_string = Alpha_Text_string.GetComponent<Text>();
@@ -71,6 +84,11 @@ public class Alpha_Controller : MonoBehaviour{
                         outputError("text_string is null");
                     }
                     text_string.text = wakeUpMessage;
+                    break;
+                case "Alpha_Led":
+                    outputLog("set Alpha_Led");
+                    Alpha_Led = obj.gameObject;
+                    Alpha_Led.SetActive(false);
                     break;
                 default:
                     break;
@@ -93,6 +111,7 @@ public class Alpha_Controller : MonoBehaviour{
                 if(OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger)){
                     nextStr();
                 }
+                Alpha_Led.SetActive(true);
                 break;
 
             case "next":
@@ -101,6 +120,8 @@ public class Alpha_Controller : MonoBehaviour{
                 break;
 
             case "inactive":
+                Alpha_Led.SetActive(false);
+                break;
             default:
                 break;
         }
