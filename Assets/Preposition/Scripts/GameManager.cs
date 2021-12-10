@@ -15,9 +15,12 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] target;
 
+    public ParticleSystem pc;
+
     private int targetNo=0;
 
     private bool CLEAR=false;
+    private bool ef=false;
     
     //指定したローカルポジションにInstantiateする
     void locateTarget(int no,Vector3 vec){
@@ -34,7 +37,6 @@ public class GameManager : MonoBehaviour
             Mode=propositionList[targetNo];
         }else{
             //あんまりよくない
-            Random.InitState( System.DateTime.Now.Millisecond);
             Mode=propositionList[Random.Range(0,propositionList.Length)];
         }
         Order.text=Mode;
@@ -58,6 +60,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         processOfGame();
+        Random.InitState( System.DateTime.Now.Millisecond);
     }
 
     // Update is called once per frame
@@ -74,6 +77,10 @@ public class GameManager : MonoBehaviour
             }
         }else{
             Debug.Log("RESULT"); 
+            if(!ef){
+                Instantiate(pc,this.transform.position,Quaternion.identity);
+                ef=true;
+            }
             Order.text="!CLEAR!";
             Gun.TargetMode="CLEAR!!!";
 
