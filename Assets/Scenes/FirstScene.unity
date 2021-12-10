@@ -1191,7 +1191,7 @@ TextMesh:
   m_FontSize: 40
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: 4c90d3c4d98a33647872e06a6f654f9f, type: 3}
+  m_Font: {fileID: 12800000, guid: 997a43b767814dd0a7642ec9b78cba41, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 3405774848
@@ -1213,7 +1213,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e21b84b14ab21f54f8c1ae026b302b35, type: 2}
+  - {fileID: 2100000, guid: 997a43b767814dd0a7642ec9b78cba41, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1969,7 +1969,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4c90d3c4d98a33647872e06a6f654f9f, type: 3}
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3428,16 +3428,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 624329918147095652, guid: d1f3ff1b82d336b47939eff3bbc0b7de,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 997a43b767814dd0a7642ec9b78cba41, type: 3}
+    - target: {fileID: 1902639291219018610, guid: d1f3ff1b82d336b47939eff3bbc0b7de,
+        type: 3}
+      propertyPath: m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 997a43b767814dd0a7642ec9b78cba41,
+        type: 3}
     - target: {fileID: 2513744972399768543, guid: d1f3ff1b82d336b47939eff3bbc0b7de,
         type: 3}
       propertyPath: m_Name
       value: Bugging_Door
       objectReference: {fileID: 0}
+    - target: {fileID: 3858572328622470291, guid: d1f3ff1b82d336b47939eff3bbc0b7de,
+        type: 3}
+      propertyPath: m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 997a43b767814dd0a7642ec9b78cba41,
+        type: 3}
     - target: {fileID: 4432992399786946736, guid: d1f3ff1b82d336b47939eff3bbc0b7de,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e21b84b14ab21f54f8c1ae026b302b35, type: 2}
+      objectReference: {fileID: 2100000, guid: 997a43b767814dd0a7642ec9b78cba41, type: 3}
     - target: {fileID: 6204372114890462770, guid: d1f3ff1b82d336b47939eff3bbc0b7de,
         type: 3}
       propertyPath: m_LocalPosition.z
