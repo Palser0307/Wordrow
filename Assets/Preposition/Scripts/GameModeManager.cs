@@ -40,6 +40,8 @@ public class GameModeManager : MonoBehaviour
                 SceneManager.LoadScene(nowStage,LoadSceneMode.Additive);
             }else if(GAMEMODE == "PREPOSITION_2"){
                 SceneManager.LoadScene(nowStage,LoadSceneMode.Additive);
+            }else if(GAMEMODE == "BASE_ROOM"){
+                SceneManager.LoadScene("Scenes/ScenarioPart/BaseRoom");
             }
 
             //あとしょり　

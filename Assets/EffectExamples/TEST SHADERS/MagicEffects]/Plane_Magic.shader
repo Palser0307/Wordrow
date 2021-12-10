@@ -54,9 +54,14 @@
             {
                 // sample the texture
                 i.uv-=float2(0.5,0.5);
+
+                if(length(i.uv)>0.45) discard;
+
                 i.uv=float2(_CosTime.x*i.uv.x-_SinTime.x*i.uv.y,_SinTime.x*i.uv.x+_CosTime.x*i.uv.y);
 
                 i.uv+=float2(0.5,0.5);
+
+                
 
                 fixed4 col = tex2D(_MainTex, i.uv)*_Enable;
                 // apply fog

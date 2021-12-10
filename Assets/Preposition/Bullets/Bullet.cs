@@ -6,6 +6,8 @@ public class Bullet : MonoBehaviour
 {
     private Vector3 forward;
     public string Mode{get;set;}
+
+    public ParticleSystem pc;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +30,13 @@ public class Bullet : MonoBehaviour
             AudioSource audio=gm.GetComponent<AudioSource>();
             audio.PlayOneShot(audio.clip);
             Debug.Log("BulletsHit:"+Mode);
+
             if(gm.name==Mode){
+            Instantiate(pc,gm.transform.position,Quaternion.identity);
+            audio=this.GetComponent<AudioSource>();
+            audio.PlayOneShot(audio.clip);
             Destroy(gm);
+
             }
             //あたったら球はなくなる
             Destroy(this.gameObject);
