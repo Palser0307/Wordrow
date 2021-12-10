@@ -41,7 +41,7 @@ public class Alpha_Controller : MonoBehaviour{
     // next: 外部からのセリフ送り要求
     public string Status{get;set;} = "active";
 
-    void Start(){
+    void Awake(){
         Sys_Controller = this.gameObject;
 
         /*
@@ -83,6 +83,10 @@ public class Alpha_Controller : MonoBehaviour{
         outputLog("start() finished");
     }
 
+    private void Start() {
+        return;
+    }
+
     void Update(){
         switch (Status){
             case "active":
@@ -107,7 +111,7 @@ public class Alpha_Controller : MonoBehaviour{
         if(strPos < words.Length-1){
             strPos++;
         }else{
-            strPos = 0;
+            //strPos = 0;
         }
         string text = words[strPos];
         text_string.text = text;
@@ -126,6 +130,10 @@ public class Alpha_Controller : MonoBehaviour{
         reloadStr();
     }
 
+    // セリフ出力
+    public void outputStr(string str){
+        text_string.text = str;
+    }
 
     /*
     +------------------------+
@@ -135,33 +143,9 @@ public class Alpha_Controller : MonoBehaviour{
     */
     // セリフのstring配列
     public string[] words = {
-        "・・・",
-        "マスターの生体情報を確認中・・・",
-        "・・・",
-        "データベースに事前登録されている生体情報との一致を確認．",
-        "I’m OK, My master.",
-        "・・・初めまして，マスター．",
-        "あなた様のアシスタントを務める，α(アルファ)と申します．",
-        "以後，お見知りおきを．",
-        "早速ですが，チュートリアルを開始させていただきます．",
-        "あたりを見渡してみてください．",
-        "目の前にあるカードが見えますか？\nそのカードを手に取ってみてください．",
-        "カードがつかめましたね．",
-        "この世界ではそのカードを使って様々なことができます．",
-        "実際に試してみましょう．",
-        "目の前が燃えていますね．",
-        "さて，このままだと危険なので，火を消してみましょう．",
-        "手に持っているカードを使ってみてください．",
-        "どうやら燃えているものにはこのカードは使わないほうが良いようですね．",
-        "それでは，今度はこちらのカードを使ってみてください．",
-        "火が消えてくれましたね．",
-        "このように，状況に合わせて使うカードを選択することが大事です．",
-        "それでは，最後のチュートリアルに移りましょう．",
-        "そのカードを使ってこの部屋から出てみましょう．",
-        "前方の扉にカードを近づけてください．",
-        "無事に扉が開いたようですね．",
-        "以上でチュートリアルを終了します．",
-        "Have a nice trip, Master.",
+        "セリフ更新待ち～",
+        "ヒャッハー！",
+        "あべし！",
     };
     public static string wakeUpMessage = "毎日はEveryday";
 

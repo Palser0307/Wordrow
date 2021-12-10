@@ -19,6 +19,7 @@ public class card_Fly_gen2 : TD_card_class{
         // 発動対象タグの設定
         // 今のところはタグだけ
         addTargetList("Ball");
+        addTargetList("Flyable");
 
         outputLog("Setup finish.");
     }
@@ -26,7 +27,10 @@ public class card_Fly_gen2 : TD_card_class{
     // フレームごとに叩かれる
     protected new void Update(){
         // 継承元クラスのUpdate()を呼び出す
-        base.Update();
+        //base.Update();
+
+        updateIsHold();
+        vectorZero();
     }
 
     // 実際の効果
@@ -34,6 +38,9 @@ public class card_Fly_gen2 : TD_card_class{
     // 発動対象タグを持っているかはOnCollisionEnter()で確認済み
     public override void use(Collision other){
         outputLog("use func. start.");
+
+        // flag
+        sc.fm.setFlag("useFly", true);
 
         // 鉛直上方向指定
         Vector3 direction = Vector3.up;

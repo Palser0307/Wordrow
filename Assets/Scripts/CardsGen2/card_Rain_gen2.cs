@@ -24,6 +24,16 @@ public class card_Rain_gen2 : TrO_card_class{
         setCardName("Rain");
 
         checkPrefab();
+        /*GameObject scObj = GameObject.Find("System_Scripts");
+        if(scObj == null){
+            outputError("Obj not found");
+        }
+        if(scObj.TryGetComponent(out Story_Controller sc)){
+            outputError("can't found sc");
+        }
+        if(scObj.TryGetComponent(out Task_Display_Controller tdc)){
+            outputError("can't found tdc");
+        }*/
         outputLog("Setup finish.");
     }
 
@@ -41,6 +51,10 @@ public class card_Rain_gen2 : TrO_card_class{
         // Rain_Objectが空→まだ使ってない
         if(Rain_Object == null){
             outputLog("Rain_Object appear.");
+
+            // flag
+            sc.fm.setFlag("useRain", true);
+
             Vector3 pos = this.transform.position + Vector3.up * height;
             Quaternion rot = Quaternion.Euler(90,0,0);
 

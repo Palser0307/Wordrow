@@ -39,11 +39,8 @@ public class Dedicate_Spot : MonoBehaviour
     protected Story_Controller sc = null;
 
     private void Start() {
-        sc = GameObject.Find("System_Scripts").GetComponent<Story_Controller>();
-        if(sc == null){
-            outputError("Story_Controller is not FOUND!");
-        }else{
-            outputLog("start finish");
+        if(!GameObject.Find("System_Scripts").TryGetComponent(out sc)){
+            outputError("can't found sc");
         }
     }
 

@@ -41,24 +41,29 @@ public class card_Smoke_gen2 : ThO_card_class{
     public override void use(Collision other){
         outputLog("use() start.");
 
-        // Smoke_Objectが空→まだ使ってない
-        if(Smoke_Object == null){
-            outputLog("Smoke_Object appear.");
-
-            Vector3 pos = this.transform.position;
-            Quaternion rot = Quaternion.Euler(-90, 0, 0);
-
-            // Effect_PrefabのインスタンスをSmoke_Objectに格納
-            Smoke_Object = Instantiate(Effect_Prefab, pos, rot);
-            // 中心位置の代入
-            //Smoke_Object.transform.position = this.transform.position;
-
-            // lifeTime 秒後にSmoke_Objectを削除する関数を呼び出すようにセット
-            Invoke(nameof(DelayMethod), lifeTime);
-
-            // 発動待機状態を解除
-            setIsReady(false);
+        // Smoke_Objectが空でない→使用済み
+        if(Smoke_Object != null){
+            return;
         }
+
+        // flag
+        sc.fm.setFlag("useSmoke", true);
+
+        outputLog("Smoke_Object appear.");
+
+        Vector3 pos = this.transform.position;
+        Quaternion rot = Quaternion.Euler(-90, 0, 0);
+
+        // Effect_PrefabのインスタンスをSmoke_Objectに格納
+        Smoke_Object = Instantiate(Effect_Prefab, pos, rot);
+        // 中心位置の代入
+        //Smoke_Object.transform.position = this.transform.position;
+
+        // lifeTime 秒後にSmoke_Objectを削除する関数を呼び出すようにセット
+        Invoke(nameof(DelayMethod), lifeTime);
+
+        // 発動待機状態を解除
+        setIsReady(false);
     }
 
     // Invokeで呼び出される関数

@@ -28,7 +28,7 @@ public class card_Tree_gen2 : TrO_card_class{
     // 生成した丸太は全てここに
     // ちゃんとインスペクタでアタッチしておくこと
     [SerializeField]
-    protected GameObject Trees;
+    protected GameObject Trees=null;
     protected Trees TreeS;
 
     // 初期設定
@@ -42,13 +42,15 @@ public class card_Tree_gen2 : TrO_card_class{
 
         outputLog("Setup finish.");
 
-        // フラグシステムテスト
-        tf = GameObject.Find("System_Controller").GetComponent<tutorial_flags>();
 
-        TreeS = Trees.GetComponent<Trees>();
-        if(TreeS == null){
-            outputLog("TreeS is NULL!!");
+        // TreesObjectからTreeSスクリプトを取り出しておく...?
+        if(Trees == null){
+            Trees = GameObject.Find("TreeS");
         }
+        if(!Trees.TryGetComponent(out this.TreeS)){
+            outputError("can't found TreeS");
+        }
+
     }
 
     // フレームごとに叩かれる
@@ -60,9 +62,9 @@ public class card_Tree_gen2 : TrO_card_class{
     // 効果発動
     // 発動時のカード位置からheight分上空にEffect_Prefabの配置
     public override void use(Collision other = null){
-        outputLog("use() start.");
+        //outputLog("use() start.");
 
-        outputLog("Tree_Object appear.");
+        //outputLog("Tree_Object appear.");
         Vector3 pos = this.transform.position + Vector3.up * height;
         Quaternion rot = Quaternion.Euler(90,0,0);
 
@@ -82,7 +84,7 @@ public class card_Tree_gen2 : TrO_card_class{
     }
 
     protected void OnCollisionEnter(Collision other){
-        outputLog("Oncollision Enter");
+        //outputLog("Oncollision Enter");
         // Upgrader接触時
         if(other.gameObject.tag == "Upgrader" && UpgraderObj == null){
             UpgraderObj = other.gameObject;
@@ -120,7 +122,7 @@ public class card_Tree_gen2 : TrO_card_class{
 
             // TEST
             // フラグ管理
-            tf.Metamorphose = true;
+            sc.fm.setFlag("useTree", true);
 
             // カード及びアプグレのオブジェクト削除
             Destroy(this.UpgraderObj);

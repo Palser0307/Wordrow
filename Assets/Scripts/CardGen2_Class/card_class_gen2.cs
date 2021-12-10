@@ -49,6 +49,9 @@ public class card_class_gen2 : MonoBehaviour{
 
     protected OVRGrabbable grab;
 
+    // フラグ関連 てかストーリー管理スクリプトへのアクセサ
+    protected Story_Controller sc = null;
+
     // +-----------+
     // | functions |
     // +-----------+
@@ -67,6 +70,11 @@ public class card_class_gen2 : MonoBehaviour{
         rigid.useGravity = false;
 
         grab = this.GetComponent<OVRGrabbable>();
+        GameObject ssObj = GameObject.Find("System_Scripts");
+        if(!ssObj.TryGetComponent(out this.sc)){
+            outputError("can't found sc");
+        }
+
         return;
     }
 
@@ -78,6 +86,7 @@ public class card_class_gen2 : MonoBehaviour{
         updateIsHold();
 
         vectorZero();
+
         return;
     }
 
@@ -104,6 +113,10 @@ public class card_class_gen2 : MonoBehaviour{
     // Debug.Log() for CardClass
     public void outputLog(string str){
         Debug.Log(getObjectName() + " : " + str);
+    }
+    // Debug.LogError() for CardClass
+    protected void outputError(string str){
+        Debug.LogError(getObjectName() + " : " + str);
     }
 
     // 移動速度をゼロに
@@ -180,6 +193,8 @@ public class card_class_gen2 : MonoBehaviour{
     // set isHold
     public void setIsHold(bool newStatus){
         this.isHold = newStatus;
+        // flag
+        this.sc.fm.setFlag("grab"+getCardName(), newStatus);
     }
 
     // update isHold
@@ -187,11 +202,6 @@ public class card_class_gen2 : MonoBehaviour{
         if(getIsHold() != grab.isGrabbed){
             setIsHold(grab.isGrabbed);
         }
-    }
-
-    // set Object Name
-    public void setObjectName(string newName){
-        this.cardName = "Card_" + newName + "(gen2)";
     }
 
     // add newType to UpgraderList
