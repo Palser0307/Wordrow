@@ -19,6 +19,6 @@ public class around : MonoBehaviour
     {
          t+=Mathf.PI*Time.deltaTime;
         //xzに回転させる
-        this.transform.localPosition=new Vector3(rad*(float)Mathf.Sin((float)(t)),0,rad*(float)Mathf.Cos((float)t));
+        this.transform.localPosition=new Vector3(rad*(float)Mathf.Sin((float)(t)),this.transform.localPosition.y,rad*(float)Mathf.Cos((float)t));
     }
 }

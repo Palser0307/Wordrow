@@ -27,8 +27,12 @@ public class Shoot : MonoBehaviour
         if(grab.isGrabbed){
             //triggerがひかれた
             if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch)){
+                //うったエフェクト
+                this.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+                
                 //その方向へ球が出てほしい
                 //手
+
                 /*miss script
                 */
                 GameObject grabber = grab.grabbedBy.gameObject;
@@ -41,6 +45,7 @@ public class Shoot : MonoBehaviour
                 //球の生成
                 //ここでTEXT変えてもよい
                 bullet.GetComponentInChildren<TextMeshPro>().text=TargetMode;
+                
 
                 //Modeの変更
                 GameObject gm =Instantiate(bullet,pos,Quaternion.Euler(dir));
