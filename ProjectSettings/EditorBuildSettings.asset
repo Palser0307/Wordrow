@@ -4,7 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/PREPOSITION.unity
+    guid: 4c9374d925edcc7459c37d09df5f9752
+  - enabled: 1
+    path: Assets/Scenes/PREPOSITION_STAGE/PREPOSITION_1.unity
+    guid: fe745b72f6a733448a1b485c330fc4a2
+  - enabled: 1
+    path: Assets/Scenes/PREPOSITION_STAGE/PREPOSITION_2.unity
+    guid: dbf91c61eaa077649a46ccb9dd70c605
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: afc035f7afe870a4b95b315fd5296139,
       type: 2}

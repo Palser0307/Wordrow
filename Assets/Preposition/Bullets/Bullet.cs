@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private Vector3 forward;
+    public string Mode{get;set;}
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +22,16 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision col){
         GameObject gm=col.gameObject;
-        Debug.Log("aaa");
         
         if(gm.tag=="Target"){
             //Targetにあたったら破壊
+            AudioSource audio=gm.GetComponent<AudioSource>();
+            audio.PlayOneShot(audio.clip);
+            Debug.Log("BulletsHit:"+Mode);
+            if(gm.name==Mode){
             Destroy(gm);
+            }
+            //あたったら球はなくなる
             Destroy(this.gameObject);
         }
     }

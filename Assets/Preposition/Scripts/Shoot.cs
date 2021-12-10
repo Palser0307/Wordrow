@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class Shoot : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -9,6 +9,12 @@ public class Shoot : MonoBehaviour
     private bool isHold = false;
 
     OVRGrabbable grab;
+
+    //現在のターゲットを教えてもらう
+    public string TargetMode;
+
+    //flash
+    public GameObject flash;
 
     // Update is called once per frame
     
@@ -33,7 +39,12 @@ public class Shoot : MonoBehaviour
                 Vector3 dir = trans.rotation.eulerAngles;
 
                 //球の生成
-                Instantiate(bullet,pos,Quaternion.Euler(dir));
+                //ここでTEXT変えてもよい
+                bullet.GetComponentInChildren<TextMeshPro>().text=TargetMode;
+
+                //Modeの変更
+                GameObject gm =Instantiate(bullet,pos,Quaternion.Euler(dir));
+                gm.GetComponent<Bullet>().Mode =TargetMode;
 
                 
                 AudioSource audio=this.GetComponent<AudioSource>();
