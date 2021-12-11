@@ -118,7 +118,7 @@ PrefabInstance:
     - target: {fileID: 2678452277105928092, guid: b45e8213daa203f4c9ee94e3c3a5f8de,
         type: 3}
       propertyPath: m_Name
-      value: RoundSphere
+      value: around
       objectReference: {fileID: 0}
     - target: {fileID: 6412728612440232469, guid: b45e8213daa203f4c9ee94e3c3a5f8de,
         type: 3}
