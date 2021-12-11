@@ -12,6 +12,8 @@ using UnityEngine;
 [RequireComponent(typeof(OVRGrabbable))]
 // 箱型当たり判定
 [RequireComponent(typeof(BoxCollider))]
+// 音声
+[RequireComponent(typeof(AudioSource))]
 
 public class card_class_gen2 : MonoBehaviour{
     // +--------+
@@ -122,6 +124,11 @@ public class card_class_gen2 : MonoBehaviour{
     // 移動速度をゼロに
     protected void vectorZero(){
         rigid.velocity = Vector3.zero;
+    }
+
+    protected void playAudio(){
+        AudioSource audio = this.GetComponent<AudioSource>();
+        audio.PlayOneShot(audio.clip);
     }
 
     // +--------------+
