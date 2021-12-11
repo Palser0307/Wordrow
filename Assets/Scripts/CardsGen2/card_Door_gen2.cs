@@ -17,6 +17,10 @@ public class card_Door_gen2 : ThO_card_class{
     // 投げて手から離れた位置
     private Vector3 releasePos;
 
+    // isReady T/F でテクスチャが変わるように！
+    [SerializeField]
+    protected Material ReadyMat = null, NotReadyMat = null;
+
     // 初期設定
     // 初ロード時に叩かれる
     new void Start(){
@@ -83,6 +87,20 @@ public class card_Door_gen2 : ThO_card_class{
                 releasePos = this.transform.position;
             }
             setIsHold(false);
+        }
+    }
+
+    // update isReady
+    // 色変わり用に再定義
+    protected override void updateIsReady(){
+        if(OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && getIsHold()){
+            setIsReady(!getIsReady());
+            outputLog("new updateIsReady() > change isReady to "+ getIsReady());
+            if(getIsReady() == true){
+                this.GetComponent<Renderer>().material = ReadyMat;
+            }else{
+                this.GetComponent<Renderer>().material = NotReadyMat;
+            }
         }
     }
 

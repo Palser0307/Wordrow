@@ -143,3 +143,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Effect_Prefab: {fileID: 4798624427347018624, guid: a7581dd83041dd845a12e2b61e54262a,
     type: 3}
+  ReadyMat: {fileID: 2100000, guid: f7621658c09fd494cb90d516d59d17fd, type: 2}
+  NotReadyMat: {fileID: 2100000, guid: b8c56a807f3bada47886b23df66dbec1, type: 2}

@@ -15,7 +15,7 @@ public class card_TreeS_plural : TrO_card_class{
     protected new void Start(){
         base.Start();
         setCardName("TreeS");
-        SpellSphere = GameObject.Find("Spell").GetComponent<MeshRenderer>();
+        SpellSphere = GameObject.Find("Sphere_Magic").GetComponent<MeshRenderer>();
         Invoke(nameof(DelayMethod), 3.0f);
     }
     void DelayMethod(){

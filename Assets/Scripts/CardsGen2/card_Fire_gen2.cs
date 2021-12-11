@@ -10,8 +10,11 @@ public class card_Fire_gen2 : TrO_card_class {
     // PrefabにはちゃんとFireタグをつけておく
     // [SerializeField]
     // protected GameObject Effect_Prefab;
-
     protected GameObject FireObj = null;
+
+    // isReady T/F でテクスチャが変わるように！
+    [SerializeField]
+    protected Material ReadyMat = null, NotReadyMat = null;
 
     private new void Start() {
         base.Start();
@@ -31,6 +34,7 @@ public class card_Fire_gen2 : TrO_card_class {
             if(FireObj != null){
                 Destroy(FireObj);
                 FireObj = null;
+                this.GetComponent<Renderer>().material = NotReadyMat;
             }
         }
     }
@@ -39,6 +43,7 @@ public class card_Fire_gen2 : TrO_card_class {
         this.sc.fm.setFlag("useFire", true);
         outputLog("use() start");
         if(FireObj == null){
+            this.GetComponent<Renderer>().material = ReadyMat;
             OVRGrabbable grabbable;
             if(!this.gameObject.TryGetComponent(out grabbable)){
                 outputError("can't found OVRGrabbable");
@@ -56,6 +61,7 @@ public class card_Fire_gen2 : TrO_card_class {
 
             Invoke(nameof(DelayMethod), 20.0f);
         }else{
+            this.GetComponent<Renderer>().material = NotReadyMat;
             FireObj.transform.parent = null;
             Destroy(FireObj);
             FireObj = null;
