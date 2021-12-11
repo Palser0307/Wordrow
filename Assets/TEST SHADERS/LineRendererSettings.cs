@@ -50,10 +50,10 @@ public class LineRendererSettings : MonoBehaviour
         //レイキャストが何かにあたった
         if(Physics.Raycast(ray, out hit, layerMask))
         {
-            
+
             //Button
             btn = hit.collider.gameObject.GetComponent<Button>();
-            
+
             //基本はfalse
             hitBtn = false;
 
@@ -121,7 +121,7 @@ public class LineRendererSettings : MonoBehaviour
             Debug.Log("NOW Bottun"+btn.name);
             AudioSource audio=btn.GetComponent<AudioSource>();
             audio.PlayOneShot(audio.clip);
-            
+
             //displayの更新
             GameModeDisplay.text=btn.name;
         }
@@ -130,7 +130,7 @@ public class LineRendererSettings : MonoBehaviour
         if(btn!= null){
             //現在のボタン
             GM.START=true;
-            Debug.Log("NOW Bottun"+btn.name);
+            Debug.Log("NOW Bottun "+btn.name);
             AudioSource audio=btn.GetComponent<AudioSource>();
             audio.PlayOneShot(audio.clip);
         }
