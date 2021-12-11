@@ -13,6 +13,10 @@ public class card_Smoke_gen2 : ThO_card_class{
     // Smokeの持続時間
     private float lifeTime = 10.0f;
 
+    // isReady T/F でテクスチャが変わるように！
+    [SerializeField]
+    protected Material ReadyMat = null, NotReadyMat = null;
+
     // 初期設定
     // 初ロード時に叩かれる
     new void Start(){
@@ -74,5 +78,19 @@ public class card_Smoke_gen2 : ThO_card_class{
         Smoke_Object = null;
 
         Destroy(this.gameObject);
+    }
+
+    // update isReady
+    // 色変わり用に再定義
+    protected override void updateIsReady(){
+        if(OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && getIsHold()){
+            setIsReady(!getIsReady());
+            outputLog("new updateIsReady() > change isReady to "+ getIsReady());
+            if(getIsReady() == true){
+                this.GetComponent<Renderer>().material = ReadyMat;
+            }else{
+                this.GetComponent<Renderer>().material = NotReadyMat;
+            }
+        }
     }
 }

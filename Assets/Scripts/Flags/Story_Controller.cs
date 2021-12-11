@@ -130,7 +130,7 @@ public class Story_Controller : MonoBehaviour {
             "そのまま目の前のSMOKEカードをつかんでみてください．",
             "右コントローラの中指トリガーでカードをつかめますよ．", // grabSmoke(def:false)
             "カードがつかめましたね．",
-            "右コントローラの人差し指トリガーを押してからカードを投げてみてください．", // useSmoke(def:false)
+            "右コントローラの人差し指トリガーを押して，黄色くなったらカードを投げてみてください．", // useSmoke(def:false)
             "煙が出てきましたね．",
             "どうやらSMOKEカードを使うと煙が出るようです．",
             "次はRAINのカードを使ってみましょう．",
@@ -469,7 +469,7 @@ public class Story_Controller : MonoBehaviour {
         Prefab[0].SetActive(false);
         Prefab[1].SetActive(false);
 
-        GameObject.Find("blackboard01_1").GetComponent<blackboard>().Start();
+        //GameObject.Find("blackboard01_1").GetComponent<blackboard>().Start();
 
         // タスク表示を非表示
         this.task_disp_ctrl.setActive(false);

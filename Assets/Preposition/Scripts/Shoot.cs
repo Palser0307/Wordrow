@@ -17,7 +17,7 @@ public class Shoot : MonoBehaviour
     public GameObject flash;
 
     // Update is called once per frame
-    
+
     void Start(){
         grab=this.GetComponent<OVRGrabbable>();
     }
@@ -29,14 +29,14 @@ public class Shoot : MonoBehaviour
             if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch)){
                 //うったエフェクト
                 this.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
-                
+
                 //その方向へ球が出てほしい
                 //手
 
                 /*miss script
                 */
                 GameObject grabber = grab.grabbedBy.gameObject;
-                
+
                 Transform  trans = grabber.transform.parent;
                 Debug.Log(trans.name);
                 Vector3 pos = trans.position;
@@ -45,20 +45,20 @@ public class Shoot : MonoBehaviour
                 //球の生成
                 //ここでTEXT変えてもよい
                 bullet.GetComponentInChildren<TextMeshPro>().text=TargetMode;
-                
+
 
                 //Modeの変更
                 GameObject gm =Instantiate(bullet,pos,Quaternion.Euler(dir));
                 gm.GetComponent<Bullet>().Mode =TargetMode;
 
-                
+
                 AudioSource audio=this.GetComponent<AudioSource>();
                 audio.PlayOneShot(audio.clip);
 
                 StartCoroutine(LetsVibration(0.1f,OVRInput.Controller.RTouch));
-                
-                
-                
+
+
+
 
             }
         }
@@ -68,7 +68,7 @@ public class Shoot : MonoBehaviour
             OVRInput.SetControllerVibration(0.3f, 0.5f, con);
             yield return new WaitForSeconds(waitTime);
             OVRInput.SetControllerVibration(0f, 0f, con);
-        
+
     }
 
 

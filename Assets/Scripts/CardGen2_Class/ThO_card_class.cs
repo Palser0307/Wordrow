@@ -50,7 +50,7 @@ public class ThO_card_class : card_class_gen2{
         updateIsHold();
 
         // 発動待機状態の更新
-        updateIsReady();
+        this.updateIsReady();
 
         if(!getIsReady()){
             vectorZero();
@@ -75,7 +75,7 @@ public class ThO_card_class : card_class_gen2{
     }
 
     // update isReady
-    protected void updateIsReady(){
+    protected virtual void updateIsReady(){
         if(OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) && getIsHold()){
             setIsReady(!getIsReady());
             outputLog("updateIsReady() > change isReady to "+ getIsReady());
