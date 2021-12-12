@@ -39,6 +39,8 @@ public class card_Fly_gen2 : TD_card_class{
     public override void use(Collision other){
         outputLog("use func. start.");
 
+        playAudio();
+
         // flag
         sc.fm.setFlag("useFly", true);
 

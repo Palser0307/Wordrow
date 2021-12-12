@@ -22,6 +22,7 @@ public class attendanceBook : MonoBehaviour {
                 if(ic.getCardName() == "Read"){
                     Debug.Log("attendanceBook: Card is \"Read\"");
                     this.sc.fm.setFlag("readBook", 1);// 正解フラグ
+                    playAudio();
                 }else{
                     Debug.Log("attendanceBook: Card is not \"Read\"");
                     this.sc.fm.setFlag("readBook", 2);// 不正解フラグ
@@ -29,4 +30,9 @@ public class attendanceBook : MonoBehaviour {
             }
         }
     }
+    protected void playAudio(){
+        AudioSource audio = this.GetComponent<AudioSource>();
+        audio.PlayOneShot(audio.clip);
+    }
+
 }

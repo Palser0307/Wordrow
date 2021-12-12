@@ -53,6 +53,8 @@ public class card_Smoke_gen2 : ThO_card_class{
         // flag
         sc.fm.setFlag("useSmoke", true);
 
+        playAudio();
+
         outputLog("Smoke_Object appear.");
 
         Vector3 pos = this.transform.position;
