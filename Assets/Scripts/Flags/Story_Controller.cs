@@ -177,17 +177,23 @@ public class Story_Controller : MonoBehaviour {
             case 3:
                 if((bool)fm.getFlag("arrivePoint1") == false){
                     alpha_ctrl.Status = "inactive";
+                    this.task_disp_ctrl.setActive(true);
+                    this.task_disp_ctrl.replaceStr("前へ進む", true);
                 }else{
                     alpha_ctrl.nextStr();
                     alpha_ctrl.Status = "active";
+                    this.task_disp_ctrl.setActive(false);
                 }
                 break;
             case 5:
                 if((bool)fm.getFlag("grabSmoke") == false){
                     alpha_ctrl.Status = "inactive";
+                    this.task_disp_ctrl.setActive(true);
+                    this.task_disp_ctrl.replaceStr("Smokeを掴む", true);
                 }else{
                     alpha_ctrl.nextStr();
                     alpha_ctrl.Status = "active";
+                    this.task_disp_ctrl.setActive(false);
                 }
                 break;
             case 7:
