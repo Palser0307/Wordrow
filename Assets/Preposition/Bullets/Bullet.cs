@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     {
         forward = this.transform.forward.normalized;
         //生まれた瞬間に現在のゲームモードにおけるターゲットの名前を取得
-        
+
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision col){
         GameObject gm=col.gameObject;
-        
+
         if(gm.tag=="Target"){
             //Targetにあたったら破壊
             AudioSource audio=gm.GetComponent<AudioSource>();
@@ -39,7 +39,12 @@ public class Bullet : MonoBehaviour
 
             }
             //あたったら球はなくなる
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            Invoke(nameof(DestroyDelay), 0.5f);
         }
+    }
+
+    void DestroyDelay(){
+        Destroy(this.gameObject);
     }
 }
