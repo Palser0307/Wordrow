@@ -18,6 +18,10 @@ public class LineRendererSettings : MonoBehaviour
     private string btnaudio;
 
     private AudioSource AS;
+
+    // アタッチされたオブジェクトのOVRGrabber
+    protected OVRGrabber grabber = null;
+
     void Start()
     {
         //Line Renderer持ってるのは分かっているので，
@@ -34,7 +38,11 @@ public class LineRendererSettings : MonoBehaviour
 
         AS=this.GetComponent<AudioSource>();
 
-
+        /*
+        if(!this.TryGetComponent(out this.grabber)){
+            Debug.Log("Can't find : OVRGrabber (in the object attached this script.)");
+        }
+        */
     }
 
     public LayerMask layerMask;

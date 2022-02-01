@@ -6,7 +6,11 @@ using UnityEngine;
 public class blackboard : MonoBehaviour {
     protected Story_Controller sc = null;
     public void Start() {
-        if(!GameObject.Find("System_Scripts").TryGetComponent(out this.sc)){
+        GameObject ss = GameObject.Find("System_Scripts");
+        if(ss == null){
+            return;
+        }
+        if(!ss.TryGetComponent(out this.sc)){
             Debug.LogError("blackboard: cant found sc");
         }
         return;

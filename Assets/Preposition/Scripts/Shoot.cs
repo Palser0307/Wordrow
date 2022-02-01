@@ -19,7 +19,9 @@ public class Shoot : MonoBehaviour
     // Update is called once per frame
 
     void Start(){
-        grab=this.GetComponent<OVRGrabbable>();
+        if(!this.TryGetComponent(out this.grab)){
+            Debug.Log("Can't find OVRGrabbable");
+        }
     }
     void Update()
     {

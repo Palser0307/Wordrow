@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     private bool CLEAR=false;
     private bool ef=false;
-    
+
     //指定したローカルポジションにInstantiateする
     void locateTarget(int no,Vector3 vec){
 
@@ -41,11 +41,11 @@ public class GameManager : MonoBehaviour
         }
         Order.text=Mode;
         Gun.TargetMode=Mode;
-        
+
         Debug.Log("targetNo:"+targetNo);
-        
+
         //次へ
-        
+
         if(targetNo>=target.Length){
             CLEAR=true;
             }
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
                 processOfGame();
             }
         }else{
-            Debug.Log("RESULT"); 
+            Debug.Log("RESULT");
             if(!ef){
                 Instantiate(pc,this.transform.position,Quaternion.identity);
                 ef=true;
@@ -85,11 +85,11 @@ public class GameManager : MonoBehaviour
             Gun.TargetMode="CLEAR!!!";
 
 
-            
+
         }
-        
+
 
         //ターゲットの出力
-        
+
     }
 }

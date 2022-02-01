@@ -73,8 +73,10 @@ public class card_class_gen2 : MonoBehaviour{
 
         grab = this.GetComponent<OVRGrabbable>();
         GameObject ssObj = GameObject.Find("System_Scripts");
-        if(!ssObj.TryGetComponent(out this.sc)){
-            outputError("can't found sc");
+        if(ssObj != null){
+            if(!ssObj.TryGetComponent(out this.sc)){
+                outputError("can't found sc");
+            }
         }
 
         return;
@@ -201,7 +203,9 @@ public class card_class_gen2 : MonoBehaviour{
     public void setIsHold(bool newStatus){
         this.isHold = newStatus;
         // flag
-        this.sc.fm.setFlag("grab"+getCardName(), newStatus);
+        if(this.sc != null){
+            this.sc.fm.setFlag("grab"+getCardName(), newStatus);
+        }
     }
 
     // update isHold

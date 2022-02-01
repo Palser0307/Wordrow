@@ -56,7 +56,7 @@ public class card_Door_gen2 : ThO_card_class{
             Vector3 pos = this.transform.position;
             Vector3 newPos = new Vector3(pos.x, pos.y, pos.z);
             float newYrot = calcAngle(pos, releasePos);
-            Quaternion rot = Quaternion.Euler(0, newYrot-180, 0);
+            Quaternion rot = Quaternion.Euler(0, 180/*Mathf.RoundToInt((newYrot-180)/45)*45*/, 0);
 
             // Effect_PrefabのインスタンスをDoor_Objectに格納
             // インスタンス作成時に，座標及び角度も指定可能 むしろここで設定しておくべき
@@ -80,10 +80,11 @@ public class card_Door_gen2 : ThO_card_class{
     // 手を離したときの位置座標を記録するように
     public new void updateIsHold(){
         // outputLog("updateIsHold()");
-        if(!grab.isGrabbed){
+        if(grab.isGrabbed == true){
             setIsHold(true);
         }else{
-            if(getIsHold()){
+            // 手を放した
+            if(getIsHold() == true){
                 releasePos = this.transform.position;
             }
             setIsHold(false);
