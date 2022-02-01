@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WIRE
-  m_Shader: {fileID: 15301, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: HAKO
+  m_Shader: {fileID: 4800000, guid: 6b301832464822d49bcaa9ff7b423a77, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -63,20 +63,19 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _LineWidth: 0.028
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ParcelSize: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WireThickness: 100
     - _ZWrite: 1
+    - _rotAngle: 1
+    - _sWidth: 0.2
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LineColor: {r: 0.40258992, g: 0.7830189, b: 0.4547498, a: 1}
-    - _MainColor: {r: 0, g: 0, b: 0, a: 1}
+    - _backColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
+    - _sColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
