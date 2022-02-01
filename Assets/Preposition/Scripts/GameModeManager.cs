@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -10,17 +10,18 @@ public class GameModeManager : MonoBehaviour
 
     //Game Flag
     public string GAMEMODE;
-    
+
     //GAME START SWITCH
     public bool START=false;
 
 //初回はNULL
     private string nowStage=null;
-    
+
     void Start()
     {
         START = false;
-        GAMEMODE = null;
+        GAMEMODE = "PREPOSITION_1";
+        nowStage=null;
     }
 
     // Update is called once per frame
@@ -29,7 +30,8 @@ public class GameModeManager : MonoBehaviour
 
         if(START){
             //前回読み込んだシーンを消す
-            if(nowStage!=null){
+            Debug.Log("nowStage :"+nowStage);
+            if(nowStage!=null && GAMEMODE!=null){
                 SceneManager.UnloadSceneAsync(nowStage);
             }
 
