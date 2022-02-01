@@ -30,10 +30,16 @@ public class blackboard : MonoBehaviour {
             if(other.gameObject.TryGetComponent(out InstantCard ic)){
                 if(ic.getCardName() == "Clean"){
                     this.sc.fm.setFlag("clearBoard", 1);
+                    playAudio();
                 }else{
                     this.sc.fm.setFlag("clearBoard", 2);
                 }
             }
         }
     }
+    protected void playAudio(){
+        AudioSource audio = this.GetComponent<AudioSource>();
+        audio.PlayOneShot(audio.clip);
+    }
+
 }

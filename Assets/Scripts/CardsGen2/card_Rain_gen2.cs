@@ -47,6 +47,7 @@ public class card_Rain_gen2 : TrO_card_class{
     // 発動時のカード位置からheight分上空にEffect_Prefabの配置
     public override void use(Collision other = null){
         outputLog("use() start.");
+        playAudio();
 
         // Rain_Objectが空→まだ使ってない
         if(Rain_Object == null){
