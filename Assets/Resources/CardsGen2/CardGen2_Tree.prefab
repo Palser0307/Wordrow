@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a770fb570d2d44049a1b8eb5fb26cbe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Effect_Prefab: {fileID: 7303829660706174715, guid: bd4cd14690eddd14ebb5a5302a0c4755,
+  Effect_Prefab: {fileID: 6965849425468344101, guid: 63fdc6bf19158404a8aac801cc6d8a5a,
     type: 3}
   plural_card: {fileID: 9171206402746719030, guid: a4e429ea9cd865047a081bcdbade8649,
     type: 3}
