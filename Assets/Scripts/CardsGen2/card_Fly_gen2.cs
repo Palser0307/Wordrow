@@ -7,7 +7,7 @@ using UnityEngine;
 // FlyというよりもはやJumpでは？
 public class card_Fly_gen2 : TD_card_class{
     // 加える力の大きさ
-    private float power = 10f;
+    public float power = 10f;
 
     // 初期設定
     // 初ロード時に叩かれる
@@ -42,7 +42,9 @@ public class card_Fly_gen2 : TD_card_class{
         playAudio();
 
         // flag
-        sc.fm.setFlag("useFly", true);
+        if(this.sc != null){
+            this.sc.fm.setFlag("useFly", true);
+        }
 
         // 鉛直上方向指定
         Vector3 direction = Vector3.up;

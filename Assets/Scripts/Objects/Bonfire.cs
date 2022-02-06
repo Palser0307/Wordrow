@@ -23,6 +23,7 @@ public class Bonfire : MonoBehaviour{
     protected Vector3 FirePos;
 
     void Start(){
+        Debug.Log("Bonfire start()");
         // 初期ステータス代入
         status = nextStatus = "small";
 
@@ -36,6 +37,7 @@ public class Bonfire : MonoBehaviour{
         FireObject = Instantiate(SmallFire_Prefab);
         FireObject.transform.position = FirePos;
 
+        Debug.Log("Bonfire start() end");
     }
 
     void Update(){

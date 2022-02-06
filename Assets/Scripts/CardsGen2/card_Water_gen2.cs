@@ -36,7 +36,9 @@ public class card_Water_gen2 : TrO_card_class {
     }
 
     public override void use(Collision other = null){
-        this.sc.fm.setFlag("useWater", true);
+        if(this.sc != null){
+            this.sc.fm.setFlag("useWater", true);
+        }
         outputLog("use() start.");
         if(WaterObj == null){
             outputLog("appear WaterObj");

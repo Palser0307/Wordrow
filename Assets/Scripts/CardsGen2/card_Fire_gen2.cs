@@ -40,7 +40,9 @@ public class card_Fire_gen2 : TrO_card_class {
     }
 
     public override void use(Collision other = null){
-        this.sc.fm.setFlag("useFire", true);
+        if(this.sc != null){
+            this.sc.fm.setFlag("useFire", true);
+        }
         outputLog("use() start");
         if(FireObj == null){
             this.GetComponent<Renderer>().material = ReadyMat;
@@ -53,7 +55,7 @@ public class card_Fire_gen2 : TrO_card_class {
             GameObject grabberObj = grabbable.grabbedBy.gameObject;
 
             // 火柱オブジェクトの角度調整変数
-            float[] rot = new float[3]{0,0,0};
+            float[] rot = new float[3]{0,180,0};
 
             // 火柱のインスタンス生成
             FireObj = Instantiate(Effect_Prefab, this.gameObject.transform.position, Quaternion.Euler(rot[0], rot[1], rot[2]));

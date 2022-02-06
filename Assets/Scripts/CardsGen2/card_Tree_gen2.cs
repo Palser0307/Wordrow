@@ -21,9 +21,6 @@ public class card_Tree_gen2 : TrO_card_class{
     protected GameObject UpgraderObj = null;
     protected upgrader UpgraderScript = null;
 
-    // Flag
-    protected tutorial_flags tf;
-
     // 丸太を一括管理するGameObject
     // 生成した丸太は全てここに
     // ちゃんとインスペクタでアタッチしておくこと

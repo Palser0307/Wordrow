@@ -4,17 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Card
-  - Ball
-  - Deck
-  - Door
-  - Grabbable
-  - ALPHA
-  - tree
-  - Plural
-  - Upgrader
-  - Target
-  - TASK
+  - Shootable
   layers:
   - Default
   - TransparentFX
@@ -24,9 +14,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Lighting
+  - Ground
+  - Postprocessing
   - 
   - 
   - 
@@ -49,8 +39,8 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: HUD
-    uniqueID: 1303857613
+  - name: Fire
+    uniqueID: 3804908061
     locked: 0
   - name: Default
     uniqueID: 0
