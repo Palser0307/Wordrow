@@ -68,7 +68,7 @@ public class LineRendererSettings : MonoBehaviour
             //あたったのがbtnならtrue
             if(btn != null)
             {
-            Debug.Log(btn.name);
+            //Debug.Log(btn.name);
             //レイの距離をその位置に合わせる
             //points[1]=transform.forward+new Vector3(0,0,hit.distance);
             //色を変えてみる

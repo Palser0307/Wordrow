@@ -21,7 +21,7 @@ public class GameModeManager : MonoBehaviour
     {
         START = false;
         GAMEMODE = "PREPOSITION_1";
-        nowStage=null;
+        nowStage="";
     }
 
     // Update is called once per frame
@@ -29,10 +29,19 @@ public class GameModeManager : MonoBehaviour
     {
 
         if(START){
+            //あとしょり　
+            START=false;
+
             //前回読み込んだシーンを消す
             Debug.Log("nowStage :"+nowStage);
-            if(nowStage!=null && GAMEMODE!=null){
-                SceneManager.UnloadSceneAsync(nowStage);
+            if(nowStage!="" && GAMEMODE!=null){
+                try{
+                    SceneManager.UnloadSceneAsync(nowStage);
+                }catch{
+                    Debug.LogError("Error in UnloadScene process");
+                    nowStage="";
+                    return;
+                }
             }
 
             nowStage="Scenes/PREPOSITION_STAGE/"+GAMEMODE;
@@ -46,8 +55,6 @@ public class GameModeManager : MonoBehaviour
                 SceneManager.LoadScene("Scenes/ScenarioPart/BaseRoom");
             }
 
-            //あとしょり　
-            START=false;
         }
     }
 }

@@ -51,7 +51,9 @@ public class card_Smoke_gen2 : ThO_card_class{
         }
 
         // flag
-        sc.fm.setFlag("useSmoke", true);
+        if(this.sc != null){
+            this.sc.fm.setFlag("useSmoke", true);
+        }
 
         playAudio();
 

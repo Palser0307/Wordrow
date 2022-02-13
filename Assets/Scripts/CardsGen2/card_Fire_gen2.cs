@@ -21,9 +21,9 @@ public class card_Fire_gen2 : TrO_card_class {
         setCardName("Fire");
 
         // FlagSystem
-        if(!GameObject.Find("System_Scripts").TryGetComponent(out this.sc)){
+        /*if(!GameObject.Find("System_Scripts").TryGetComponent(out this.sc)){
             outputError("can't found sc");
-        }
+        }*/
     }
 
     private new void Update() {
@@ -62,9 +62,14 @@ public class card_Fire_gen2 : TrO_card_class {
             FireObj.transform.parent = grabberObj.gameObject.transform;
 
             Invoke(nameof(DelayMethod), 20.0f);
+            // flag
+            if(this.sc != null){
+                sc.fm.setFlag("useFire", true);
+            }
         }else{
             this.GetComponent<Renderer>().material = NotReadyMat;
             FireObj.transform.parent = null;
+            CancelInvoke();
             Destroy(FireObj);
             FireObj = null;
         }

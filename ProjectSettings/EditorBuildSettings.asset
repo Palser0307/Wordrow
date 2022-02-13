@@ -4,4 +4,27 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/PREPOSITION.unity
+    guid: 4c9374d925edcc7459c37d09df5f9752
+  - enabled: 1
+    path: Assets/Scenes/PREPOSITION_STAGE/PREPOSITION_1.unity
+    guid: fe745b72f6a733448a1b485c330fc4a2
+  - enabled: 1
+    path: Assets/Scenes/PREPOSITION_STAGE/PREPOSITION_2.unity
+    guid: dbf91c61eaa077649a46ccb9dd70c605
+  - enabled: 1
+    path: Assets/Scenes/ScenarioPart/BaseRoom.unity
+    guid: eae06e6d13b4adf4e899b860d0f227d7
+  - enabled: 1
+    path: Assets/Scenes/ScenarioPart/ClassRoom(SiS).unity
+    guid: da4ff84fc630f6f4fb88468e01f368c3
+  - enabled: 1
+    path: Assets/Scenes/ScenarioPart/Tutorial(SiS).unity
+    guid: 2b006d9f9d5d23a4bb745c87b45eb50e
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: afc035f7afe870a4b95b315fd5296139,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9ccaa2311eefe264187334f6a61c2d16,
+      type: 2}

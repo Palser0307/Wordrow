@@ -8,12 +8,17 @@ public class Bullet : MonoBehaviour
     public string Mode{get;set;}
 
     public ParticleSystem pc;
-    // Start is called before the first frame update
+
+    protected ParticleSystem pc_obj;
+
     void Start()
     {
         forward = this.transform.forward.normalized;
         //生まれた瞬間に現在のゲームモードにおけるターゲットの名前を取得
 
+        // ParticleSystemのLoopingをオフにする(無限消滅ループへのフェールセーフ)
+        var main = this.pc.main;
+        main.loop = false;
     }
 
     // Update is called once per frame
@@ -32,12 +37,13 @@ public class Bullet : MonoBehaviour
             Debug.Log("BulletsHit:"+Mode);
 
             if(gm.name==Mode){
-            Instantiate(pc,gm.transform.position,Quaternion.identity);
-            audio=this.GetComponent<AudioSource>();
-            audio.PlayOneShot(audio.clip);
-            Destroy(gm);
-
+                this.pc_obj = Instantiate(pc,gm.transform.position,Quaternion.identity);
+                Invoke(nameof(DestroyParticle), 2.0f);
+                audio=this.GetComponent<AudioSource>();
+                audio.PlayOneShot(audio.clip);
+                Destroy(gm);
             }
+
             //あたったら球はなくなる
             //Destroy(this.gameObject);
             Invoke(nameof(DestroyDelay), 0.5f);
@@ -46,5 +52,8 @@ public class Bullet : MonoBehaviour
 
     void DestroyDelay(){
         Destroy(this.gameObject);
+    }
+    void DestroyParticle(){
+        Destroy(this.pc_obj);
     }
 }

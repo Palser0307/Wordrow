@@ -54,7 +54,9 @@ public class card_Rain_gen2 : TrO_card_class{
             outputLog("Rain_Object appear.");
 
             // flag
-            sc.fm.setFlag("useRain", true);
+            if(this.sc != null){
+                sc.fm.setFlag("useRain", true);
+            }
 
             Vector3 pos = this.transform.position + Vector3.up * height;
             Quaternion rot = Quaternion.Euler(90,0,0);

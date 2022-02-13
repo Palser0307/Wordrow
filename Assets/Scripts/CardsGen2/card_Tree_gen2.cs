@@ -39,13 +39,12 @@ public class card_Tree_gen2 : TrO_card_class{
 
         outputLog("Setup finish.");
 
-
         // TreesObjectからTreeSスクリプトを取り出しておく...?
         if(Trees == null){
             Trees = GameObject.Find("TreeS");
-        }
-        if(!Trees.TryGetComponent(out this.TreeS)){
-            outputError("can't found TreeS");
+            if(Trees != null && !Trees.TryGetComponent(out this.TreeS)){
+                outputError("can't found TreeS");
+            }
         }
 
     }
@@ -77,7 +76,11 @@ public class card_Tree_gen2 : TrO_card_class{
 
         // Effect_Prefabのインスタンスを生成
         //Instantiate(Effect_Prefab, pos, rot);
-        TreeS.addList(Instantiate(Effect_Prefab, pos, rot));
+        if(Trees != null){
+            TreeS.addList(Instantiate(Effect_Prefab, pos, rot));
+        }else{
+            Instantiate(Effect_Prefab, pos, rot);
+        }
     }
 
     protected void OnCollisionEnter(Collision other){
