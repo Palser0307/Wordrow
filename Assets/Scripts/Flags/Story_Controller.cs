@@ -45,6 +45,7 @@ public class Story_Controller : MonoBehaviour {
         addStoryList("AlyxTest");
         addStoryList("Object1");
         addStoryList("Classroom");
+        addStoryList("Hamburger");
 
         setAlphaCtrl();
         setTaskDispCtrl();
@@ -65,6 +66,9 @@ public class Story_Controller : MonoBehaviour {
                     break;
                 case "Classroom":
                     setup_Classroom();
+                    break;
+                case "Hamburger":
+                    setup_Hamburger();
                     break;
 
                 default:
@@ -108,6 +112,9 @@ public class Story_Controller : MonoBehaviour {
             case "Classroom":
                 update_Classroom();
                 break;
+            case "Hamburger":
+                update_Hamburger();
+                break;
 
             default:
                 break;
@@ -115,11 +122,9 @@ public class Story_Controller : MonoBehaviour {
     }
 
 
-/*
---------------------------------------------------
+/*--------------------------------------------------
     Tutorial
---------------------------------------------------
-*/
+--------------------------------------------------*/
     protected void setup_Tutorial(){
         this.fm = new FlagManager("Tutorial");
         this.a_words = new string[]{
@@ -250,11 +255,9 @@ public class Story_Controller : MonoBehaviour {
         }
     }
 
-/*
---------------------------------------------------
+/*--------------------------------------------------
     Tutorial2
---------------------------------------------------
-*/
+--------------------------------------------------*/
     protected void setup_Tutorial2(){
         this.fm = new FlagManager("Tutorial2");
         this.a_words = new string[]{
@@ -308,11 +311,9 @@ public class Story_Controller : MonoBehaviour {
         }
     }
 
-/*
---------------------------------------------------
+/*--------------------------------------------------
     AlyxTest
---------------------------------------------------
-*/
+--------------------------------------------------*/
 
     protected void setup_AlyxTest(){
         this.fm = new FlagManager("AlyxTest");
@@ -349,11 +350,9 @@ public class Story_Controller : MonoBehaviour {
         }
     }
 
-/*
---------------------------------------------------
+/*--------------------------------------------------
     Object1
---------------------------------------------------
-*/
+--------------------------------------------------*/
     protected void setup_Object1(){
         this.fm = new FlagManager("Object1");
         this.a_words = new string[]{
@@ -414,11 +413,9 @@ public class Story_Controller : MonoBehaviour {
         }
     }
 
-/*
---------------------------------------------------
+/*--------------------------------------------------
     Classroom
---------------------------------------------------
-*/
+--------------------------------------------------*/
     protected void setup_Classroom(){
         this.fm = new FlagManager("Classroom");
         this.a_words = new string[]{
@@ -574,6 +571,110 @@ public class Story_Controller : MonoBehaviour {
         }
     }
 
+/*--------------------------------------------------
+    Hamburger
+--------------------------------------------------*/
+    protected void setup_Hamburger(){
+        this.fm = new FlagManager("Hamburger");
+        this.a_words = new string[]{
+//ハンバーガーショップに到着
+"おやマスター，お腹が空いているんですか？", // 0
+"それでは，そこの店で何か買っていきましょうか．",
+"いらっしゃいませ．",//店員セリフ
+"ご注文は何になさいますか？",//店員セリフ
+"ハンバーガーをおひとつですね．",//店員セリフ
+"お持ち帰りいたしますか？",//店員セリフ // 5
+
+//選択肢登場
+"マスター，ここは持ち帰って食べましょう．", // 6
+"選択肢の中で「持ち帰る」を選んでください．", // 7
+
+//take out を選択，正解の選択肢
+"持ち帰り", // 8
+"それでは，こちらをどうぞ．",//店員セリフ // 9
+//ハンバーガーが出現
+//ハンバーガーを取得
+"無事に手に入りましたね．", // 10
+"それでは次の場所へ向かいましょう．",
+"Thank you,Master", // 12
+
+//take off を選択，不正解の選択肢
+"飛び立つ", // 13
+"・・・え？", //店員セリフ // 14
+//ハンバーガーが上空に飛び立つ
+"マスター，どうやら間違えたようですよ．",
+"take off は「飛び立つ」という意味で，",
+"「持ち帰る」という意味ではないようです．", // 17
+
+//take that を選択，不正解の選択肢
+"気をつけろ！！！", // 18
+"・・・え？", //店員セリフ // 19
+//ハンバーガーが店員に向けて吹き飛ぶ
+//店員が倒れる
+"マスター，どうやら間違えたようですよ．", // 20
+"take that は「気をつけろ」という意味で，",
+"「持ち帰る」という意味ではないようです．",
+"・・・ハンバーガーが爆発した理由は謎ですが．", // 23
+        };
+        this.fm.initFlag("take", 0);
+
+        this.alpha_ctrl.words = a_words;
+
+        Prefab[0].SetActive(false);
+
+        this.task_disp_ctrl.setActive(false);
+
+        this.alpha_ctrl.reloadStr();
+    }
+
+    protected void update_Hamburger(){
+        switch(storyCount){
+            case 0:
+                this.task_disp_ctrl.setActive(false);
+                this.alpha_ctrl.reloadStr();
+                break;
+            case 6: // 選択肢出現
+                if(once == false){
+                    once = true;
+                    Prefab[0].SetActive(true); // 選択肢出現
+                    this.task_disp_ctrl.replaceStr("タスク\n持って帰る", true);
+                }
+                break;
+            case 7: // once 初期化
+                this.alpha_ctrl.Status = "inactive";
+                switch((int)this.fm.getFlag("take")){
+                    case 0:
+                        this.alpha_ctrl.Status = "inactive";
+                        break;
+                    case 1: // take out
+                        this.alpha_ctrl.strPos = 8;
+                        this.alpha_ctrl.reloadStr();
+                        this.alpha_ctrl.Status = "active";
+                        break;
+                    case 2: // take off
+                        this.alpha_ctrl.strPos = 13;
+                        this.alpha_ctrl.reloadStr();
+                        this.alpha_ctrl.Status = "active";
+                        this.task_disp_ctrl.replaceStr("なんてことだ！\nハンバーガーが飛んでいっちまった！！", true);
+                        break;
+                    case 3: // take that
+                        this.alpha_ctrl.strPos = 18;
+                        this.alpha_ctrl.reloadStr();
+                        this.alpha_ctrl.Status = "active";
+                        this.task_disp_ctrl.replaceStr("なんてことだ！\nハンバーガーが火を吹いちまった！！", true);
+                        break;
+                }
+                break;
+            case 9: // take out root
+                Prefab[1].SetActive(true); // effect
+                break;
+            case 12:
+                this.alpha_ctrl.Status = "inactive";
+                break;
+            default:
+                break;
+        }
+    }
 
 /*
 --------------------------------------------------
