@@ -620,7 +620,10 @@ public class Story_Controller : MonoBehaviour {
 
         this.alpha_ctrl.words = a_words;
 
-        Prefab[0].SetActive(false);
+        Prefab[0].SetActive(false); // 朝コミュ
+        Prefab[1].SetActive(false); // バーガー(裸)オブジェクト
+        Prefab[2].SetActive(false); // バーガーロケット
+        Prefab[3].SetActive(false); // バーガー爆弾
 
         this.task_disp_ctrl.setActive(false);
 
@@ -665,12 +668,43 @@ public class Story_Controller : MonoBehaviour {
                         break;
                 }
                 break;
-            case 9: // take out root
+
+            // "take out" root
+            case 8:
+                this.alpha_ctrl.strPos = 9;
+                this.alpha_ctrl.reloadStr();
+                break;
+            case 9:
                 Prefab[1].SetActive(true); // effect
                 break;
             case 12:
                 this.alpha_ctrl.Status = "inactive";
                 break;
+
+            // "take off" root
+            case 13:
+                this.alpha_ctrl.strPos = 13;
+                this.alpha_ctrl.reloadStr();
+                break;
+            case 14:
+                Prefab[2].SetActive(true); // take off effect
+                break;
+            case 17:
+                this.alpha_ctrl.Status = "inactive";
+                break;
+
+            // "take that" root
+            case 18:
+                this.alpha_ctrl.strPos = 19;
+                this.alpha_ctrl.reloadStr();
+                break;
+            case 19:
+                Prefab[3].SetActive(true); // bombing effect
+                break;
+            case 23:
+                this.alpha_ctrl.Status = "inactive";
+                break;
+
             default:
                 break;
         }
