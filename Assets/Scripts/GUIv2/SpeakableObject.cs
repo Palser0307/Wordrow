@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+// セリフのデータ
+// 文字列と表示時間を持つ
 [Serializable]
 public class ScenarioLine{
     protected string word{get;}
     protected float delay{get;}
 
-    public ScenarioLine(string w = "", float d = 0f){
+    public ScenarioLine(string w = "", float d = 5f){
         word = w;
         delay = d;
     }
@@ -22,19 +24,35 @@ public class ScenarioLine{
 }
 
 public class SpeakableObject : MonoBehaviour{
+    // 入力されるコマンドー
     [SerializeField]
     protected string speakString = "";
 
-    [SerializeField]
+    // セリフ一覧
     protected Dictionary<string, List<ScenarioLine>> speakWords = new Dictionary<string, List<ScenarioLine>>();
 
-    [SerializeField]
+    // セリフ用Key一覧
+    // keyの存在確認用に置いているが，上のdicの既存関数にkey検索があるなら，関係各所を修正の上削除する
     protected List<string> keyList = new List<string>();
 
-    void Start(){
+    // 表示させるHUDのオブジェクト
+    protected GameObject SpeakerHUD_ctrller_Object = null;
+
+    // 表示させるHUDのオブジェクトのHUD_Controllerコンポーネントへのアクセサ
+    protected HUD_Controller SpeakerHUD_ctrller_Component = null;
+
+    protected void Start(){
+        // セリフの構文解析
         SeparateString();
-        outputDic();
+        // セリフ一覧の出力
+        // outputDic();
+
+        // HUDの初期設定
+        // HUD_Controllerを持ってるはずのHUDオブジェクトを探す
+        search_HudCtrller_Component();
     }
+
+    // speakStringの構文解析
     public bool SeparateString(){
         /*
         $key=init;
@@ -48,6 +66,10 @@ public class SpeakableObject : MonoBehaviour{
         // $key=alpha;はじめまして%2;//;alphaです%2;$key=beta;はじめまして%2;//;betaです%2;$end;
 
         Debug.Log("SeparateString : run");
+        if(speakString == ""){
+            Debug.LogWarning("SeparateString : NEED STRING");
+            return false;
+        }
         // speakStringを";"でsplit
         string[] lines = speakString.Split(';');
         // 各行頭を見て，
@@ -115,9 +137,12 @@ public class SpeakableObject : MonoBehaviour{
 
         // keyListの更新
         updateKeyList();
+
         Debug.Log("end.");
         return true;
     }
+
+    // セリフ一覧の出力
     void outputDic(){
         Debug.Log("outputDic run");
         foreach(var keyValuePair in this.speakWords){
@@ -128,6 +153,7 @@ public class SpeakableObject : MonoBehaviour{
         Debug.Log("end..");
     }
 
+    // keyNameのセリフ一覧を取得する
     public List<ScenarioLine> getWord(string keyName){
         bool isExistWordKey = this.searchWordKey(keyName, true);
         if(isExistWordKey == true){
@@ -138,15 +164,16 @@ public class SpeakableObject : MonoBehaviour{
         //return new ScenarioLine();
     }
 
-    // キーとしてKeyNameを持つか
+    // キーとしてKeyNameを持つかの検索
+    // あったらTrue，無かったらFalse
     public bool searchWordKey(string keyName, bool outputDebugLogs = false){
         // keyNameが存在するか
         bool isExistKeyName = this.speakWords.ContainsKey(keyName);
         // 無かった場合のエラー
         if(isExistKeyName == false && outputDebugLogs == true){
-            outputError(keyName + "is not found.");
+            outputError(keyName + " is not found.");
         }else{
-            outputLog(keyName + "is found.");
+            outputLog(keyName + " is found.");
         }
         return isExistKeyName;
     }
@@ -160,7 +187,19 @@ public class SpeakableObject : MonoBehaviour{
         keyList = newList;
     }
 
-    // Logs
+    // HUD_Controllerコンポーネントを持ってるはずのHUDオブジェクトを探す
+    public bool search_HudCtrller_Component(){
+        SpeakerHUD_ctrller_Object = GameObject.FindGameObjectWithTag("HUD");
+        if(SpeakerHUD_ctrller_Object == null){
+            return false;
+        }
+        if(SpeakerHUD_ctrller_Object.TryGetComponent(out this.SpeakerHUD_ctrller_Component) == false){
+            return false;
+        }
+        return true;
+    }
+
+    // Log出力系
     protected virtual void outputLog(string str){
         Debug.Log("SpeakableObject.cs: " + str);
     }

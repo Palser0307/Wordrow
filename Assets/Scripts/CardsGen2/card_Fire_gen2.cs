@@ -66,6 +66,10 @@ public class card_Fire_gen2 : TrO_card_class {
             if(this.sc != null){
                 sc.fm.setFlag("useFire", true);
             }
+
+            // HUD
+            this.SpeakerHUD_ctrller_Component.EnqueueLineList(this.getWord("use"));
+            this.SpeakerHUD_ctrller_Component.outputNextLine();
         }else{
             this.GetComponent<Renderer>().material = NotReadyMat;
             FireObj.transform.parent = null;

@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5626828715386418863
 RectTransform:
   m_ObjectHideFlags: 0
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 5626828715894008201}
   - component: {fileID: 5626828715894008200}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: BackPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 5626828716417179911}
   - component: {fileID: 5626828716417179910}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Lines
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -470,6 +470,7 @@ GameObject:
   - component: {fileID: 5626828717262420604}
   - component: {fileID: 5626828717262420579}
   - component: {fileID: 5626828717262420578}
+  - component: {fileID: 2825869096877721278}
   m_Layer: 5
   m_Name: FollowHUDs_with_EventSystem
   m_TagString: HUD
@@ -546,3 +547,15 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
+--- !u!114 &2825869096877721278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5626828717262420607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80cc553df353e3648adba480af7b5d73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
