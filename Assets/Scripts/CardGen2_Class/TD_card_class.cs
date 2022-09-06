@@ -54,12 +54,24 @@ public class TD_card_class : card_class_gen2{
         }
     }
 
+    public virtual void OnTriggerEnter(Collider other){
+        //outputLog("OnCollisionEnter() start");
+        if(haveTargetTag(other.gameObject.tag)){
+            use(other);
+        }
+    }
+
     // 効果発動
     /* 継承先で
     protected override void use(Collision other){}
     でオーバーライドしておく */
     public new virtual void use(Collision other){
         outputLog("virtual use() start.");
+        return;
+    }
+
+    public new virtual void use(Collider other){
+        outputLog("Virtual use() start.");
         return;
     }
 }
