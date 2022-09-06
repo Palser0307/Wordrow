@@ -15,7 +15,7 @@ using UnityEngine;
 // 音声
 [RequireComponent(typeof(AudioSource))]
 
-public class card_class_gen2 : MonoBehaviour{
+public class card_class_gen2 : SpeakableObject{
     // +--------+
     // | values |
     // +--------+
@@ -60,7 +60,8 @@ public class card_class_gen2 : MonoBehaviour{
 
     // 初期設定
     // 呼び出し予定はない
-    protected void Start(){
+    protected new void Start(){
+        base.Start();
         setCardName("CardClass");
         checkPrefab();
 
@@ -113,7 +114,7 @@ public class card_class_gen2 : MonoBehaviour{
     }
 
 
-
+    /*
     // Debug.Log() for CardClass
     public void outputLog(string str){
         Debug.Log(getObjectName() + " : " + str);
@@ -122,6 +123,7 @@ public class card_class_gen2 : MonoBehaviour{
     protected void outputError(string str){
         Debug.LogError(getObjectName() + " : " + str);
     }
+    */
 
     // 移動速度をゼロに
     protected void vectorZero(){
