@@ -1938,6 +1938,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: OVRPlayerController (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3940115427814303413, guid: c634867c237b0794caefc36860c11bba,
+        type: 3}
+      propertyPath: _trackingOriginType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940115428439730611, guid: c634867c237b0794caefc36860c11bba,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c634867c237b0794caefc36860c11bba, type: 3}
 --- !u!1 &1805371071
@@ -3605,6 +3615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a770fb570d2d44049a1b8eb5fb26cbe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speakString: 
   Effect_Prefab: {fileID: 1768140634152778, guid: 7affb776ee83c8e4c8d7ab25aff32905,
     type: 3}
   plural_card: {fileID: 4023758163370476913, guid: d1c94bc873722f74e8d07ec6334a0adf,
